@@ -17,7 +17,7 @@ import {DataService} from '../../services/dataService';
 
 const ContactPage: React.FC = () => {
     const {language, t} = useTranslation();
-    const {form, updateForm, isSubmitting, submitStatus, submitForm} = useContactForm();
+    const {formData, updateField, isSubmitting, status, submitForm} = useContactForm();
     const dataService = DataService.getInstance();
     const personalInfo = dataService.getPersonalInfo();
 
@@ -85,7 +85,7 @@ const ContactPage: React.FC = () => {
                                 {language === 'tr' ? 'Mesaj Gönderin' : 'Send a Message'}
                             </h2>
 
-                            {submitStatus === 'success' && (
+                            {status === 'success' && (
                                 <div
                                     className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center space-x-3">
                                     <CheckCircle className="w-5 h-5 text-green-600"/>
@@ -93,7 +93,7 @@ const ContactPage: React.FC = () => {
                                 </div>
                             )}
 
-                            {submitStatus === 'error' && (
+                            {status === 'error' && (
                                 <div
                                     className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center space-x-3">
                                     <AlertCircle className="w-5 h-5 text-red-600"/>
@@ -110,8 +110,8 @@ const ContactPage: React.FC = () => {
                                         <input
                                             type="text"
                                             required
-                                            value={form.name}
-                                            onChange={(e) => updateForm('name', e.target.value)}
+                                            value={formData.name}
+                                            onChange={(e) => updateField('name', e.target.value)}
                                             className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.name')}
                                         />
@@ -124,8 +124,8 @@ const ContactPage: React.FC = () => {
                                         <input
                                             type="email"
                                             required
-                                            value={form.email}
-                                            onChange={(e) => updateForm('email', e.target.value)}
+                                            value={formData.email}
+                                            onChange={(e) => updateField('email', e.target.value)}
                                             className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.email')}
                                         />
@@ -139,8 +139,8 @@ const ContactPage: React.FC = () => {
                                         </label>
                                         <input
                                             type="tel"
-                                            value={form.phone}
-                                            onChange={(e) => updateForm('phone', e.target.value)}
+                                            value={formData.phone}
+                                            onChange={(e) => updateField('phone', e.target.value)}
                                             className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.phone')}
                                         />
@@ -153,8 +153,8 @@ const ContactPage: React.FC = () => {
                                         <input
                                             type="text"
                                             required
-                                            value={form.subject}
-                                            onChange={(e) => updateForm('subject', e.target.value)}
+                                            value={formData.subject}
+                                            onChange={(e) => updateField('subject', e.target.value)}
                                             className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.subject')}
                                         />
@@ -168,8 +168,8 @@ const ContactPage: React.FC = () => {
                                     <textarea
                                         required
                                         rows={6}
-                                        value={form.message}
-                                        onChange={(e) => updateForm('message', e.target.value)}
+                                        value={formData.message}
+                                        onChange={(e) => updateField('message', e.target.value)}
                                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
                                         placeholder={t('contact.form.message')}
                                     />

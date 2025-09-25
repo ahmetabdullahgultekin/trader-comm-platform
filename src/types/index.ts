@@ -1,19 +1,30 @@
 // Types for the Fahri Eren Trading Platform
 export interface Product {
-    id: number;
-    category: ProductCategory;
+    id: string;
     title: LocalizedText;
-    price: number;
-    priceText: string;
-    images: string[];
-    location: LocalizedText;
     description: LocalizedText;
-    features: LocalizedFeatures;
+    price: number;
+    currency: string;
+    category: ProductCategory;
+    images: string[];
     featured?: boolean;
-    badge?: 'new' | 'sale';
+    inStock: boolean;
+    rating?: number;
+    reviews?: number;
     views: number;
-    date: string;
-    seller: string;
+    specifications?: Record<string, string>;
+    priceText?: string;
+    location?: LocalizedText;
+    date?: string;
+    seller?: {
+        name: string;
+        phone?: string;
+        email?: string;
+    };
+    features?: {
+        tr: string[];
+        en: string[];
+    };
 }
 
 export type ProductCategory = 'realestate' | 'vehicles' | 'construction' | 'farm';
@@ -21,11 +32,6 @@ export type ProductCategory = 'realestate' | 'vehicles' | 'construction' | 'farm
 export interface LocalizedText {
     tr: string;
     en: string;
-}
-
-export interface LocalizedFeatures {
-    tr: string[];
-    en: string[];
 }
 
 export interface ContactForm {
@@ -46,47 +52,66 @@ export interface FilterOptions {
     searchQuery: string;
 }
 
-export type SortOption = 'newest' | 'oldest' | 'priceLow' | 'priceHigh' | 'popular';
+export type SortOption = 'newest' | 'oldest' | 'priceLow' | 'priceHigh' | 'rating' | 'popular';
 
 export type Language = 'tr' | 'en';
-
-export interface Partner {
-    id: string;
-    name: string;
-    description: LocalizedText;
-    services: LocalizedFeatures;
-    website?: string;
-    logo: string;
-}
 
 export interface PersonalInfo {
     name: string;
     title: LocalizedText;
     bio: LocalizedText;
-    photo: string;
     phone: string;
     email: string;
-    address: LocalizedText;
-    socialMedia: {
-        facebook?: string;
-        instagram?: string;
-        twitter?: string;
+    photo?: string;
+    address?: LocalizedText;
+    workHours?: LocalizedText;
+    socialMedia?: {
         linkedin?: string;
+        twitter?: string;
+        instagram?: string;
+        facebook?: string;
     };
-    workHours: LocalizedText;
+    social: {
+        linkedin?: string;
+        twitter?: string;
+        instagram?: string;
+    };
 }
 
-// Newsletter subscription type
+// Additional types for newsletter and API responses
 export interface NewsletterSubscription {
     email: string;
-    timestamp: string;
+    timestamp: number;
 }
 
-// SEO Meta data type
-export interface SEOData {
-    title: LocalizedText;
+export interface ApiResponse<T> {
+    success: boolean;
+    data: T;
+    error?: string;
+    timestamp: number;
+}
+
+// Partner interface for partners page
+export interface Partner {
+    id: string;
+    name: string;
+    logo: string;
     description: LocalizedText;
-    keywords: LocalizedText;
-    ogImage?: string;
-    canonical?: string;
+    website?: string;
+    category: string;
+    services: {
+        tr: string[];
+        en: string[];
+    };
+}
+
+// SEO related types
+export interface SEOData {
+    title: string;
+    description: string;
+    keywords: string;
+    image?: string;
+    url?: string;
+    type?: string;
+    siteName?: string;
 }

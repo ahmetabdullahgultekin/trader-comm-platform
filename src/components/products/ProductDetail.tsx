@@ -22,7 +22,7 @@ import {useSEO, useTranslation} from '../../hooks';
 interface ProductDetailProps {
     product: Product;
     onBack: () => void;
-    onToggleFavorite: (productId: number) => void;
+    onToggleFavorite: (productId: string) => void;
     isFavorite: boolean;
     similarProducts: Product[];
     onViewProduct: (product: Product) => void;
@@ -343,7 +343,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                                     <User className="w-6 h-6 text-white"/>
                                 </div>
                                 <div>
-                                    <h4 className="text-lg font-semibold text-gray-900">{product.seller}</h4>
+                                    <h4 className="text-lg font-semibold text-gray-900">{product.seller?.name}</h4>
                                     <div className="flex items-center space-x-4 mt-1 text-sm text-gray-600">
                                         <div className="flex items-center space-x-1">
                                             <Award className="w-4 h-4"/>
@@ -417,7 +417,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                                             <User className="w-8 h-8 text-white"/>
                                         </div>
                                         <div>
-                                            <h4 className="text-lg font-semibold text-gray-900 mb-2">{product.seller}</h4>
+                                            <h4 className="text-lg font-semibold text-gray-900 mb-2">{product.seller?.name}</h4>
                                             <div className="space-y-2 text-sm text-gray-600">
                                                 <div className="flex items-center space-x-2">
                                                     <Clock className="w-4 h-4"/>

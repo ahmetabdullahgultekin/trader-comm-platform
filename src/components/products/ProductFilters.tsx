@@ -1,6 +1,6 @@
 import React from 'react';
 import {Filter, Search, SlidersHorizontal, X} from 'lucide-react';
-import {FilterOptions, ProductCategory, SortOption} from '../../types';
+import type {FilterOptions, ProductCategory, SortOption} from '../../types';
 import {useTranslation} from '../../hooks';
 
 interface ProductFiltersProps {

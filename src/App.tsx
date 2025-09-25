@@ -9,8 +9,9 @@ import AboutPage from './components/about/AboutPage';
 import ContactPage from './components/contact/ContactPage';
 import PartnersPage from './components/partners/PartnersPage';
 import {useNewsletter, useProducts, useSEO, useTranslation} from './hooks';
+import {AdminPanel} from './components/admin/AdminPanel';
 import type {Product} from './types';
-import {Grid, List, Loader, Mail, RefreshCw, Send} from 'lucide-react';
+import {Filter, Grid, List, Loader, Mail, RefreshCw, Send, Settings} from 'lucide-react';
 
 // Newsletter Component
 const NewsletterSection: React.FC = () => {
@@ -23,10 +24,10 @@ const NewsletterSection: React.FC = () => {
                 <div className="max-w-2xl mx-auto text-center text-white">
                     <Mail className="w-12 h-12 mx-auto mb-6"/>
                     <h3 className="text-2xl font-bold mb-4">
-                        {t('newsletter.title') || 'Newsletter'}
+                        {t('newsletter.title')}
                     </h3>
                     <p className="text-blue-100 mb-8">
-                        {t('newsletter.description') || 'Yeni ürünler ve fırsatlardan haberdar olmak için abone olun'}
+                        {t('newsletter.description')}
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -34,7 +35,7 @@ const NewsletterSection: React.FC = () => {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Email adresiniz"
+                            placeholder={t('newsletter.placeholder')}
                             className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-white focus:outline-none"
                             disabled={isSubmitting}
                         />
@@ -48,15 +49,15 @@ const NewsletterSection: React.FC = () => {
                             ) : (
                                 <Send className="w-4 h-4"/>
                             )}
-                            <span>{isSubmitting ? 'Gönderiliyor...' : 'Abone Ol'}</span>
+                            <span>{isSubmitting ? t('newsletter.subscribing') : t('newsletter.subscribe')}</span>
                         </button>
                     </div>
 
                     {status === 'success' && (
-                        <p className="mt-4 text-green-200">✅ Başarıyla abone oldunuz!</p>
+                        <p className="mt-4 text-green-200">✅ {t('newsletter.success')}</p>
                     )}
                     {status === 'error' && (
-                        <p className="mt-4 text-red-200">❌ Bir hata oluştu. Lütfen tekrar deneyin.</p>
+                        <p className="mt-4 text-red-200">❌ {t('newsletter.error')}</p>
                     )}
                 </div>
             </div>
@@ -65,14 +66,17 @@ const NewsletterSection: React.FC = () => {
 };
 
 // Loading Component
-const LoadingSpinner: React.FC = () => (
-    <div className="flex items-center justify-center py-12">
-        <div className="flex items-center space-x-3">
-            <Loader className="w-6 h-6 animate-spin text-blue-600"/>
-            <span className="text-gray-600">Yükleniyor...</span>
+const LoadingSpinner: React.FC = () => {
+    const {t} = useTranslation();
+    return (
+        <div className="flex items-center justify-center py-12">
+            <div className="flex items-center space-x-3">
+                <Loader className="w-6 h-6 animate-spin text-blue-600"/>
+                <span className="text-gray-600">{t('common.loading')}</span>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 // Main App Component - Controller Pattern
 const App: React.FC = () => {
@@ -80,6 +84,7 @@ const App: React.FC = () => {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [showFilters, setShowFilters] = useState(false);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [showAdminPanel, setShowAdminPanel] = useState(false);
 
     const {
         products,
@@ -131,17 +136,21 @@ const App: React.FC = () => {
         window.open(`https://wa.me/905321234567?text=${message}`, '_blank');
     };
 
-    const handleShareProduct = (product: Product) => {
+    const handleShare = (product?: Product) => {
+        const shareData = product ? {
+            title: product.title[language],
+            text: product.description[language],
+            url: `${window.location.origin}?product=${product.id}`
+        } : {
+            title: 'Fahri Eren - Kaliteli Ürünler',
+            text: 'En kaliteli ürünleri keşfedin',
+            url: window.location.href
+        };
+
         if (navigator.share) {
-            navigator.share({
-                title: product.title[language],
-                text: product.description[language],
-                url: window.location.href
-            });
+            navigator.share(shareData);
         } else {
-            // Fallback - copy to clipboard
-            const url = `${window.location.origin}?product=${product.id}`;
-            navigator.clipboard.writeText(url);
+            navigator.clipboard.writeText(shareData.url);
             alert('Link kopyalandı!');
         }
     };
@@ -153,7 +162,7 @@ const App: React.FC = () => {
             .slice(0, 3);
     };
 
-    // Home Page Component with Newsletter
+    // Home Page Component
     const HomePage = () => (
         <div>
             <HeroSection
@@ -184,7 +193,7 @@ const App: React.FC = () => {
                                 className="flex items-center space-x-2 mx-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                             >
                                 <RefreshCw className="w-4 h-4"/>
-                                <span>Tekrar Dene</span>
+                                <span>{t('common.tryAgain')}</span>
                             </button>
                         </div>
                     ) : (
@@ -196,7 +205,7 @@ const App: React.FC = () => {
                                     onViewDetails={handleProductSelect}
                                     isFavorite={favorites.includes(product.id)}
                                     onToggleFavorite={toggleFavorite}
-                                    onShare={() => handleShareProduct(product)}
+                                    onShare={() => handleShare(product)}
                                     onContact={handleCallPhone}
                                 />
                             ))}
@@ -206,153 +215,130 @@ const App: React.FC = () => {
                     <div className="text-center mt-12">
                         <button
                             onClick={() => handlePageChange('products')}
-                            className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold"
+                            className="btn-primary"
                         >
-                            {t('products.showMore')}
+                            {t('common.viewAll')}
                         </button>
                     </div>
                 </div>
             </section>
 
-            {/* Newsletter Section */}
             <NewsletterSection/>
-
-            {/* Quick Actions Section */}
-            <section className="py-16 bg-white">
-                <div className="container mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div
-                            className="text-center p-8 bg-green-50 rounded-2xl cursor-pointer hover:bg-green-100 transition-colors"
-                            onClick={handleCallPhone}
-                        >
-                            <div
-                                className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                                📞
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">Hemen Ara</h3>
-                            <p className="text-gray-600">+90 532 123 45 67</p>
-                        </div>
-
-                        <div
-                            className="text-center p-8 bg-blue-50 rounded-2xl cursor-pointer hover:bg-blue-100 transition-colors"
-                            onClick={handleSendEmail}
-                        >
-                            <div
-                                className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                                ✉️
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">Email Gönder</h3>
-                            <p className="text-gray-600">fahri.eren@gmail.com</p>
-                        </div>
-
-                        <div
-                            className="text-center p-8 bg-green-50 rounded-2xl cursor-pointer hover:bg-green-100 transition-colors"
-                            onClick={handleOpenWhatsApp}
-                        >
-                            <div
-                                className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                                💬
-                            </div>
-                            <h3 className="text-xl font-semibold text-gray-900 mb-2">WhatsApp</h3>
-                            <p className="text-gray-600">Anında mesaj gönderin</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 
-    // Products Page Component with enhanced functionality
+    // Products Page Component
     const ProductsPage = () => (
-        <div className="min-h-screen pt-24 pb-12 bg-gray-50">
-            <div className="container mx-auto px-6">
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('products.title')}</h1>
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                        <p className="text-gray-600">
-                            {loading ? 'Yükleniyor...' : `${products.length} ${language === 'tr' ? 'ürün bulundu' : 'products found'}`}
-                        </p>
+        <div className="pt-20">
+            <div className="bg-gray-50 py-12">
+                <div className="container mx-auto px-6">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-8">Ürünlerimiz</h1>
+
+                    {/* Filters and View Controls */}
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
                         <div className="flex items-center space-x-4">
+                            <button
+                                onClick={() => setShowFilters(!showFilters)}
+                                className="flex items-center space-x-2 px-4 py-2 bg-white rounded-lg border hover:bg-gray-50 transition-colors"
+                            >
+                                <Filter className="w-4 h-4"/>
+                                <span>Filtrele</span>
+                            </button>
+
                             <div className="flex items-center space-x-2">
+                                <span className="text-sm text-gray-600">Görünüm:</span>
                                 <button
                                     onClick={() => setViewMode('grid')}
-                                    className={`p-2 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+                                    className={`p-2 rounded ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600'}`}
                                 >
-                                    <Grid className="w-5 h-5"/>
+                                    <Grid className="w-4 h-4"/>
                                 </button>
                                 <button
                                     onClick={() => setViewMode('list')}
-                                    className={`p-2 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+                                    className={`p-2 rounded ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600'}`}
                                 >
-                                    <List className="w-5 h-5"/>
+                                    <List className="w-4 h-4"/>
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                    {/* Filters Sidebar */}
-                    <div className="lg:col-span-1">
-                        <ProductFilters
-                            filters={filters}
-                            onUpdateFilters={updateFilters}
-                            onClearFilters={clearFilters}
-                            showFilters={showFilters}
-                            onToggleFilters={() => setShowFilters(!showFilters)}
-                        />
+                        <div className="text-sm text-gray-600">
+                            {products.length} ürün bulundu
+                        </div>
                     </div>
 
-                    {/* Products Grid */}
-                    <div className="lg:col-span-3">
-                        {loading ? (
-                            <LoadingSpinner/>
-                        ) : error ? (
-                            <div className="text-center py-12">
-                                <p className="text-red-600 mb-4">{error}</p>
-                                <button
-                                    onClick={refetch}
-                                    className="flex items-center space-x-2 mx-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                >
-                                    <RefreshCw className="w-4 h-4"/>
-                                    <span>Tekrar Dene</span>
-                                </button>
-                            </div>
-                        ) : products.length === 0 ? (
-                            <div className="text-center py-12">
-                                <p className="text-gray-500 text-lg">
-                                    {language === 'tr' ? 'Aradığınız kriterlere uygun ürün bulunamadı.' : 'No products found matching your criteria.'}
-                                </p>
-                                <button
-                                    onClick={clearFilters}
-                                    className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                >
-                                    {t('filters.clear')}
-                                </button>
-                            </div>
-                        ) : (
-                            <div className={viewMode === 'grid'
-                                ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'
-                                : 'space-y-6'
-                            }>
-                                {products.map((product) => (
-                                    <ProductCard
-                                        key={product.id}
-                                        product={product}
-                                        onViewDetails={handleProductSelect}
-                                        isFavorite={favorites.includes(product.id)}
-                                        onToggleFavorite={toggleFavorite}
-                                        onShare={() => handleShareProduct(product)}
-                                        onContact={handleCallPhone}
-                                    />
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    {/* Filters */}
+                    {showFilters && (
+                        <div className="mb-8">
+                            <ProductFilters
+                                filters={filters}
+                                onUpdateFilters={updateFilters}
+                                onClearFilters={clearFilters}
+                                showFilters={showFilters}
+                                onToggleFilters={() => setShowFilters(!showFilters)}
+                            />
+                        </div>
+                    )}
+
+                    {/* Products Grid/List */}
+                    {loading ? (
+                        <LoadingSpinner/>
+                    ) : (
+                        <div className={viewMode === 'grid'
+                            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+                            : 'space-y-6'
+                        }>
+                            {products.map((product) => (
+                                <ProductCard
+                                    key={product.id}
+                                    product={product}
+                                    onViewDetails={handleProductSelect}
+                                    isFavorite={favorites.includes(product.id)}
+                                    onToggleFavorite={toggleFavorite}
+                                    onShare={() => handleShare(product)}
+                                    onContact={handleCallPhone}
+                                    viewMode={viewMode}
+                                />
+                            ))}
+                        </div>
+                    )}
+
+                    {products.length === 0 && !loading && (
+                        <div className="text-center py-12">
+                            <p className="text-gray-600 mb-4">Arama kriterlerinize uygun ürün bulunamadı.</p>
+                            <button
+                                onClick={clearFilters}
+                                className="btn-secondary"
+                            >
+                                Filtreleri Temizle
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
     );
+
+    // Product Detail Page Component
+    const ProductDetailPage = () => {
+        if (!selectedProduct) return <div>Ürün bulunamadı</div>;
+
+        const similarProducts = getSimilarProducts(selectedProduct);
+
+        return (
+            <div className="pt-20">
+                <ProductDetail
+                    product={selectedProduct}
+                    onBack={() => handlePageChange('products')}
+                    onContact={handleCallPhone}
+                    onWhatsApp={handleOpenWhatsApp}
+                    onShare={() => handleShare(selectedProduct)}
+                    similarProducts={similarProducts}
+                    onSelectProduct={handleProductSelect}
+                />
+            </div>
+        );
+    };
 
     // Render current page
     const renderCurrentPage = () => {
@@ -362,21 +348,9 @@ const App: React.FC = () => {
             case 'products':
                 return <ProductsPage/>;
             case 'product-detail':
-                return selectedProduct ? (
-                    <ProductDetail
-                        product={selectedProduct}
-                        onBack={() => handlePageChange('products')}
-                        onToggleFavorite={toggleFavorite}
-                        isFavorite={favorites.includes(selectedProduct.id)}
-                        similarProducts={getSimilarProducts(selectedProduct)}
-                        onViewProduct={handleProductSelect}
-                        onCall={handleCallPhone}
-                        onWhatsApp={handleOpenWhatsApp}
-                        onEmail={handleSendEmail}
-                    />
-                ) : <HomePage/>;
+                return <ProductDetailPage/>;
             case 'about':
-                return <AboutPage onNavigateToContact={() => handlePageChange('contact')}/>;
+                return <AboutPage onContact={handleCallPhone}/>;
             case 'contact':
                 return <ContactPage/>;
             case 'partners':
@@ -387,17 +361,37 @@ const App: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen flex flex-col">
             <Header
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
             />
 
-            <main>
+            <main className="flex-1">
                 {renderCurrentPage()}
             </main>
 
-            <Footer/>
+            <Footer
+                onPageChange={handlePageChange}
+                onContact={handleCallPhone}
+                onEmail={handleSendEmail}
+                onWhatsApp={handleOpenWhatsApp}
+            />
+
+            {/* Admin Panel Toggle Button */}
+            <button
+                onClick={() => setShowAdminPanel(true)}
+                className="fixed bottom-4 right-4 p-3 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 z-30"
+                title="Admin Panel"
+            >
+                <Settings className="w-5 h-5"/>
+            </button>
+
+            {/* Admin Panel */}
+            <AdminPanel
+                isOpen={showAdminPanel}
+                onClose={() => setShowAdminPanel(false)}
+            />
         </div>
     );
 };

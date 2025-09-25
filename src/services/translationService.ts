@@ -1,4 +1,4 @@
-import {Language} from '../types';
+import type {Language} from '../types';
 
 // Translation Service - Singleton Pattern
 export class TranslationService {
@@ -114,6 +114,27 @@ export class TranslationService {
                 subtitle: 'Güvenilir iş ortaklarımız ile birlikte çalışıyoruz',
                 visitWebsite: 'Web Sitesini Ziyaret Et',
                 learnMore: 'Daha Fazla Bilgi'
+            },
+            newsletter: {
+                title: 'Haber Bülteni',
+                description: 'Yeni ürünler ve fırsatlardan haberdar olmak için abone olun',
+                placeholder: 'E-posta adresiniz',
+                subscribe: 'Abone Ol',
+                subscribing: 'Abone oluyor...',
+                success: 'Başarıyla abone oldunuz!',
+                error: 'Bir hata oluştu. Lütfen tekrar deneyin.'
+            },
+            common: {
+                loading: 'Yükleniyor...',
+                tryAgain: 'Tekrar Dene',
+                viewAll: 'Tümünü Görüntüle',
+                close: 'Kapat',
+                save: 'Kaydet',
+                cancel: 'İptal',
+                delete: 'Sil',
+                edit: 'Düzenle',
+                add: 'Ekle',
+                back: 'Geri'
             }
         },
         en: {
@@ -224,6 +245,27 @@ export class TranslationService {
                 subtitle: 'We work with reliable business partners',
                 visitWebsite: 'Visit Website',
                 learnMore: 'Learn More'
+            },
+            newsletter: {
+                title: 'Newsletter',
+                description: 'Subscribe to stay updated with new products and opportunities',
+                placeholder: 'Your email address',
+                subscribe: 'Subscribe',
+                subscribing: 'Subscribing...',
+                success: 'Successfully subscribed!',
+                error: 'An error occurred. Please try again.'
+            },
+            common: {
+                loading: 'Loading...',
+                tryAgain: 'Try Again',
+                viewAll: 'View All',
+                close: 'Close',
+                save: 'Save',
+                cancel: 'Cancel',
+                delete: 'Delete',
+                edit: 'Edit',
+                add: 'Add',
+                back: 'Back'
             }
         }
     };
@@ -257,3 +299,5 @@ export class TranslationService {
         return value || key;
     }
 }
+
+export default TranslationService.getInstance();

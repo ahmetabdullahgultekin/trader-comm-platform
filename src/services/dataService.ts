@@ -1,13 +1,11 @@
 import type {ContactForm, Partner, PersonalInfo, Product} from '../types';
-import {HttpClient} from './apiManager';
+import {apiManager} from './apiManager';
 
 // Data Service - Repository Pattern with API integration
 export class DataService {
     private static instance: DataService;
-    private httpClient: HttpClient;
 
     private constructor() {
-        this.httpClient = HttpClient.getInstance();
     }
 
     public static getInstance(): DataService {
@@ -21,7 +19,8 @@ export class DataService {
     public async getProducts(): Promise<Product[]> {
         try {
             // API'dan veri çekmeye çalış
-            return await this.httpClient.get<Product[]>('/products');
+            const response = await apiManager.makeRequest<Product[]>('/products');
+            return response.success ? response.data : this.getMockProducts();
         } catch {
             console.log('API unavailable, using mock data');
             // Fallback: Mock data
@@ -32,7 +31,7 @@ export class DataService {
     // Contact form gönderimi
     public async submitContactForm(formData: ContactForm): Promise<{ success: boolean; message: string }> {
         try {
-            await this.httpClient.post('/contact', formData);
+            await apiManager.makeRequest('/contact', {method: 'POST', body: formData});
             return {success: true, message: 'Message sent successfully!'};
         } catch {
             console.log('API unavailable for contact form, using mock response');
@@ -45,7 +44,7 @@ export class DataService {
     // Newsletter subscription
     public async subscribeNewsletter(email: string): Promise<{ success: boolean; message: string }> {
         try {
-            await this.httpClient.post('/newsletter', {email});
+            await apiManager.makeRequest('/newsletter', {method: 'POST', body: {email}});
             return {success: true, message: 'Successfully subscribed!'};
         } catch {
             console.log('Newsletter API unavailable');
@@ -69,7 +68,8 @@ export class DataService {
                     en: ['Construction Materials', 'Building Chemicals', 'Steel', 'Wholesale', 'Project Consulting']
                 },
                 website: 'https://erenticaret.com.tr',
-                logo: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&q=80'
+                logo: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&q=80',
+                category: 'business'
             },
             {
                 id: 'eren-yumurta',
@@ -83,7 +83,8 @@ export class DataService {
                     en: ['Organic Eggs', 'Free Range', 'Natural Products', 'Wholesale', 'Farm Tours']
                 },
                 website: 'https://erenyumurta.com.tr',
-                logo: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=300&q=80'
+                logo: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=300&q=80',
+                category: 'agriculture'
             },
             {
                 id: 'eren-emlak',
@@ -97,7 +98,8 @@ export class DataService {
                     en: ['For Sale', 'For Rent', 'Project Consulting', 'Valuation', 'Investment Consulting']
                 },
                 website: 'https://erenemlak.com.tr',
-                logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300&q=80'
+                logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300&q=80',
+                category: 'realestate'
             },
             {
                 id: 'eren-lojistik',
@@ -111,7 +113,8 @@ export class DataService {
                     en: ['City Transport', 'Intercity', 'Storage', 'Cargo', 'Special Transportation']
                 },
                 website: 'https://erenlojistik.com.tr',
-                logo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80'
+                logo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80',
+                category: 'logistics'
             }
         ];
     }
@@ -143,6 +146,11 @@ export class DataService {
             workHours: {
                 tr: 'Hafta içi: 08:00 - 19:00, Hafta sonu: 09:00 - 17:00',
                 en: 'Weekdays: 08:00 - 19:00, Weekend: 09:00 - 17:00'
+            },
+            social: {
+                linkedin: 'https://linkedin.com/in/fahrieren',
+                twitter: 'https://twitter.com/fahrieren',
+                instagram: 'https://instagram.com/fahrieren'
             }
         };
     }
@@ -151,8 +159,10 @@ export class DataService {
     private getMockProducts(): Product[] {
         return [
             {
-                id: 1,
+                id: '1',
                 category: 'realestate',
+                currency: 'TRY',
+                inStock: true,
                 title: {tr: 'Lüks Villa - Deniz Manzaralı', en: 'Luxury Villa - Sea View'},
                 price: 12500000,
                 priceText: '12.500.000 ₺',
@@ -172,14 +182,15 @@ export class DataService {
                     en: ['Sea View', 'Private Pool', 'Smart Home System', '24/7 Security', 'Large Garden', 'Indoor Garage', 'Central Heating', 'Air Conditioning', 'Jacuzzi', 'BBQ Area']
                 },
                 featured: true,
-                badge: 'new',
                 views: 1234,
                 date: '2024-01-15',
-                seller: 'Fahri Eren'
+                seller: {name: 'Fahri Eren', phone: '+90 532 123 4567', email: 'fahri@eren.com'}
             },
             {
-                id: 2,
+                id: '2',
                 category: 'vehicles',
+                currency: 'TRY',
+                inStock: true,
                 title: {tr: 'Mercedes-Benz E200 AMG', en: 'Mercedes-Benz E200 AMG'},
                 price: 2850000,
                 priceText: '2.850.000 ₺',
@@ -199,14 +210,15 @@ export class DataService {
                     en: ['Panoramic Roof', 'Leather Interior', 'Navigation', '360° Camera', 'Park Sensor', 'Cruise Control', 'Seat Heating', 'LED Headlights', 'Xenon', 'Harman Kardon Sound']
                 },
                 featured: true,
-                badge: 'sale',
                 views: 856,
                 date: '2024-01-10',
-                seller: 'Fahri Eren'
+                seller: {name: 'Fahri Eren', phone: '+90 532 123 4567', email: 'fahri@eren.com'}
             },
             {
-                id: 3,
+                id: '3',
                 category: 'construction',
+                currency: 'TRY',
+                inStock: true,
                 title: {tr: 'İnşaat Demiri (8-12mm)', en: 'Rebar (8-12mm)'},
                 price: 285,
                 priceText: '285 ₺/kg',
@@ -227,11 +239,13 @@ export class DataService {
                 featured: true,
                 views: 423,
                 date: '2024-01-20',
-                seller: 'Eren Ticaret'
+                seller: {name: 'Eren Ticaret', phone: '+90 532 987 6543', email: 'info@erentics.com'}
             },
             {
-                id: 4,
+                id: '4',
                 category: 'farm',
+                currency: 'TRY',
+                inStock: true,
                 title: {tr: 'Organik Yumurta (30\'lu Paket)', en: 'Organic Eggs (30 Pack)'},
                 price: 95,
                 priceText: '95 ₺',
@@ -251,14 +265,15 @@ export class DataService {
                     en: ['100% Organic', 'Free Range', 'Daily Fresh', 'Natural Feed', 'Special Packaging', 'Vitamin Rich', 'Antibiotic-Free', 'Hormone-Free']
                 },
                 featured: true,
-                badge: 'new',
                 views: 234,
                 date: '2024-01-25',
-                seller: 'Eren Çiftlik'
+                seller: {name: 'Eren Çiftlik', phone: '+90 532 555 0123', email: 'info@erenciftlik.com'}
             },
             {
-                id: 5,
+                id: '5',
                 category: 'realestate',
+                currency: 'TRY',
+                inStock: true,
                 title: {tr: '3+1 Kiralık Daire - Merkezi', en: '3+1 Apartment for Rent - Central'},
                 price: 25000,
                 priceText: '25.000 ₺/ay',
@@ -278,11 +293,13 @@ export class DataService {
                 },
                 views: 567,
                 date: '2024-01-18',
-                seller: 'Fahri Eren'
+                seller: {name: 'Fahri Eren', phone: '+90 532 123 4567', email: 'fahri@eren.com'}
             },
             {
-                id: 6,
+                id: '6',
                 category: 'construction',
+                currency: 'TRY',
+                inStock: true,
                 title: {tr: 'Çimento (50kg Torba)', en: 'Cement (50kg Bag)'},
                 price: 150,
                 priceText: '150 ₺',
@@ -301,7 +318,7 @@ export class DataService {
                 },
                 views: 189,
                 date: '2024-01-22',
-                seller: 'Eren Ticaret'
+                seller: {name: 'Eren Ticaret', phone: '+90 532 987 6543', email: 'info@erentics.com'}
             }
         ];
     }

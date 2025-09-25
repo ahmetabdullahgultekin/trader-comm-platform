@@ -26,15 +26,35 @@ const PartnersPage: React.FC = () => {
     const getPartnerColor = (id: string) => {
         switch (id) {
             case 'eren-ticaret':
-                return 'blue';
+                return {
+                    gradient: 'from-blue-600 to-blue-700',
+                    bg: 'bg-blue-500',
+                    text: 'text-blue-600'
+                };
             case 'eren-yumurta':
-                return 'green';
+                return {
+                    gradient: 'from-green-600 to-green-700',
+                    bg: 'bg-green-500',
+                    text: 'text-green-600'
+                };
             case 'eren-emlak':
-                return 'purple';
+                return {
+                    gradient: 'from-purple-600 to-purple-700',
+                    bg: 'bg-purple-500',
+                    text: 'text-purple-600'
+                };
             case 'eren-lojistik':
-                return 'orange';
+                return {
+                    gradient: 'from-orange-600 to-orange-700',
+                    bg: 'bg-orange-500',
+                    text: 'text-orange-600'
+                };
             default:
-                return 'gray';
+                return {
+                    gradient: 'from-gray-600 to-gray-700',
+                    bg: 'bg-gray-500',
+                    text: 'text-gray-600'
+                };
         }
     };
 
@@ -84,7 +104,7 @@ const PartnersPage: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {partners.map((partner) => {
                             const Icon = getPartnerIcon(partner.id);
-                            const color = getPartnerColor(partner.id);
+                            const colors = getPartnerColor(partner.id);
 
                             return (
                                 <div
@@ -93,7 +113,7 @@ const PartnersPage: React.FC = () => {
                                 >
                                     {/* Header */}
                                     <div
-                                        className={`bg-gradient-to-r from-${color}-600 to-${color}-700 p-8 text-white relative overflow-hidden`}>
+                                        className={`bg-gradient-to-r ${colors.gradient} p-8 text-white relative overflow-hidden`}>
                                         <div className="absolute top-0 right-0 opacity-10 transform rotate-12">
                                             <Icon className="w-32 h-32"/>
                                         </div>
@@ -126,7 +146,7 @@ const PartnersPage: React.FC = () => {
                                             {partner.services[language].map((service, index) => (
                                                 <div key={index}
                                                      className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                                                    <div className={`w-2 h-2 bg-${color}-500 rounded-full`}></div>
+                                                    <div className={`w-2 h-2 ${colors.bg} rounded-full`}></div>
                                                     <span className="text-gray-700">{service}</span>
                                                 </div>
                                             ))}
@@ -135,19 +155,19 @@ const PartnersPage: React.FC = () => {
                                         {/* Features */}
                                         <div className="grid grid-cols-3 gap-4 mb-6 pt-6 border-t border-gray-100">
                                             <div className="text-center">
-                                                <Award className={`w-6 h-6 text-${color}-600 mx-auto mb-2`}/>
+                                                <Award className={`w-6 h-6 ${colors.text} mx-auto mb-2`}/>
                                                 <div className="text-sm text-gray-600">
                                                     {language === 'tr' ? 'Kaliteli' : 'Quality'}
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <Users className={`w-6 h-6 text-${color}-600 mx-auto mb-2`}/>
+                                                <Users className={`w-6 h-6 ${colors.text} mx-auto mb-2`}/>
                                                 <div className="text-sm text-gray-600">
                                                     {language === 'tr' ? 'Güvenilir' : 'Reliable'}
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <Globe className={`w-6 h-6 text-${color}-600 mx-auto mb-2`}/>
+                                                <Globe className={`w-6 h-6 ${colors.text} mx-auto mb-2`}/>
                                                 <div className="text-sm text-gray-600">
                                                     {language === 'tr' ? 'Deneyimli' : 'Experienced'}
                                                 </div>
@@ -161,7 +181,7 @@ const PartnersPage: React.FC = () => {
                                                     href={partner.website}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className={`flex-1 px-4 py-3 bg-${color}-600 text-white rounded-xl hover:bg-${color}-700 transition-colors font-medium flex items-center justify-center space-x-2`}
+                                                    className={`flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2`}
                                                 >
                                                     <ExternalLink className="w-4 h-4"/>
                                                     <span>{t('partners.visitWebsite')}</span>

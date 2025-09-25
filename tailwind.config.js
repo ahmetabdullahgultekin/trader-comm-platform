@@ -1,7 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
-        "./src/**/*.{js,jsx,ts,tsx}",
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
         extend: {
@@ -21,48 +22,41 @@ module.exports = {
                     800: '#1e40af',
                     900: '#1e3a8a',
                 },
+                secondary: {
+                    50: '#f8fafc',
+                    100: '#f1f5f9',
+                    200: '#e2e8f0',
+                    300: '#cbd5e1',
+                    400: '#94a3b8',
+                    500: '#64748b',
+                    600: '#475569',
+                    700: '#334155',
+                    800: '#1e293b',
+                    900: '#0f172a',
+                }
             },
             animation: {
-                'fade-in': 'fadeIn 0.6s ease-out',
-                'slide-in': 'slideIn 0.6s ease-out',
-                'bounce-slow': 'bounce 2s infinite',
+                'fade-in': 'fadeIn 0.5s ease-in-out',
+                'slide-up': 'slideUp 0.3s ease-out',
+                'bounce-in': 'bounceIn 0.6s ease-out',
             },
             keyframes: {
                 fadeIn: {
-                    '0%': {opacity: '0', transform: 'translateY(20px)'},
-                    '100%': {opacity: '1', transform: 'translateY(0)'},
+                    '0%': {opacity: '0'},
+                    '100%': {opacity: '1'},
                 },
-                slideIn: {
-                    '0%': {opacity: '0', transform: 'translateX(-20px)'},
-                    '100%': {opacity: '1', transform: 'translateX(0)'},
+                slideUp: {
+                    '0%': {transform: 'translateY(20px)', opacity: '0'},
+                    '100%': {transform: 'translateY(0)', opacity: '1'},
                 },
-            },
-            backgroundImage: {
-                'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-            },
-            backdropBlur: {
-                xs: '2px',
-            },
-            transitionTimingFunction: {
-                'bounce-in': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                bounceIn: {
+                    '0%': {transform: 'scale(0.3)', opacity: '0'},
+                    '50%': {transform: 'scale(1.05)', opacity: '0.8'},
+                    '70%': {transform: 'scale(0.9)', opacity: '0.9'},
+                    '100%': {transform: 'scale(1)', opacity: '1'},
+                },
             },
         },
     },
-    plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/aspect-ratio'),
-    ],
-    safelist: [
-        // Color variants for dynamic classes
-        'bg-blue-100', 'bg-green-100', 'bg-purple-100', 'bg-orange-100', 'bg-yellow-100',
-        'text-blue-600', 'text-green-600', 'text-purple-600', 'text-orange-600', 'text-yellow-600',
-        'bg-blue-600', 'bg-green-600', 'bg-purple-600', 'bg-orange-600', 'bg-yellow-600',
-        'hover:bg-blue-700', 'hover:bg-green-700', 'hover:bg-purple-700', 'hover:bg-orange-700',
-        'from-blue-600', 'from-green-600', 'from-purple-600', 'from-orange-600',
-        'to-blue-700', 'to-green-700', 'to-purple-700', 'to-orange-700',
-        'bg-blue-50', 'bg-green-50', 'bg-purple-50', 'bg-orange-50', 'bg-pink-50',
-        'hover:bg-blue-100', 'hover:bg-green-100', 'hover:bg-purple-100', 'hover:bg-orange-100',
-    ]
+    plugins: [],
 }
-

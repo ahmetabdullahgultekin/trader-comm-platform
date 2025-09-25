@@ -1,196 +1,215 @@
-// API Configuration Manager - Centralized API management
-export class ApiConfig {
-    private static instance: ApiConfig;
+import {API_CONFIG, getApiConfig} from '../config/apiConfig';
 
-    // API Endpoints - Tek noktadan yönetim
-    private readonly endpoints = {
-        // JSONBin.io endpoint (ücretsiz JSON database)
-        jsonbin: {
-            baseUrl: 'https://api.jsonbin.io/v3',
-            binId: 'YOUR_BIN_ID', // Değiştirilebilir
-            apiKey: 'YOUR_API_KEY', // Değiştirilebilir
-        },
+interface ApiResponse<T> {
+    success: boolean;
+    data: T;
+    error?: string;
+    timestamp: number;
+}
 
-        // Firebase (alternatif)
-        firebase: {
-            projectId: 'trader-platform',
-            databaseUrl: 'https://trader-platform-default-rtdb.firebaseio.com',
-        },
+interface RequestOptions {
+    method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+    headers?: Record<string, string>;
+    body?: any;
+    timeout?: number;
+    retries?: number;
+}
 
-        // Local Development
-        local: {
-            baseUrl: 'http://localhost:3001/api',
-        },
+class ApiManager {
+    private config = getApiConfig();
+    private cache = new Map<string, { data: any; timestamp: number; ttl: number }>();
 
-        // Production
-        production: {
-            baseUrl: 'https://api.fahrieren.com',
+    constructor() {
+        this.initializeErrorHandling();
+    }
+
+    public async makeRequest<T>(
+        endpoint: string,
+        options: RequestOptions = {}
+    ): Promise<ApiResponse<T>> {
+        const config = this.config;
+        const {
+            method = 'GET',
+            headers = {},
+            body,
+            timeout = config.TIMEOUT,
+            retries = config.RETRY_COUNT
+        } = options;
+
+        // Cache kontrolü
+        const cacheKey = `${method}-${endpoint}-${JSON.stringify(body)}`;
+        if (method === 'GET' && config.FEATURES.CACHE_ENABLED) {
+            const cached = this.getFromCache(cacheKey);
+            if (cached) return cached;
         }
-    };
 
-    // Aktif ortam
-    private currentEnvironment: 'local' | 'jsonbin' | 'firebase' | 'production' = 'local';
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-    private constructor() {
-    }
-
-    public static getInstance(): ApiConfig {
-        if (!ApiConfig.instance) {
-            ApiConfig.instance = new ApiConfig();
-        }
-        return ApiConfig.instance;
-    }
-
-    // Ortam değiştirme
-    public setEnvironment(env: 'local' | 'jsonbin' | 'firebase' | 'production') {
-        this.currentEnvironment = env;
-    }
-
-    public getEnvironment() {
-        return this.currentEnvironment;
-    }
-
-    // API URL'lerini al
-    public getBaseUrl(): string {
-        return this.endpoints[this.currentEnvironment].baseUrl || this.endpoints.local.baseUrl;
-    }
-
-    public getEndpoint(path: string): string {
-        const baseUrl = this.getBaseUrl();
-        return `${baseUrl}${path.startsWith('/') ? path : '/' + path}`;
-    }
-
-    // Headers oluştur
-    public getHeaders(): Record<string, string> {
-        const headers: Record<string, string> = {
+        const requestHeaders = {
             'Content-Type': 'application/json',
+            'X-Master-Key': config.JSONBIN.MASTER_KEY,
+            'X-Access-Key': config.JSONBIN.API_KEY,
+            ...headers,
         };
 
-        // JSONBin için özel headers
-        if (this.currentEnvironment === 'jsonbin') {
-            headers['X-Master-Key'] = this.endpoints.jsonbin.apiKey;
-            headers['X-Bin-Id'] = this.endpoints.jsonbin.binId;
-        }
+        const url = this.buildUrl(endpoint);
 
-        return headers;
+        try {
+            const response = await fetch(url, {
+                method,
+                headers: requestHeaders,
+                body: body ? JSON.stringify(body) : undefined,
+                signal: controller.signal,
+            });
+
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            const result: ApiResponse<T> = {
+                success: true,
+                data,
+                timestamp: Date.now(),
+            };
+
+            // Cache'e kaydet
+            if (method === 'GET' && config.FEATURES.CACHE_ENABLED) {
+                this.setCache(cacheKey, result, 5 * 60 * 1000); // 5 dakika TTL
+            }
+
+            return result;
+        } catch (error: any) {
+            clearTimeout(timeoutId);
+
+            if (retries > 0 && !controller.signal.aborted) {
+                await this.delay(config.RETRY_DELAY);
+                return this.makeRequest(endpoint, {...options, retries: retries - 1});
+            }
+
+            return {
+                success: false,
+                data: null as any,
+                error: error.message,
+                timestamp: Date.now(),
+            };
+        }
     }
 
-    // Konfigürasyon güncelleme
-    public updateConfig(env: string, config: any) {
-        if (this.endpoints[env as keyof typeof this.endpoints]) {
-            Object.assign(this.endpoints[env as keyof typeof this.endpoints], config);
+    // Public API Methods
+    async getProducts() {
+        return this.makeRequest(this.config.ENDPOINTS.PRODUCTS);
+    }
+
+    async subscribeNewsletter(email: string) {
+        return this.makeRequest(this.config.ENDPOINTS.NEWSLETTER, {
+            method: 'POST',
+            body: {email, timestamp: Date.now()},
+        });
+    }
+
+    async sendContactMessage(data: any) {
+        return this.makeRequest(this.config.ENDPOINTS.CONTACT, {
+            method: 'POST',
+            body: {...data, timestamp: Date.now()},
+        });
+    }
+
+    async trackAnalytics(event: string, data: any) {
+        if (!this.config.FEATURES.ANALYTICS_ENABLED) return;
+
+        return this.makeRequest(this.config.ENDPOINTS.ANALYTICS, {
+            method: 'POST',
+            body: {event, data, timestamp: Date.now()},
+        });
+    }
+
+    // Utility methods
+    getContactInfo() {
+        return this.config.CONTACT;
+    }
+
+    getSocialLinks() {
+        return this.config.SOCIAL;
+    }
+
+    getSEOConfig() {
+        return this.config.SEO;
+    }
+
+    // Cache management
+    clearCache() {
+        this.cache.clear();
+    }
+
+    getCacheStats() {
+        return {
+            size: this.cache.size,
+            keys: Array.from(this.cache.keys()),
+        };
+    }
+
+    // Health check
+    async healthCheck() {
+        try {
+            const response = await this.makeRequest('/health', {timeout: 5000});
+            return response.success;
+        } catch {
+            return false;
         }
+    }
+
+    // Configuration updates
+    updateConfig(newConfig: Partial<typeof API_CONFIG>) {
+        this.config = {...this.config, ...newConfig};
+    }
+
+    getConfig() {
+        return {...this.config};
+    }
+
+    private initializeErrorHandling() {
+        if (this.config.FEATURES.ERROR_REPORTING) {
+            window.addEventListener('unhandledrejection', this.handleUnhandledError);
+        }
+    }
+
+    private handleUnhandledError = (event: PromiseRejectionEvent) => {
+        console.error('Unhandled API Error:', event.reason);
+        // Burada error reporting servisine gönderilebilir
+    };
+
+    private buildUrl(endpoint: string): string {
+        const baseUrl = this.config.BASE_URL;
+        const binId = this.config.JSONBIN.BIN_ID;
+        return `${baseUrl}${endpoint.replace('{binId}', binId)}`;
+    }
+
+    private getFromCache(key: string) {
+        const cached = this.cache.get(key);
+        if (cached && Date.now() - cached.timestamp < cached.ttl) {
+            return cached.data;
+        }
+        this.cache.delete(key);
+        return null;
+    }
+
+    private setCache(key: string, data: any, ttl: number) {
+        this.cache.set(key, {
+            data,
+            timestamp: Date.now(),
+            ttl,
+        });
+    }
+
+    private delay(ms: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 
-// HTTP Client with retry and error handling
-export class HttpClient {
-    private static instance: HttpClient;
-    private apiConfig: ApiConfig;
-
-    private constructor() {
-        this.apiConfig = ApiConfig.getInstance();
-    }
-
-    public static getInstance(): HttpClient {
-        if (!HttpClient.instance) {
-            HttpClient.instance = new HttpClient();
-        }
-        return HttpClient.instance;
-    }
-
-    // GET request with error handling
-    public async get<T>(path: string, options?: RequestInit): Promise<T> {
-        const url = this.apiConfig.getEndpoint(path);
-        const headers = {...this.apiConfig.getHeaders(), ...options?.headers};
-
-        try {
-            const response = await fetch(url, {
-                method: 'GET',
-                headers,
-                ...options
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error(`API GET Error (${url}):`, error);
-            throw error;
-        }
-    }
-
-    // POST request with error handling
-    public async post<T>(path: string, data?: any, options?: RequestInit): Promise<T> {
-        const url = this.apiConfig.getEndpoint(path);
-        const headers = {...this.apiConfig.getHeaders(), ...options?.headers};
-
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers,
-                body: JSON.stringify(data),
-                ...options
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error(`API POST Error (${url}):`, error);
-            throw error;
-        }
-    }
-
-    // PUT request
-    public async put<T>(path: string, data?: any, options?: RequestInit): Promise<T> {
-        const url = this.apiConfig.getEndpoint(path);
-        const headers = {...this.apiConfig.getHeaders(), ...options?.headers};
-
-        try {
-            const response = await fetch(url, {
-                method: 'PUT',
-                headers,
-                body: JSON.stringify(data),
-                ...options
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error(`API PUT Error (${url}):`, error);
-            throw error;
-        }
-    }
-
-    // DELETE request
-    public async delete<T>(path: string, options?: RequestInit): Promise<T> {
-        const url = this.apiConfig.getEndpoint(path);
-        const headers = {...this.apiConfig.getHeaders(), ...options?.headers};
-
-        try {
-            const response = await fetch(url, {
-                method: 'DELETE',
-                headers,
-                ...options
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error(`API DELETE Error (${url}):`, error);
-            throw error;
-        }
-    }
-}
-
+// Singleton instance
+export const apiManager = new ApiManager();
+export default apiManager;
