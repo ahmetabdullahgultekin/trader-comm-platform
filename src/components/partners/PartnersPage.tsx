@@ -3,10 +3,35 @@ import {Award, Building, Egg, ExternalLink, Globe, Store, Truck, Users} from 'lu
 import {useTranslation} from '../../hooks';
 import {DataService} from '../../services/dataService';
 
-const PartnersPage: React.FC = () => {
+interface PartnersPageProps {
+    onContact?: () => void;
+}
+
+const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
     const {language, t} = useTranslation();
     const dataService = DataService.getInstance();
     const partners = dataService.getPartners();
+
+    const handleLearnMore = (partnerId: string) => {
+        const partner = partners.find(p => p.id === partnerId);
+        if (partner) {
+            alert(`${language === 'tr'
+                ? `${partner.name} hakkında daha fazla bilgi:\n\n${partner.description[language]}\n\nHizmetler:\n${partner.services[language].join('\n')}`
+                : `More information about ${partner.name}:\n\n${partner.description[language]}\n\nServices:\n${partner.services[language].join('\n')}`
+            }`);
+        }
+    };
+
+    const handleGetInTouch = () => {
+        if (onContact) {
+            onContact();
+        } else {
+            alert(language === 'tr'
+                ? 'İletişim için: +90 532 123 45 67 numarasını arayabilir veya fahri.eren@gmail.com adresine email gönderebilirsiniz.'
+                : 'For contact: You can call +90 532 123 45 67 or send an email to fahri.eren@gmail.com'
+            );
+        }
+    };
 
     const getPartnerIcon = (id: string) => {
         switch (id) {
@@ -59,7 +84,7 @@ const PartnersPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen pt-24 pb-12">
+        <div className="min-h-screen pb-12">
             {/* Hero Section */}
             <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-20">
                 <div className="container mx-auto px-6 text-center">
@@ -188,6 +213,7 @@ const PartnersPage: React.FC = () => {
                                                 </a>
                                             )}
                                             <button
+                                                onClick={() => handleLearnMore(partner.id)}
                                                 className="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-colors font-medium">
                                                 {t('partners.learnMore')}
                                             </button>
@@ -280,6 +306,7 @@ const PartnersPage: React.FC = () => {
                         }
                     </p>
                     <button
+                        onClick={handleGetInTouch}
                         className="px-8 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors">
                         {language === 'tr' ? 'İletişime Geçin' : 'Get in Touch'}
                     </button>

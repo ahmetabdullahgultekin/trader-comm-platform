@@ -2,8 +2,23 @@ import React from 'react';
 import {Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter} from 'lucide-react';
 import {useTranslation} from '../../hooks';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+    onPageChange?: (page: string) => void;
+    onContact?: () => void;
+    onEmail?: () => void;
+    onWhatsApp?: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhatsApp}) => {
     const {t} = useTranslation();
+
+    const handlePrivacyPolicy = () => {
+        alert('Gizlilik Politikası sayfası yakında eklenecektir. / Privacy Policy page will be added soon.');
+    };
+
+    const handleTermsOfService = () => {
+        alert('Hizmet Koşulları sayfası yakında eklenecektir. / Terms of Service page will be added soon.');
+    };
 
     return (
         <footer className="bg-gray-900 text-white">
@@ -19,19 +34,23 @@ const Footer: React.FC = () => {
                             <h3 className="text-xl font-bold">Fahri Eren</h3>
                         </div>
                         <p className="text-gray-300 mb-6 leading-relaxed">
-                            25 yıllık tecrübe ile güvenilir ticaret ortağınız.
+                            {t('footer.companyDescription')}
                         </p>
                         <div className="flex space-x-4">
-                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://facebook.com/fahrierencom" target="_blank" rel="noopener noreferrer"
+                               className="text-gray-400 hover:text-white transition-colors">
                                 <Facebook className="w-5 h-5"/>
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://instagram.com/fahrieren" target="_blank" rel="noopener noreferrer"
+                               className="text-gray-400 hover:text-white transition-colors">
                                 <Instagram className="w-5 h-5"/>
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://twitter.com/fahrieren" target="_blank" rel="noopener noreferrer"
+                               className="text-gray-400 hover:text-white transition-colors">
                                 <Twitter className="w-5 h-5"/>
                             </a>
-                            <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                            <a href="https://linkedin.com/in/fahrieren" target="_blank" rel="noopener noreferrer"
+                               className="text-gray-400 hover:text-white transition-colors">
                                 <Linkedin className="w-5 h-5"/>
                             </a>
                         </div>
@@ -39,38 +58,54 @@ const Footer: React.FC = () => {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="text-lg font-semibold mb-6">{t('nav.home')}</h4>
+                        <h4 className="text-lg font-semibold mb-6">{t('footer.quickLinks')}</h4>
                         <ul className="space-y-3">
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('nav.products')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('products')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('nav.products')}</button>
                             </li>
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('nav.about')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('about')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('nav.about')}</button>
                             </li>
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('nav.partners')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('partners')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('nav.partners')}</button>
                             </li>
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('nav.contact')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('contact')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('nav.contact')}</button>
                             </li>
                         </ul>
                     </div>
 
                     {/* Categories */}
                     <div>
-                        <h4 className="text-lg font-semibold mb-6">{t('categories.all')}</h4>
+                        <h4 className="text-lg font-semibold mb-6">{t('footer.categories')}</h4>
                         <ul className="space-y-3">
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('categories.realestate')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('products')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('categories.realestate')}</button>
                             </li>
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('categories.vehicles')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('products')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('categories.vehicles')}</button>
                             </li>
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('categories.construction')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('products')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('categories.construction')}</button>
                             </li>
-                            <li><a href="#"
-                                   className="text-gray-300 hover:text-white transition-colors">{t('categories.farm')}</a>
+                            <li>
+                                <button
+                                    onClick={() => onPageChange?.('products')}
+                                    className="text-gray-300 hover:text-white transition-colors">{t('categories.farm')}</button>
                             </li>
                         </ul>
                     </div>
@@ -82,13 +117,23 @@ const Footer: React.FC = () => {
                             <div className="flex items-start space-x-3">
                                 <Phone className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0"/>
                                 <div>
-                                    <p className="text-gray-300">+90 532 123 45 67</p>
+                                    <button
+                                        onClick={onContact}
+                                        className="text-gray-300 hover:text-white transition-colors"
+                                    >
+                                        +90 532 123 45 67
+                                    </button>
                                 </div>
                             </div>
                             <div className="flex items-start space-x-3">
                                 <Mail className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0"/>
                                 <div>
-                                    <p className="text-gray-300">fahri.eren@gmail.com</p>
+                                    <button
+                                        onClick={onEmail}
+                                        className="text-gray-300 hover:text-white transition-colors"
+                                    >
+                                        fahri.eren@gmail.com
+                                    </button>
                                 </div>
                             </div>
                             <div className="flex items-start space-x-3">
@@ -109,15 +154,17 @@ const Footer: React.FC = () => {
                 <div className="border-t border-gray-800 mt-12 pt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <p className="text-gray-400 text-sm">
-                            © 2024 Fahri Eren. Tüm hakları saklıdır.
+                            {t('footer.copyright')}
                         </p>
                         <div className="flex space-x-6 mt-4 md:mt-0">
-                            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                                Gizlilik Politikası
-                            </a>
-                            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-                                Kullanım Şartları
-                            </a>
+                            <button onClick={handlePrivacyPolicy}
+                                    className="text-gray-400 hover:text-white text-sm transition-colors">
+                                {t('footer.privacyPolicy')}
+                            </button>
+                            <button onClick={handleTermsOfService}
+                                    className="text-gray-400 hover:text-white text-sm transition-colors">
+                                {t('footer.termsOfService')}
+                            </button>
                         </div>
                     </div>
                 </div>

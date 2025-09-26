@@ -28,4 +28,16 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
+// Enable offline persistence for Firestore
+try {
+    // This will enable offline support and caching
+    import('firebase/firestore').then(({enableNetwork, disableNetwork}) => {
+        enableNetwork(db).catch((error) => {
+            console.warn('Could not enable Firestore network:', error);
+        });
+    });
+} catch (error) {
+    console.warn('Could not configure Firestore offline persistence:', error);
+}
+
 export default app;

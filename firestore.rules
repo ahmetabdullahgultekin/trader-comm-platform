@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow read access to products for all users, write for development (temporarily)
+    match /products/{document} {
+      allow read, write: if true; // Development mode - allows all operations
+    }
+
+    // Allow read access to admins collection for all users (development mode)
+    match /admins/{document} {
+      allow read, write: if true;
+    }
+
+    // Allow all users to read categories and static content
+    match /categories/{document} {
+      allow read, write: if true;
+    }
+
+    // Analytics collections (development mode)
+    match /analytics/{document} {
+      allow read, write: if true;
+    }
+
+    match /sessions/{document} {
+      allow read, write: if true;
+    }
+
+    match /events/{document} {
+      allow read, write: if true;
+    }
+
+    // Newsletters collection
+    match /newsletter/{document} {
+      allow read, write: if true;
+    }
+
+    // Contact forms collection
+    match /contacts/{document} {
+      allow read, write: if true;
+    }
+  }
+}

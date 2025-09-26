@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import type {Product} from '../../types';
 import {useSEO, useTranslation} from '../../hooks';
+import analyticsService from '../../services/analyticsService';
 
 interface ProductDetailProps {
     product: Product;
@@ -29,6 +30,7 @@ interface ProductDetailProps {
     onCall?: () => void;
     onWhatsApp?: () => void;
     onEmail?: () => void;
+    onRefresh?: () => void;
 }
 
 const ProductDetail: React.FC<ProductDetailProps> = ({
@@ -40,7 +42,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                                                          onViewProduct,
                                                          onCall,
                                                          onWhatsApp,
-                                                         onEmail
+                                                         onEmail,
+                                                         onRefresh
                                                      }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [showImageModal, setShowImageModal] = useState(false);
@@ -48,9 +51,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     const {language, t} = useTranslation();
     const {updateProductSEO} = useSEO('product-detail');
 
-    // Update SEO for this product
+    // Update SEO for this product and track view
     React.useEffect(() => {
         updateProductSEO(product);
+        // Track product view for analytics
+        analyticsService.trackProductView(product.id);
     }, [product, updateProductSEO]);
 
     const nextImage = () => {
@@ -166,7 +171,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     );
 
     return (
-        <div className="min-h-screen pt-24 pb-12 bg-gray-50">
+        <div className="min-h-screen pb-12 bg-gray-50">
             <div className="container mx-auto px-6">
                 {/* Back Button */}
                 <button
@@ -265,10 +270,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                                 </h1>
                                 <div className="flex items-center text-gray-600 mb-4">
                                     <MapPin className="w-5 h-5 mr-2"/>
-                                    {product.location[language]}
+                                    {product.location?.[language] || 'Konum bilgisi yok'}
                                 </div>
                                 <div className="text-4xl font-bold text-blue-600 mb-4">
-                                    {product.priceText}
+                                    {product.priceText || `${product.price} ${product.currency}`}
                                 </div>
                             </div>
 
@@ -302,7 +307,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                             </div>
                             <div className="text-center">
                                 <div className="text-2xl font-bold text-gray-900">
-                                    {new Date(product.date).toLocaleDateString(language === 'tr' ? 'tr-TR' : 'en-US')}
+                                    {product.date ? new Date(product.date).toLocaleDateString(language === 'tr' ? 'tr-TR' : 'en-US') : 'Belirtilmemiş'}
                                 </div>
                                 <div className="text-sm text-gray-600">İlan Tarihi</div>
                             </div>
@@ -396,13 +401,19 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                             <div>
                                 <h3 className="text-xl font-semibold mb-4">{t('products.features')}</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    {product.features[language].map((feature, index) => (
-                                        <div key={index}
-                                             className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                                            <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                                            <span className="text-gray-700">{feature}</span>
+                                    {product.features?.[language]?.length > 0 ? (
+                                        product.features[language].map((feature, index) => (
+                                            <div key={index}
+                                                 className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                                                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                                                <span className="text-gray-700">{feature}</span>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="col-span-2 text-center text-gray-500 py-8">
+                                            {language === 'tr' ? 'Özellik bilgisi bulunmuyor' : 'No features available'}
                                         </div>
-                                    ))}
+                                    )}
                                 </div>
                             </div>
                         )}

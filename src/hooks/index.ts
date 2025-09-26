@@ -1,49 +1,9 @@
 import {useCallback, useEffect, useState} from 'react';
 import apiManager from '../services/apiManager';
-import translationService from '../services/translationService';
-import type {ContactForm, FilterOptions, Language, Product} from '../types';
+import type {ContactForm, FilterOptions, Product} from '../types';
 
-// Translation hook with API Manager integration
-export const useTranslation = () => {
-    const [language, setLanguage] = useState<Language>('tr');
-
-    const changeLanguage = useCallback((newLanguage: Language) => {
-        setLanguage(newLanguage);
-        localStorage.setItem('language', newLanguage);
-
-        // Track language change
-        apiManager.trackAnalytics('language_change', {from: language, to: newLanguage});
-
-        // Update URL parameter
-        const url = new URL(window.location.href);
-        url.searchParams.set('lang', newLanguage);
-        window.history.replaceState({}, '', url.toString());
-    }, [language]);
-
-    const t = useCallback((key: string): string => {
-        try {
-            translationService.setLanguage(language);
-            return translationService.translate(key);
-        } catch (error) {
-            console.warn('Translation failed for key:', key);
-            return key;
-        }
-    }, [language]);
-
-    // Initialize language from URL or localStorage
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlLang = urlParams.get('lang') as Language;
-        const storedLang = localStorage.getItem('language') as Language;
-
-        const initialLang = urlLang || storedLang || 'tr';
-        if (initialLang !== language) {
-            setLanguage(initialLang);
-        }
-    }, []);
-
-    return {language, changeLanguage, t};
-};
+// Re-export the translation hook from context
+export {useTranslation, useLanguage} from '../contexts/LanguageContext';
 
 // SEO Hook
 export const useSEO = (pageType: string) => {
@@ -83,70 +43,12 @@ export const useProducts = () => {
             setLoading(true);
             setError(null);
 
-            // Try to get products from Firebase first
-            try {
-                const {productService} = await import('../services/firebaseService');
-                const firebaseProducts = await productService.getProducts();
+            // Get products from Firebase only
+            const {productService} = await import('../services/firebaseService');
+            const firebaseProducts = await productService.getProducts();
 
-                if (firebaseProducts.length > 0) {
-                    setAllProducts(firebaseProducts);
-                    setProducts(firebaseProducts);
-                    return;
-                }
-            } catch (firebaseError) {
-                console.warn('Firebase products not available, using mock data:', firebaseError);
-            }
-
-            // Fallback to mock data if Firebase is not available
-            const mockProducts: Product[] = [
-                {
-                    id: '1',
-                    title: {tr: 'Premium Ürün 1', en: 'Premium Product 1'},
-                    description: {
-                        tr: 'Yüksek kaliteli premium ürün açıklaması',
-                        en: 'High quality premium product description'
-                    },
-                    price: 299.99,
-                    currency: 'TRY',
-                    category: 'realestate',
-                    images: ['/images/product-placeholder.svg'],
-                    featured: true,
-                    inStock: true,
-                    rating: 4.8,
-                    reviews: 156,
-                    views: 0,
-                    specifications: {
-                        weight: '1.2kg',
-                        dimensions: '30x20x10cm',
-                        warranty: '2 yıl'
-                    }
-                },
-                {
-                    id: '2',
-                    title: {tr: 'Kaliteli Ürün 2', en: 'Quality Product 2'},
-                    description: {
-                        tr: 'Güvenilir ve dayanıklı ürün açıklaması',
-                        en: 'Reliable and durable product description'
-                    },
-                    price: 199.99,
-                    currency: 'TRY',
-                    category: 'vehicles',
-                    images: ['/images/product-placeholder.svg'],
-                    featured: true,
-                    inStock: true,
-                    rating: 4.5,
-                    reviews: 89,
-                    views: 0,
-                    specifications: {
-                        material: 'Premium malzeme',
-                        color: 'Siyah/Beyaz',
-                        warranty: '1 yıl'
-                    }
-                }
-            ];
-
-            setAllProducts(mockProducts);
-            setProducts(mockProducts);
+            setAllProducts(firebaseProducts);
+            setProducts(firebaseProducts);
         } catch (err: any) {
             setError(err.message || 'Beklenmeyen bir hata oluştu');
         } finally {

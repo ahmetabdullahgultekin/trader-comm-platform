@@ -18,12 +18,44 @@ import {DataService} from '../../services/dataService';
 
 interface AboutPageProps {
     onNavigateToContact: () => void;
+    onContact?: () => void;
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({onNavigateToContact}) => {
+const AboutPage: React.FC<AboutPageProps> = ({onNavigateToContact, onContact}) => {
     const {language, t} = useTranslation();
     const dataService = DataService.getInstance();
     const personalInfo = dataService.getPersonalInfo();
+
+    const handleDownloadCV = () => {
+        const cvContent = `
+FAHRI EREN - CV
+
+${t('contact.info.phone')}: ${personalInfo.phone}
+${t('contact.info.email')}: ${personalInfo.email}
+${t('contact.info.address')}: ${personalInfo.address[language]}
+
+${t('about.experience')}:
+- ${language === 'tr' ? '25+ yıl ticaret deneyimi' : '25+ years of trade experience'}
+- ${language === 'tr' ? 'Çok sektörlü hizmet' : 'Multi-sector service'}
+
+${t('about.services')}:
+${language === 'tr' ?
+            '• Emlak Alım-Satım\n• Araç Ticareti\n• İnşaat Malzemeleri\n• Tarım Ürünleri' :
+            '• Real Estate Trading\n• Vehicle Trading\n• Construction Materials\n• Agricultural Products'}
+
+${personalInfo.bio[language]}
+        `.trim();
+
+        const blob = new Blob([cvContent], {type: 'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Fahri_Eren_CV_${language}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
 
     const stats = [
         {icon: Calendar, value: '25+', label: t('about.stats.years'), color: 'blue'},
@@ -80,7 +112,7 @@ const AboutPage: React.FC<AboutPageProps> = ({onNavigateToContact}) => {
     ];
 
     return (
-        <div className="min-h-screen pt-24 pb-12">
+        <div className="min-h-screen pb-12">
             {/* Hero Section */}
             <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-20">
                 <div className="container mx-auto px-6">
@@ -103,6 +135,7 @@ const AboutPage: React.FC<AboutPageProps> = ({onNavigateToContact}) => {
                                     {t('about.contactMe')}
                                 </button>
                                 <button
+                                    onClick={handleDownloadCV}
                                     className="px-8 py-3 border-2 border-white text-white rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-colors flex items-center justify-center space-x-2">
                                     <Download className="w-5 h-5"/>
                                     <span>{t('about.downloadCV')}</span>

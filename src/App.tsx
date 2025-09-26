@@ -10,6 +10,7 @@ import ContactPage from './components/contact/ContactPage';
 import PartnersPage from './components/partners/PartnersPage';
 import {useNewsletter, useProducts, useSEO, useTranslation} from './hooks';
 import {AdminPanel} from './components/admin/AdminPanel';
+import analyticsService from './services/analyticsService';
 import type {Product} from './types';
 import {Filter, Grid, List, Loader, Mail, RefreshCw, Send, Settings} from 'lucide-react';
 
@@ -108,6 +109,8 @@ const App: React.FC = () => {
         setCurrentPage(page);
         setSelectedProduct(null);
         window.scrollTo({top: 0, behavior: 'smooth'});
+        // Track page view for analytics
+        analyticsService.trackPageView(page);
     };
 
     const handleProductSelect = (product: Product) => {
@@ -174,7 +177,16 @@ const App: React.FC = () => {
             <section className="py-16 bg-gray-50">
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('products.title')}</h2>
+                        <div className="flex items-center justify-center gap-4 mb-6">
+                            <h2 className="text-3xl font-bold text-gray-900">{t('products.title')}</h2>
+                            <button
+                                onClick={refetch}
+                                className="p-2 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors"
+                                title={t('admin.refresh')}
+                            >
+                                <RefreshCw className="w-5 h-5 text-blue-600"/>
+                            </button>
+                        </div>
                         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                             {language === 'tr'
                                 ? 'En kaliteli ürünlerimizi keşfedin'
@@ -232,7 +244,16 @@ const App: React.FC = () => {
         <div className="pt-20">
             <div className="bg-gray-50 py-12">
                 <div className="container mx-auto px-6">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-8">Ürünlerimiz</h1>
+                    <div className="flex items-center justify-between mb-8">
+                        <h1 className="text-3xl font-bold text-gray-900">Ürünlerimiz</h1>
+                        <button
+                            onClick={refetch}
+                            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                        >
+                            <RefreshCw className="w-4 h-4"/>
+                            <span>{t('admin.refresh')}</span>
+                        </button>
+                    </div>
 
                     {/* Filters and View Controls */}
                     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
@@ -330,11 +351,14 @@ const App: React.FC = () => {
                 <ProductDetail
                     product={selectedProduct}
                     onBack={() => handlePageChange('products')}
-                    onContact={handleCallPhone}
+                    onCall={handleCallPhone}
                     onWhatsApp={handleOpenWhatsApp}
-                    onShare={() => handleShare(selectedProduct)}
+                    onEmail={handleSendEmail}
+                    onToggleFavorite={toggleFavorite}
+                    isFavorite={favorites.includes(selectedProduct.id)}
                     similarProducts={similarProducts}
-                    onSelectProduct={handleProductSelect}
+                    onViewProduct={handleProductSelect}
+                    onRefresh={refetch}
                 />
             </div>
         );
@@ -350,11 +374,11 @@ const App: React.FC = () => {
             case 'product-detail':
                 return <ProductDetailPage/>;
             case 'about':
-                return <AboutPage onContact={handleCallPhone}/>;
+                return <AboutPage onNavigateToContact={() => handlePageChange('contact')} onContact={handleCallPhone}/>;
             case 'contact':
                 return <ContactPage/>;
             case 'partners':
-                return <PartnersPage/>;
+                return <PartnersPage onContact={handleCallPhone}/>;
             default:
                 return <HomePage/>;
         }
@@ -367,7 +391,7 @@ const App: React.FC = () => {
                 onPageChange={handlePageChange}
             />
 
-            <main className="flex-1">
+            <main className="flex-1 pt-20">
                 {renderCurrentPage()}
             </main>
 

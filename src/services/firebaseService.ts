@@ -117,13 +117,18 @@ export class ProductService {
 
     // Get all products
     async getProducts(): Promise<Product[]> {
-        const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
-        const querySnapshot = await getDocs(q);
+        try {
+            const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
+            const querySnapshot = await getDocs(q);
 
-        return querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        })) as Product[];
+            return querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            })) as Product[];
+        } catch (error) {
+            console.error('Error fetching products from Firebase:', error);
+            throw error; // Re-throw to let the calling code handle it
+        }
     }
 
     // Get products by category
@@ -155,14 +160,21 @@ export class ProductService {
     onProductsChange(callback: (products: Product[]) => void): () => void {
         const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
 
-        return onSnapshot(q, (querySnapshot) => {
-            const products = querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            })) as Product[];
+        return onSnapshot(q,
+            (querySnapshot) => {
+                const products = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                })) as Product[];
 
-            callback(products);
-        });
+                callback(products);
+            },
+            (error) => {
+                console.error('Error listening to products changes:', error);
+                // Fallback to empty array on error
+                callback([]);
+            }
+        );
     }
 }
 

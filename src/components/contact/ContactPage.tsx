@@ -65,7 +65,7 @@ const ContactPage: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen pt-24 pb-12">
+        <div className="min-h-screen pb-12">
             {/* Hero Section */}
             <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-16">
                 <div className="container mx-auto px-6 text-center">
@@ -279,16 +279,23 @@ const ContactPage: React.FC = () => {
                                 }
                             </p>
                         </div>
-                        <div id="map" className="h-96 bg-gray-200 flex items-center justify-center">
-                            {/* Google Maps iframe buraya eklenebilir */}
-                            <div className="text-center">
-                                <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4"/>
-                                <p className="text-gray-500">
-                                    {language === 'tr' ? 'Harita yükleniyor...' : 'Loading map...'}
-                                </p>
-                                <p className="text-sm text-gray-400 mt-2">
-                                    {personalInfo.address[language]}
-                                </p>
+                        <div id="map" className="h-96 relative">
+                            <iframe
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=30.7071%2C36.8832%2C30.7471%2C36.9132&amp;layer=mapnik&amp;marker=36.8982%2C30.7271"
+                                className="w-full h-full border-0 rounded-lg"
+                                title={language === 'tr' ? 'Antalya Konum Haritası' : 'Antalya Location Map'}
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            />
+                            <div
+                                className="absolute bottom-4 left-4 bg-white/90 backdrop-blur p-3 rounded-lg shadow-lg">
+                                <div className="flex items-center space-x-2">
+                                    <MapPin className="w-5 h-5 text-blue-600"/>
+                                    <div>
+                                        <p className="text-sm font-semibold text-gray-900">Fahri Eren</p>
+                                        <p className="text-xs text-gray-600">{personalInfo.address[language]}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
