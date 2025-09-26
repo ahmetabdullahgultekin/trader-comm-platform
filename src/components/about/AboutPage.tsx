@@ -4,12 +4,8 @@ import {
     Calendar,
     Car,
     CheckCircle,
-    Download,
     Egg,
     Home,
-    Mail,
-    MapPin,
-    Phone,
     Star,
     Users
 } from 'lucide-react';
@@ -26,41 +22,11 @@ const AboutPage: React.FC<AboutPageProps> = ({onNavigateToContact, onContact}) =
     const dataService = DataService.getInstance();
     const personalInfo = dataService.getPersonalInfo();
 
-    const handleDownloadCV = () => {
-        const cvContent = `
-FAHRI EREN - CV
-
-${t('contact.info.phone')}: ${personalInfo.phone}
-${t('contact.info.email')}: ${personalInfo.email}
-${t('contact.info.address')}: ${personalInfo.address[language]}
-
-${t('about.experience')}:
-- ${language === 'tr' ? '25+ yıl ticaret deneyimi' : '25+ years of trade experience'}
-- ${language === 'tr' ? 'Çok sektörlü hizmet' : 'Multi-sector service'}
-
-${t('about.services')}:
-${language === 'tr' ?
-            '• Emlak Alım-Satım\n• Araç Ticareti\n• İnşaat Malzemeleri\n• Tarım Ürünleri' :
-            '• Real Estate Trading\n• Vehicle Trading\n• Construction Materials\n• Agricultural Products'}
-
-${personalInfo.bio[language]}
-        `.trim();
-
-        const blob = new Blob([cvContent], {type: 'text/plain'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `Fahri_Eren_CV_${language}.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
 
     const stats = [
-        {icon: Calendar, value: '25+', label: t('about.stats.years'), color: 'blue'},
-        {icon: Users, value: '5000+', label: t('about.stats.customers'), color: 'green'},
-        {icon: CheckCircle, value: '500+', label: t('about.stats.products'), color: 'purple'},
+        {icon: Calendar, value: '25+', label: t('about.stats.years'), color: 'primary'},
+        {icon: Users, value: '5000+', label: t('about.stats.customers'), color: 'accent'},
+        {icon: CheckCircle, value: '500+', label: t('about.stats.products'), color: 'secondary'},
         {icon: Star, value: '4.9', label: t('about.stats.rating'), color: 'yellow'}
     ];
 
@@ -71,7 +37,7 @@ ${personalInfo.bio[language]}
             description: language === 'tr'
                 ? 'Emlak alım-satım ve kiralama hizmetleri'
                 : 'Real estate sales and rental services',
-            color: 'blue'
+            color: 'primary'
         },
         {
             icon: Car,
@@ -79,7 +45,7 @@ ${personalInfo.bio[language]}
             description: language === 'tr'
                 ? 'Araç alım-satım ve ekspertiz hizmetleri'
                 : 'Vehicle sales and expertise services',
-            color: 'green'
+            color: 'accent'
         },
         {
             icon: Building2,
@@ -87,7 +53,7 @@ ${personalInfo.bio[language]}
             description: language === 'tr'
                 ? 'İnşaat malzemeleri ticareti'
                 : 'Construction materials trading',
-            color: 'orange'
+            color: 'secondary'
         },
         {
             icon: Egg,
@@ -95,7 +61,7 @@ ${personalInfo.bio[language]}
             description: language === 'tr'
                 ? 'Organik tarım ürünleri üretimi'
                 : 'Organic agricultural products production',
-            color: 'purple'
+            color: 'accent'
         }
     ];
 
@@ -114,33 +80,19 @@ ${personalInfo.bio[language]}
     return (
         <div className="min-h-screen pb-12">
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-20">
+            <section className="bg-gradient-to-br from-primary-600 to-secondary-700 text-white py-20">
                 <div className="container mx-auto px-6">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
                             <h1 className="text-4xl md:text-5xl font-bold mb-6">
                                 {t('about.title')}
                             </h1>
-                            <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+                            <p className="text-xl text-primary-100 mb-8 leading-relaxed">
                                 {t('about.subtitle')}
                             </p>
-                            <p className="text-lg text-blue-50 mb-8 leading-relaxed">
+                            <p className="text-lg text-primary-50 mb-8 leading-relaxed">
                                 {personalInfo.bio[language]}
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <button
-                                    onClick={onNavigateToContact}
-                                    className="px-8 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
-                                >
-                                    {t('about.contactMe')}
-                                </button>
-                                <button
-                                    onClick={handleDownloadCV}
-                                    className="px-8 py-3 border-2 border-white text-white rounded-xl font-semibold hover:bg-white hover:text-blue-600 transition-colors flex items-center justify-center space-x-2">
-                                    <Download className="w-5 h-5"/>
-                                    <span>{t('about.downloadCV')}</span>
-                                </button>
-                            </div>
                         </div>
 
                         <div className="relative">
@@ -152,9 +104,9 @@ ${personalInfo.bio[language]}
                                 />
                             </div>
                             <div
-                                className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-2xl transform rotate-6"></div>
+                                className="absolute inset-0 bg-gradient-to-br from-secondary-400/20 to-accent-400/20 rounded-2xl transform rotate-6"></div>
                             <div
-                                className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-blue-400/20 rounded-2xl transform -rotate-6"></div>
+                                className="absolute inset-0 bg-gradient-to-br from-accent-400/20 to-secondary-400/20 rounded-2xl transform -rotate-6"></div>
                         </div>
                     </div>
                 </div>
@@ -167,7 +119,12 @@ ${personalInfo.bio[language]}
                         {stats.map((stat, index) => (
                             <div key={index} className="text-center group">
                                 <div
-                                    className={`inline-flex items-center justify-center w-16 h-16 bg-${stat.color}-100 text-${stat.color}-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform`}>
+                                    className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 group-hover:scale-110 transition-transform ${
+                                        stat.color === 'primary' ? 'bg-primary-100 text-primary-600' :
+                                        stat.color === 'secondary' ? 'bg-secondary-100 text-secondary-600' :
+                                        stat.color === 'accent' ? 'bg-accent-100 text-accent-600' :
+                                        'bg-yellow-100 text-yellow-600'
+                                    }`}>
                                     <stat.icon className="w-8 h-8"/>
                                 </div>
                                 <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
@@ -194,10 +151,6 @@ ${personalInfo.bio[language]}
                                     <p className="text-gray-600 leading-relaxed">{t('about.missionText')}</p>
                                 </div>
 
-                                <div className="bg-white p-6 rounded-xl shadow-sm">
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-3">{t('about.vision')}</h3>
-                                    <p className="text-gray-600 leading-relaxed">{t('about.visionText')}</p>
-                                </div>
                             </div>
                         </div>
 
@@ -208,7 +161,7 @@ ${personalInfo.bio[language]}
                                     <div key={index}
                                          className="flex items-start space-x-4 bg-white p-4 rounded-xl shadow-sm">
                                         <div
-                                            className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">
+                                            className="w-12 h-12 bg-gradient-to-br from-primary-600 to-secondary-600 text-white rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0">
                                             {achievement.year}
                                         </div>
                                         <div>
@@ -240,7 +193,12 @@ ${personalInfo.bio[language]}
                             <div key={index}
                                  className="bg-gray-50 p-8 rounded-2xl text-center hover:bg-white hover:shadow-lg transition-all duration-300 group">
                                 <div
-                                    className={`inline-flex items-center justify-center w-16 h-16 bg-${service.color}-100 text-${service.color}-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform`}>
+                                    className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-6 group-hover:scale-110 transition-transform ${
+                                        service.color === 'primary' ? 'bg-primary-100 text-primary-600' :
+                                        service.color === 'secondary' ? 'bg-secondary-100 text-secondary-600' :
+                                        service.color === 'accent' ? 'bg-accent-100 text-accent-600' :
+                                        'bg-gray-100 text-gray-600'
+                                    }`}>
                                     <service.icon className="w-8 h-8"/>
                                 </div>
                                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{service.title}</h3>
@@ -251,40 +209,6 @@ ${personalInfo.bio[language]}
                 </div>
             </section>
 
-            {/* Contact CTA Section */}
-            <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
-                <div className="container mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-bold text-white mb-6">
-                        {language === 'tr' ? 'Birlikte Çalışalım' : 'Let\'s Work Together'}
-                    </h2>
-                    <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                        {language === 'tr'
-                            ? 'Projeleriniz için güvenilir bir iş ortağı arıyorsanız, benimle iletişime geçin.'
-                            : 'If you are looking for a reliable business partner for your projects, contact me.'
-                        }
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <div className="flex items-center space-x-2 text-white">
-                            <Phone className="w-5 h-5"/>
-                            <span>{personalInfo.phone}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-white">
-                            <Mail className="w-5 h-5"/>
-                            <span>{personalInfo.email}</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-white">
-                            <MapPin className="w-5 h-5"/>
-                            <span>{personalInfo.address[language]}</span>
-                        </div>
-                    </div>
-                    <button
-                        onClick={onNavigateToContact}
-                        className="mt-8 px-8 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors"
-                    >
-                        {t('about.contactMe')}
-                    </button>
-                </div>
-            </section>
         </div>
     );
 };

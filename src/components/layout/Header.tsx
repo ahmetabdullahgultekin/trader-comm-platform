@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({currentPage, onPageChange}) => {
                         onClick={() => onPageChange('home')}
                     >
                         <div
-                            className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                            className="w-12 h-12 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-xl flex items-center justify-center">
                             <span className="text-white font-bold text-xl">FE</span>
                         </div>
                         <div>
@@ -55,8 +55,8 @@ const Header: React.FC<HeaderProps> = ({currentPage, onPageChange}) => {
                                 onClick={() => onPageChange(item.key)}
                                 className={`text-lg font-medium transition-colors ${
                                     currentPage === item.key
-                                        ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
-                                        : 'text-gray-700 hover:text-blue-600'
+                                        ? 'text-primary-600 border-b-2 border-primary-600 pb-1'
+                                        : 'text-gray-700 hover:text-primary-600'
                                 }`}
                             >
                                 {item.label}
@@ -69,7 +69,7 @@ const Header: React.FC<HeaderProps> = ({currentPage, onPageChange}) => {
                         <div className="flex items-center space-x-4 text-sm text-gray-600">
                             <div className="flex items-center space-x-1">
                                 <Phone className="w-4 h-4"/>
-                                <span>+90 532 123 45 67</span>
+                                <span>05368536265</span>
                             </div>
                             <div className="flex items-center space-x-1">
                                 <Mail className="w-4 h-4"/>
@@ -111,8 +111,8 @@ const Header: React.FC<HeaderProps> = ({currentPage, onPageChange}) => {
                                         }}
                                         className={`text-left text-lg font-medium transition-colors ${
                                             currentPage === item.key
-                                                ? 'text-blue-600'
-                                                : 'text-gray-700 hover:text-blue-600'
+                                                ? 'text-primary-600'
+                                                : 'text-gray-700 hover:text-primary-600'
                                         }`}
                                     >
                                         {item.label}

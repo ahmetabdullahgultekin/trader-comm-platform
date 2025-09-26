@@ -320,7 +320,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                                 className="w-full px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center space-x-2"
                             >
                                 <Phone className="w-5 h-5"/>
-                                <span>Hemen Ara - +90 532 123 45 67</span>
+                                <span>Hemen Ara - 05368536265</span>
                             </button>
                             <div className="grid grid-cols-2 gap-3">
                                 <button

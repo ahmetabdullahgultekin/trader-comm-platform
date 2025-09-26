@@ -134,7 +134,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             {product.title[language]}
                         </h3>
                         <div className="text-right flex-shrink-0 ml-4">
-                            <p className="text-2xl font-bold text-blue-600">
+                            <p className="text-2xl font-bold text-primary-600">
                                 {formatPrice(product.price, product.currency)}
                             </p>
                         </div>
@@ -274,7 +274,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </p>
 
                 <div className="flex items-center justify-between mb-4">
-                    <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-2xl font-bold text-primary-600">
                         {formatPrice(product.price, product.currency)}
                     </div>
 
@@ -306,7 +306,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
                     <button
                         onClick={handleContact}
-                        className="p-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                        className="p-2 bg-accent-600 hover:bg-accent-700 text-white rounded-lg transition-colors"
                         title="Ara"
                     >
                         <Phone className="w-4 h-4"/>

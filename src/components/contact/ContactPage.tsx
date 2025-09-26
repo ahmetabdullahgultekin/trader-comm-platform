@@ -32,45 +32,32 @@ const ContactPage: React.FC = () => {
             title: t('contact.info.phone'),
             value: personalInfo.phone,
             href: `tel:${personalInfo.phone}`,
-            color: 'green'
+            color: 'accent'
         },
         {
             icon: Mail,
             title: t('contact.info.email'),
             value: personalInfo.email,
             href: `mailto:${personalInfo.email}`,
-            color: 'blue'
+            color: 'primary'
         },
         {
             icon: MapPin,
             title: t('contact.info.address'),
             value: personalInfo.address[language],
             href: '#map',
-            color: 'purple'
-        },
-        {
-            icon: Clock,
-            title: t('contact.info.workHours'),
-            value: personalInfo.workHours[language],
-            href: null,
-            color: 'orange'
+            color: 'secondary'
         }
     ];
 
-    const socialLinks = [
-        {icon: Facebook, href: personalInfo.socialMedia.facebook, color: 'blue', name: 'Facebook'},
-        {icon: Instagram, href: personalInfo.socialMedia.instagram, color: 'pink', name: 'Instagram'},
-        {icon: Twitter, href: personalInfo.socialMedia.twitter, color: 'blue', name: 'Twitter'},
-        {icon: Linkedin, href: personalInfo.socialMedia.linkedin, color: 'blue', name: 'LinkedIn'}
-    ];
 
     return (
         <div className="min-h-screen pb-12">
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-16">
+            <section className="bg-gradient-to-br from-primary-600 to-secondary-700 text-white py-16">
                 <div className="container mx-auto px-6 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('contact.title')}</h1>
-                    <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+                    <p className="text-xl text-primary-100 max-w-2xl mx-auto">
                         {t('contact.subtitle')}
                     </p>
                 </div>
@@ -112,7 +99,7 @@ const ContactPage: React.FC = () => {
                                             required
                                             value={formData.name}
                                             onChange={(e) => updateField('name', e.target.value)}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.name')}
                                         />
                                     </div>
@@ -126,7 +113,7 @@ const ContactPage: React.FC = () => {
                                             required
                                             value={formData.email}
                                             onChange={(e) => updateField('email', e.target.value)}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.email')}
                                         />
                                     </div>
@@ -141,7 +128,7 @@ const ContactPage: React.FC = () => {
                                             type="tel"
                                             value={formData.phone}
                                             onChange={(e) => updateField('phone', e.target.value)}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.phone')}
                                         />
                                     </div>
@@ -155,7 +142,7 @@ const ContactPage: React.FC = () => {
                                             required
                                             value={formData.subject}
                                             onChange={(e) => updateField('subject', e.target.value)}
-                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
                                             placeholder={t('contact.form.subject')}
                                         />
                                     </div>
@@ -178,7 +165,7 @@ const ContactPage: React.FC = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                                    className="w-full px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-secondary-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                                 >
                                     <Send className="w-5 h-5"/>
                                     <span>
@@ -200,7 +187,12 @@ const ContactPage: React.FC = () => {
                             <div className="space-y-6">
                                 {contactInfo.map((info, index) => (
                                     <div key={index} className="flex items-start space-x-4">
-                                        <div className={`p-3 bg-${info.color}-100 text-${info.color}-600 rounded-xl`}>
+                                        <div className={`p-3 rounded-xl ${
+                                            info.color === 'primary' ? 'bg-primary-100 text-primary-600' :
+                                            info.color === 'secondary' ? 'bg-secondary-100 text-secondary-600' :
+                                            info.color === 'accent' ? 'bg-accent-100 text-accent-600' :
+                                            'bg-gray-100 text-gray-600'
+                                        }`}>
                                             <info.icon className="w-6 h-6"/>
                                         </div>
                                         <div>
@@ -208,7 +200,7 @@ const ContactPage: React.FC = () => {
                                             {info.href ? (
                                                 <a
                                                     href={info.href}
-                                                    className="text-gray-600 hover:text-blue-600 transition-colors"
+                                                    className="text-gray-600 hover:text-primary-600 transition-colors"
                                                 >
                                                     {info.value}
                                                 </a>
@@ -221,31 +213,10 @@ const ContactPage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Social Media */}
-                        <div className="bg-white rounded-2xl shadow-2xl p-8">
-                            <h3 className="text-xl font-bold text-gray-900 mb-6">{t('contact.social')}</h3>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                {socialLinks.filter(link => link.href).map((social, index) => (
-                                    <a
-                                        key={index}
-                                        href={social.href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`flex items-center space-x-3 p-4 bg-${social.color}-50 hover:bg-${social.color}-100 rounded-xl transition-colors group`}
-                                    >
-                                        <social.icon className={`w-5 h-5 text-${social.color}-600`}/>
-                                        <span className="text-gray-700 group-hover:text-gray-900 font-medium">
-                      {social.name}
-                    </span>
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
 
                         {/* Business Hours */}
                         <div
-                            className="bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl shadow-2xl p-8">
+                            className="bg-gradient-to-br from-primary-600 to-secondary-600 text-white rounded-2xl shadow-2xl p-8">
                             <h3 className="text-xl font-bold mb-6">{t('contact.info.workHours')}</h3>
                             <div className="space-y-3">
                                 <div className="flex justify-between items-center pb-2 border-b border-white/20">
@@ -256,7 +227,7 @@ const ContactPage: React.FC = () => {
                                 </div>
                             </div>
                             <div className="mt-6 p-4 bg-white/10 rounded-xl">
-                                <p className="text-sm text-blue-100">
+                                <p className="text-sm text-primary-100">
                                     {language === 'tr'
                                         ? 'Acil durumlar için 7/24 ulaşabilirsiniz.'
                                         : 'Available 24/7 for emergencies.'
@@ -281,16 +252,16 @@ const ContactPage: React.FC = () => {
                         </div>
                         <div id="map" className="h-96 relative">
                             <iframe
-                                src="https://www.openstreetmap.org/export/embed.html?bbox=30.7071%2C36.8832%2C30.7471%2C36.9132&amp;layer=mapnik&amp;marker=36.8982%2C30.7271"
+                                src="https://www.openstreetmap.org/export/embed.html?bbox=34.4479%2C37.4622%2C34.4879%2C37.5022&amp;layer=mapnik&amp;marker=37.482235%2C34.467883"
                                 className="w-full h-full border-0 rounded-lg"
-                                title={language === 'tr' ? 'Antalya Konum Haritası' : 'Antalya Location Map'}
+                                title={language === 'tr' ? 'Ulukışla Konum Haritası' : 'Ulukışla Location Map'}
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
                             />
                             <div
                                 className="absolute bottom-4 left-4 bg-white/90 backdrop-blur p-3 rounded-lg shadow-lg">
                                 <div className="flex items-center space-x-2">
-                                    <MapPin className="w-5 h-5 text-blue-600"/>
+                                    <MapPin className="w-5 h-5 text-primary-600"/>
                                     <div>
                                         <p className="text-sm font-semibold text-gray-900">Fahri Eren</p>
                                         <p className="text-xs text-gray-600">{personalInfo.address[language]}</p>

@@ -26,7 +26,7 @@ const sampleProducts: Omit<Product, 'id'>[] = [
         date: new Date().toISOString(),
         seller: {
             name: 'Fahri Eren',
-            phone: '+90 532 123 45 67',
+            phone: '05368536265',
             email: 'fahri.eren@gmail.com'
         },
         features: {
@@ -63,7 +63,7 @@ const sampleProducts: Omit<Product, 'id'>[] = [
         date: new Date(Date.now() - 86400000).toISOString(), // Yesterday
         seller: {
             name: 'Fahri Eren',
-            phone: '+90 532 123 45 67',
+            phone: '05368536265',
             email: 'fahri.eren@gmail.com'
         },
         features: {
@@ -100,7 +100,7 @@ const sampleProducts: Omit<Product, 'id'>[] = [
         date: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
         seller: {
             name: 'Fahri Eren',
-            phone: '+90 532 123 45 67',
+            phone: '05368536265',
             email: 'fahri.eren@gmail.com'
         },
         features: {
@@ -133,11 +133,11 @@ const sampleProducts: Omit<Product, 'id'>[] = [
         reviews: 67,
         views: 234,
         priceText: '15 TL/kg',
-        location: {tr: 'Antalya, Türkiye', en: 'Antalya, Turkey'},
+        location: {tr: 'Ulukışla, Niğde, Türkiye', en: 'Ulukışla, Niğde, Turkey'},
         date: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
         seller: {
             name: 'Fahri Eren',
-            phone: '+90 532 123 45 67',
+            phone: '05368536265',
             email: 'fahri.eren@gmail.com'
         },
         features: {
@@ -145,7 +145,7 @@ const sampleProducts: Omit<Product, 'id'>[] = [
             en: ['100% organic', 'Pesticide-free', 'Fresh', 'Local production', 'Certified']
         },
         specifications: {
-            origin: 'Antalya',
+            origin: 'Ulukışla, Niğde',
             harvest: 'Bu hafta',
             organic: 'Sertifikalı',
             storage: 'Soğuk zincir'

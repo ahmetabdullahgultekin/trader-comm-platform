@@ -1,5 +1,5 @@
 import React from 'react';
-import {Award, Building, Egg, ExternalLink, Globe, Store, Truck, Users} from 'lucide-react';
+import {Award, Building, Egg, Globe, Store, Truck, Users} from 'lucide-react';
 import {useTranslation} from '../../hooks';
 import {DataService} from '../../services/dataService';
 
@@ -12,23 +12,13 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
     const dataService = DataService.getInstance();
     const partners = dataService.getPartners();
 
-    const handleLearnMore = (partnerId: string) => {
-        const partner = partners.find(p => p.id === partnerId);
-        if (partner) {
-            alert(`${language === 'tr'
-                ? `${partner.name} hakkında daha fazla bilgi:\n\n${partner.description[language]}\n\nHizmetler:\n${partner.services[language].join('\n')}`
-                : `More information about ${partner.name}:\n\n${partner.description[language]}\n\nServices:\n${partner.services[language].join('\n')}`
-            }`);
-        }
-    };
-
     const handleGetInTouch = () => {
         if (onContact) {
             onContact();
         } else {
             alert(language === 'tr'
-                ? 'İletişim için: +90 532 123 45 67 numarasını arayabilir veya fahri.eren@gmail.com adresine email gönderebilirsiniz.'
-                : 'For contact: You can call +90 532 123 45 67 or send an email to fahri.eren@gmail.com'
+                ? 'İletişim için: 05368536265 numarasını arayabilir veya fahri.eren@gmail.com adresine email gönderebilirsiniz.'
+                : 'For contact: You can call 05368536265 or send an email to fahri.eren@gmail.com'
             );
         }
     };
@@ -52,27 +42,27 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
         switch (id) {
             case 'eren-ticaret':
                 return {
-                    gradient: 'from-blue-600 to-blue-700',
-                    bg: 'bg-blue-500',
-                    text: 'text-blue-600'
+                    gradient: 'from-primary-600 to-primary-700',
+                    bg: 'bg-primary-500',
+                    text: 'text-primary-600'
                 };
             case 'eren-yumurta':
                 return {
-                    gradient: 'from-green-600 to-green-700',
-                    bg: 'bg-green-500',
-                    text: 'text-green-600'
+                    gradient: 'from-accent-600 to-accent-700',
+                    bg: 'bg-accent-500',
+                    text: 'text-accent-600'
                 };
             case 'eren-emlak':
                 return {
-                    gradient: 'from-purple-600 to-purple-700',
-                    bg: 'bg-purple-500',
-                    text: 'text-purple-600'
+                    gradient: 'from-secondary-600 to-secondary-700',
+                    bg: 'bg-secondary-500',
+                    text: 'text-secondary-600'
                 };
             case 'eren-lojistik':
                 return {
-                    gradient: 'from-orange-600 to-orange-700',
-                    bg: 'bg-orange-500',
-                    text: 'text-orange-600'
+                    gradient: 'from-primary-600 to-accent-600',
+                    bg: 'bg-accent-500',
+                    text: 'text-accent-600'
                 };
             default:
                 return {
@@ -86,39 +76,28 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
     return (
         <div className="min-h-screen pb-12">
             {/* Hero Section */}
-            <section className="bg-gradient-to-br from-blue-600 to-purple-700 text-white py-20">
+            <section className="bg-gradient-to-br from-primary-600 to-secondary-700 text-white py-20">
                 <div className="container mx-auto px-6 text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-6">{t('partners.title')}</h1>
-                    <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
+                    <p className="text-xl text-primary-100 max-w-3xl mx-auto mb-8">
                         {t('partners.subtitle')}
                     </p>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
-                        <div className="text-center">
-                            <div className="text-3xl font-bold mb-2">4</div>
-                            <div className="text-blue-100 text-sm">
-                                {language === 'tr' ? 'Aktif İş Ortağı' : 'Active Partners'}
-                            </div>
-                        </div>
+                    <div className="flex justify-center gap-16 mt-12">
                         <div className="text-center">
                             <div className="text-3xl font-bold mb-2">25+</div>
-                            <div className="text-blue-100 text-sm">
+                            <div className="text-primary-100 text-sm">
                                 {language === 'tr' ? 'Yıllık Deneyim' : 'Years Experience'}
                             </div>
                         </div>
                         <div className="text-center">
                             <div className="text-3xl font-bold mb-2">1000+</div>
-                            <div className="text-blue-100 text-sm">
+                            <div className="text-primary-100 text-sm">
                                 {language === 'tr' ? 'Tamamlanan Proje' : 'Completed Projects'}
                             </div>
                         </div>
-                        <div className="text-center">
-                            <div className="text-3xl font-bold mb-2">50+</div>
-                            <div className="text-blue-100 text-sm">
-                                {language === 'tr' ? 'Şehir' : 'Cities'}
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </section>
@@ -199,25 +178,6 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
                                             </div>
                                         </div>
 
-                                        {/* Action Buttons */}
-                                        <div className="flex space-x-3">
-                                            {partner.website && (
-                                                <a
-                                                    href={partner.website}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className={`flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium flex items-center justify-center space-x-2`}
-                                                >
-                                                    <ExternalLink className="w-4 h-4"/>
-                                                    <span>{t('partners.visitWebsite')}</span>
-                                                </a>
-                                            )}
-                                            <button
-                                                onClick={() => handleLearnMore(partner.id)}
-                                                className="flex-1 px-4 py-3 border-2 border-gray-300 text-gray-700 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-colors font-medium">
-                                                {t('partners.learnMore')}
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                             );
@@ -244,7 +204,7 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
                             <div
-                                className="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                className="w-16 h-16 bg-primary-100 text-primary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                 <Award className="w-8 h-8"/>
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -260,7 +220,7 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
 
                         <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
                             <div
-                                className="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                className="w-16 h-16 bg-accent-100 text-accent-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                 <Users className="w-8 h-8"/>
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -276,7 +236,7 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
 
                         <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
                             <div
-                                className="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                className="w-16 h-16 bg-secondary-100 text-secondary-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                                 <Globe className="w-8 h-8"/>
                             </div>
                             <h3 className="text-xl font-semibold text-gray-900 mb-4">
@@ -294,12 +254,12 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
+            <section className="py-16 bg-gradient-to-r from-primary-600 to-secondary-600">
                 <div className="container mx-auto px-6 text-center">
                     <h2 className="text-3xl font-bold text-white mb-6">
                         {language === 'tr' ? 'İş Ortağı Olmak İster misiniz?' : 'Would You Like to Become a Partner?'}
                     </h2>
-                    <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                    <p className="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
                         {language === 'tr'
                             ? 'Kaliteli hizmet anlayışımıza sahip firmalar için iş ortaklığı fırsatları sunuyoruz.'
                             : 'We offer partnership opportunities for companies with our quality service approach.'
@@ -307,7 +267,7 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
                     </p>
                     <button
                         onClick={handleGetInTouch}
-                        className="px-8 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-colors">
+                        className="px-8 py-3 bg-white text-primary-600 rounded-xl font-semibold hover:bg-primary-50 transition-colors">
                         {language === 'tr' ? 'İletişime Geçin' : 'Get in Touch'}
                     </button>
                 </div>

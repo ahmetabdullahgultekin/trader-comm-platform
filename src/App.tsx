@@ -8,63 +8,11 @@ import ProductFilters from './components/products/ProductFilters';
 import AboutPage from './components/about/AboutPage';
 import ContactPage from './components/contact/ContactPage';
 import PartnersPage from './components/partners/PartnersPage';
-import {useNewsletter, useProducts, useSEO, useTranslation} from './hooks';
+import {useProducts, useSEO, useTranslation} from './hooks';
 import {AdminPanel} from './components/admin/AdminPanel';
 import analyticsService from './services/analyticsService';
 import type {Product} from './types';
-import {Filter, Grid, List, Loader, Mail, RefreshCw, Send, Settings} from 'lucide-react';
-
-// Newsletter Component
-const NewsletterSection: React.FC = () => {
-    const {email, setEmail, subscribe, isSubmitting, status} = useNewsletter();
-    const {t} = useTranslation();
-
-    return (
-        <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
-            <div className="container mx-auto px-6">
-                <div className="max-w-2xl mx-auto text-center text-white">
-                    <Mail className="w-12 h-12 mx-auto mb-6"/>
-                    <h3 className="text-2xl font-bold mb-4">
-                        {t('newsletter.title')}
-                    </h3>
-                    <p className="text-blue-100 mb-8">
-                        {t('newsletter.description')}
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder={t('newsletter.placeholder')}
-                            className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-white focus:outline-none"
-                            disabled={isSubmitting}
-                        />
-                        <button
-                            onClick={subscribe}
-                            disabled={isSubmitting || !email}
-                            className="px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
-                        >
-                            {isSubmitting ? (
-                                <Loader className="w-4 h-4 animate-spin"/>
-                            ) : (
-                                <Send className="w-4 h-4"/>
-                            )}
-                            <span>{isSubmitting ? t('newsletter.subscribing') : t('newsletter.subscribe')}</span>
-                        </button>
-                    </div>
-
-                    {status === 'success' && (
-                        <p className="mt-4 text-green-200">✅ {t('newsletter.success')}</p>
-                    )}
-                    {status === 'error' && (
-                        <p className="mt-4 text-red-200">❌ {t('newsletter.error')}</p>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
-};
+import {Building2, Car, Egg, Filter, Grid, Home, List, Loader, Mail, RefreshCw, Send, Settings} from 'lucide-react';
 
 // Loading Component
 const LoadingSpinner: React.FC = () => {
@@ -235,7 +183,6 @@ const App: React.FC = () => {
                 </div>
             </section>
 
-            <NewsletterSection/>
         </div>
     );
 
@@ -253,6 +200,67 @@ const App: React.FC = () => {
                             <RefreshCw className="w-4 h-4"/>
                             <span>{t('admin.refresh')}</span>
                         </button>
+                    </div>
+
+                    {/* Category Filter Buttons */}
+                    <div className="mb-8">
+                        <div className="flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+                            <button
+                                onClick={() => updateFilters({category: 'all'})}
+                                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                                    filters.category === 'all'
+                                        ? 'bg-gradient-to-r from-primary-600 to-secondary-600 text-white shadow-lg transform scale-105'
+                                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 hover:border-primary-300'
+                                }`}
+                            >
+
+                                <span>{t('categories.all')}</span>
+                            </button>
+                            <button
+                                onClick={() => updateFilters({category: 'realestate'})}
+                                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                                    filters.category === 'realestate'
+                                        ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg transform scale-105'
+                                        : 'bg-white text-gray-700 hover:bg-primary-50 border border-gray-200 hover:border-primary-300'
+                                }`}
+                            >
+                                <Home className="w-5 h-5"/>
+                                <span>{t('categories.realestate')}</span>
+                            </button>
+                            <button
+                                onClick={() => updateFilters({category: 'vehicles'})}
+                                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                                    filters.category === 'vehicles'
+                                        ? 'bg-gradient-to-r from-secondary-600 to-secondary-700 text-white shadow-lg transform scale-105'
+                                        : 'bg-white text-gray-700 hover:bg-secondary-50 border border-gray-200 hover:border-secondary-300'
+                                }`}
+                            >
+                                <Car className="w-5 h-5"/>
+                                <span>{t('categories.vehicles')}</span>
+                            </button>
+                            <button
+                                onClick={() => updateFilters({category: 'construction'})}
+                                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                                    filters.category === 'construction'
+                                        ? 'bg-gradient-to-r from-accent-600 to-accent-700 text-white shadow-lg transform scale-105'
+                                        : 'bg-white text-gray-700 hover:bg-accent-50 border border-gray-200 hover:border-accent-300'
+                                }`}
+                            >
+                                <Building2 className="w-5 h-5"/>
+                                <span>{t('categories.construction')}</span>
+                            </button>
+                            <button
+                                onClick={() => updateFilters({category: 'farm'})}
+                                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                                    filters.category === 'farm'
+                                        ? 'bg-gradient-to-r from-green-600 to-green-700 text-white shadow-lg transform scale-105'
+                                        : 'bg-white text-gray-700 hover:bg-green-50 border border-gray-200 hover:border-green-300'
+                                }`}
+                            >
+                                <Egg className="w-5 h-5"/>
+                                <span>{t('categories.farm')}</span>
+                            </button>
+                        </div>
                     </div>
 
                     {/* Filters and View Controls */}

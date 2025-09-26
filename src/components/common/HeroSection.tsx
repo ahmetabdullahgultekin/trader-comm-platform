@@ -26,7 +26,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
 
     return (
         <section
-            className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 overflow-hidden">
+            className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-600 via-secondary-500 to-primary-800 overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
                 <div
@@ -38,9 +38,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
                 <div
                     className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
                 <div
-                    className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                    className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
                 <div
-                    className="absolute top-1/2 left-1/2 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl animate-pulse delay-500"></div>
+                    className="absolute top-1/2 left-1/2 w-48 h-48 bg-secondary-400/10 rounded-full blur-2xl animate-pulse delay-500"></div>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -50,7 +50,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
                         <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
                             {t('hero.title')}
                         </h1>
-                        <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
+                        <p className="text-xl md:text-2xl text-primary-100 mb-8 leading-relaxed">
                             {t('hero.subtitle')}
                         </p>
                     </div>
@@ -67,7 +67,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
                             />
                             <button
                                 type="submit"
-                                className="absolute right-2 top-2 bottom-2 px-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold flex items-center space-x-2 shadow-lg"
+                                className="absolute right-2 top-2 bottom-2 px-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-white rounded-xl hover:from-primary-700 hover:to-secondary-700 transition-all duration-300 font-semibold flex items-center space-x-2 shadow-lg"
                             >
                                 <Search className="w-5 h-5"/>
                                 <span className="hidden sm:inline">{t('hero.searchButton')}</span>
@@ -78,7 +78,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
                     {/* CTA Button */}
                     <button
                         onClick={onNavigateToProducts}
-                        className="inline-flex items-center space-x-3 px-8 py-4 bg-white text-blue-600 rounded-2xl text-lg font-semibold hover:bg-blue-50 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
+                        className="inline-flex items-center space-x-3 px-8 py-4 bg-white text-primary-600 rounded-2xl text-lg font-semibold hover:bg-primary-50 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1"
                     >
                         <span>{t('hero.cta')}</span>
                         <ArrowRight className="w-5 h-5"/>
@@ -93,7 +93,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
                                     <stat.icon className="w-6 h-6 text-white"/>
                                 </div>
                                 <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                                <div className="text-blue-100 text-sm">{stat.label}</div>
+                                <div className="text-primary-100 text-sm">{stat.label}</div>
                             </div>
                         ))}
                     </div>

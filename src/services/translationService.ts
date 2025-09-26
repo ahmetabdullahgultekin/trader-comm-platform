@@ -16,7 +16,7 @@ export class TranslationService {
             },
             hero: {
                 title: 'Güvenilir Ticaret, Kaliteli Hizmet',
-                subtitle: 'Emlak, Araç, İnşaat Malzemesi ve Tarım Ürünleri',
+                subtitle: 'Emlak,Tarla, Bahçe, Araç, İnşaat',
                 cta: 'Hemen Keşfet',
                 search: 'Ne aramıştınız?',
                 searchButton: 'Ara'

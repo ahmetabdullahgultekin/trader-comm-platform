@@ -85,36 +85,6 @@ export class DataService {
                 website: 'https://erenyumurta.com.tr',
                 logo: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=300&q=80',
                 category: 'agriculture'
-            },
-            {
-                id: 'eren-emlak',
-                name: 'Eren Emlak',
-                description: {
-                    tr: 'Gayrimenkul alım-satım ve kiralama hizmetlerinde güvenilir çözümler',
-                    en: 'Reliable solutions in real estate sales and rental services'
-                },
-                services: {
-                    tr: ['Satılık Emlak', 'Kiralık Emlak', 'Proje Danışmanlık', 'Değerleme', 'Yatırım Danışmanlığı'],
-                    en: ['For Sale', 'For Rent', 'Project Consulting', 'Valuation', 'Investment Consulting']
-                },
-                website: 'https://erenemlak.com.tr',
-                logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=300&q=80',
-                category: 'realestate'
-            },
-            {
-                id: 'eren-lojistik',
-                name: 'Eren Lojistik',
-                description: {
-                    tr: 'Nakliye ve lojistik çözümlerinde hızlı ve güvenilir hizmet',
-                    en: 'Fast and reliable service in transportation and logistics solutions'
-                },
-                services: {
-                    tr: ['Şehir İçi Taşıma', 'Şehirler Arası', 'Depolama', 'Kargo', 'Özel Taşımacılık'],
-                    en: ['City Transport', 'Intercity', 'Storage', 'Cargo', 'Special Transportation']
-                },
-                website: 'https://erenlojistik.com.tr',
-                logo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&q=80',
-                category: 'logistics'
             }
         ];
     }
@@ -132,11 +102,11 @@ export class DataService {
                 en: 'Hello, I am Fahri Eren. I have been operating in the trade sector since 1998. I have adopted the principle of providing quality products and services by prioritizing customer satisfaction. I specialize in real estate, vehicle trading, construction materials and agricultural products.'
             },
             photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80',
-            phone: '+90 532 123 45 67',
+            phone: '05368536265',
             email: 'fahri.eren@gmail.com',
             address: {
-                tr: 'Muratpaşa, Antalya, Türkiye',
-                en: 'Muratpasha, Antalya, Turkey'
+                tr: 'Kılan Köyü, Ulukışla, Niğde, Türkiye',
+                en: 'Kılan, Ulukışla, Niğde, Turkey'
             },
             socialMedia: {
                 facebook: 'https://facebook.com/fahrieren',
@@ -172,7 +142,7 @@ export class DataService {
                     'https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?w=800&q=80',
                     'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80'
                 ],
-                location: {tr: 'Antalya, Konyaaltı', en: 'Antalya, Konyaalti'},
+                location: {tr: 'Ulukışla, Niğde', en: 'Ulukışla, Niğde'},
                 description: {
                     tr: 'Muhteşem deniz manzaralı, modern mimariye sahip lüks villa. Geniş bahçe, özel havuz ve akıllı ev sistemi ile donatılmıştır. 5 yatak odası, 2 salon, amerikan mutfak ve 3 banyo bulunmaktadır. Villa, denize sadece 50 metre mesafede olup, panoramik manzarası ile büyüleyici bir yaşam alanı sunmaktadır.',
                     en: 'Luxury villa with magnificent sea view and modern architecture. Equipped with large garden, private pool and smart home system. It has 5 bedrooms, 2 living rooms, American kitchen and 3 bathrooms. The villa is only 50 meters from the sea and offers a fascinating living space with its panoramic view.'
@@ -227,7 +197,7 @@ export class DataService {
                     'https://images.unsplash.com/photo-1590069261209-f8e9b8642343?w=800&q=80',
                     'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80'
                 ],
-                location: {tr: 'Eren Ticaret - Antalya', en: 'Eren Trading - Antalya'},
+                location: {tr: 'Eren Ticaret - Ulukışla', en: 'Eren Trading - Ulukışla'},
                 description: {
                     tr: 'Yüksek kaliteli, TSE sertifikalı inşaat demiri. Tüm ebatlarda stok mevcuttur. Toplu alımlarda özel fiyat uygulanır. Nakliye imkanı mevcuttur. Çelik kalitesi S420 normunda olup, deprem yönetmeliğine uygun üretilmiştir.',
                     en: 'High quality, TSE certified rebar. Available in all sizes. Special prices for bulk orders. Delivery available. Steel quality is S420 standard and manufactured in accordance with earthquake regulations.'

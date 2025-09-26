@@ -28,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhat
                     <div>
                         <div className="flex items-center space-x-3 mb-6">
                             <div
-                                className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                                className="w-10 h-10 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center">
                                 <span className="text-white font-bold">FE</span>
                             </div>
                             <h3 className="text-xl font-bold">Fahri Eren</h3>
@@ -36,24 +36,7 @@ const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhat
                         <p className="text-gray-300 mb-6 leading-relaxed">
                             {t('footer.companyDescription')}
                         </p>
-                        <div className="flex space-x-4">
-                            <a href="https://facebook.com/fahrierencom" target="_blank" rel="noopener noreferrer"
-                               className="text-gray-400 hover:text-white transition-colors">
-                                <Facebook className="w-5 h-5"/>
-                            </a>
-                            <a href="https://instagram.com/fahrieren" target="_blank" rel="noopener noreferrer"
-                               className="text-gray-400 hover:text-white transition-colors">
-                                <Instagram className="w-5 h-5"/>
-                            </a>
-                            <a href="https://twitter.com/fahrieren" target="_blank" rel="noopener noreferrer"
-                               className="text-gray-400 hover:text-white transition-colors">
-                                <Twitter className="w-5 h-5"/>
-                            </a>
-                            <a href="https://linkedin.com/in/fahrieren" target="_blank" rel="noopener noreferrer"
-                               className="text-gray-400 hover:text-white transition-colors">
-                                <Linkedin className="w-5 h-5"/>
-                            </a>
-                        </div>
+
                     </div>
 
                     {/* Quick Links */}
@@ -115,18 +98,18 @@ const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhat
                         <h4 className="text-lg font-semibold mb-6">{t('contact.title')}</h4>
                         <div className="space-y-4">
                             <div className="flex items-start space-x-3">
-                                <Phone className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0"/>
+                                <Phone className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0"/>
                                 <div>
                                     <button
                                         onClick={onContact}
                                         className="text-gray-300 hover:text-white transition-colors"
                                     >
-                                        +90 532 123 45 67
+                                        05368536265
                                     </button>
                                 </div>
                             </div>
                             <div className="flex items-start space-x-3">
-                                <Mail className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0"/>
+                                <Mail className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0"/>
                                 <div>
                                     <button
                                         onClick={onEmail}
@@ -137,9 +120,9 @@ const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhat
                                 </div>
                             </div>
                             <div className="flex items-start space-x-3">
-                                <MapPin className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0"/>
+                                <MapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0"/>
                                 <div>
-                                    <p className="text-gray-300">Muratpaşa, Antalya, Türkiye</p>
+                                    <p className="text-gray-300">Ulukışla, Niğde, Türkiye</p>
                                 </div>
                             </div>
                             <div className="pt-4">
