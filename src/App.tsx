@@ -191,11 +191,21 @@ const App: React.FC = () => {
         <div className="pt-20">
             <div className="bg-gray-50 py-12">
                 <div className="container mx-auto px-6">
+                    {/* Ayet Bölümü */}
+                    <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-lg shadow-sm p-6 mb-8 border-l-4 border-emerald-400">
+                        <div className="text-center">
+                            <p className="text-lg text-gray-700 leading-relaxed mb-2 italic font-medium">
+                                "Ey iman edenler! Birbirinizin mallarınızı batıl yollarla yemeyin; ancak karşılıklı rızaya dayanan ticaretle (kazanın)."
+                            </p>
+                            <p className="text-sm text-emerald-600 font-semibold">(Nisâ, 29)</p>
+                        </div>
+                    </div>
+
                     <div className="flex items-center justify-between mb-8">
                         <h1 className="text-3xl font-bold text-gray-900">Ürünlerimiz</h1>
                         <button
                             onClick={refetch}
-                            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                            className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:blue-700 transition-colors"
                         >
                             <RefreshCw className="w-4 h-4"/>
                             <span>{t('admin.refresh')}</span>
