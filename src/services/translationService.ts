@@ -7,6 +7,83 @@ export class TranslationService {
 
     private translations = {
         tr: {
+            home: {
+                seo: {
+                    title: 'Fahri Eren - Güvenilir Ticaret Platformu',
+                    description: 'Emlak, araç, tarım ürünleri ve inşaat malzemelerinde güvenilir hizmet.'
+                },
+                categories: {
+                    title: 'Kategori Seçin',
+                    subtitle: 'İhtiyacınıza uygun kategoriyi keşfedin'
+                },
+                features: {
+                    title: 'Neden Fahri Eren?',
+                    subtitle: 'Güvenilir ticaret ortağınız olmanın avantajları'
+                },
+                services: {
+                    title: 'Hizmetlerimiz',
+                    subtitle: 'Geniş hizmet yelpazemizle ihtiyaçlarınıza çözüm'
+                },
+                cta: {
+                    title: 'Projeleriniz için Destek Alın',
+                    description: 'Uzman ekibimiz size en uygun çözümü sunmak için hazır',
+                    responseTime: 'Ortalama yanıt süresi: 2 saat'
+                },
+                featuredProducts: {
+                    title: 'Öne Çıkan Ürünler',
+                    subtitle: 'En popüler ve güncel ürünlerimizi keşfedin'
+                },
+                viewAllProducts: 'Tüm Ürünleri Görüntüle'
+            },
+            stats: {
+                title: 'Rakamlarla Başarımız',
+                subtitle: 'Yılların getirdiği deneyim ve güven',
+                yearsExperience: 'Yıl Tecrübe',
+                experienceDesc: 'Sektördeki deneyim süremiz',
+                happyCustomers: 'Mutlu Müşteri',
+                customersDesc: 'Memnun kaldığımız müşteri sayımız',
+                completedProjects: 'Tamamlanan Proje',
+                projectsDesc: 'Başarıyla sonuçlanan projelerimiz',
+                customerRating: 'Müşteri Değerlendirmesi',
+                ratingDesc: '5 üzerinden ortalama puanımız',
+                responseTime: 'Ortalama Yanıt Süresi',
+                responseDesc: 'Müşteri mesajlarına yanıt süremiz',
+                totalDeals: 'Toplam İşlem Hacmi',
+                dealsDesc: 'Gerçekleştirilen toplam ticaret hacmi',
+                ctaTitle: 'Bize Ulaşın',
+                ctaDescription: 'Projeleriniz için hemen iletişime geçin',
+                callNow: 'Hemen Arayın'
+            },
+            features: {
+                trusted: {
+                    title: 'Güvenilir Hizmet',
+                    description: '15+ yıllık deneyim ile güven tabanlı ticaret anlayışı'
+                },
+                experience: {
+                    title: 'Uzman Ekip',
+                    description: 'Alanında uzman kadromuz ile profesyonel destek'
+                },
+                customer: {
+                    title: 'Müşteri Memnuniyeti',
+                    description: '%100 müşteri memnuniyeti odaklı hizmet anlayışı'
+                },
+                quality: {
+                    title: 'Kaliteli Ürünler',
+                    description: 'Titizlikle seçilmiş, kaliteli ve uygun fiyatlı ürünler'
+                }
+            },
+            testimonials: {
+                title: 'Müşteri Yorumları',
+                subtitle: 'Memnun müşterilerimizin deneyimleri',
+                overallRating: 'Genel Değerlendirme',
+                happyCustomers: 'Mutlu Müşteri',
+                completedProjects: 'Tamamlanan Proje',
+                yearsExperience: 'Yıl Deneyim',
+                ctaTitle: 'Siz de memnun müşterilerimize katılın',
+                ctaDescription: 'Güvenilir hizmetimizi deneyimlemek için hemen iletişime geçin',
+                contactWhatsapp: 'WhatsApp ile İletişim',
+                callNow: 'Hemen Ara'
+            },
             nav: {
                 home: 'Ana Sayfa',
                 products: 'Ürünler',
@@ -40,12 +117,20 @@ export class TranslationService {
             categories: {
                 all: 'Tümü',
                 realestate: 'Emlak',
+                realestateDesc: 'Ev, iş yeri, arsa ve yatırım amaçlı gayrimenkuller',
                 vehicles: 'Araçlar',
+                vehiclesDesc: 'Otomobil, motosiklet, ticari araçlar ve yedek parçalar',
                 construction: 'İnşaat Malzemeleri',
-                farm: 'Çiftlik Ürünleri'
+                constructionDesc: 'Yapı malzemeleri, el aletleri ve inşaat ekipmanları',
+                farm: 'Çiftlik Ürünleri',
+                agriculture: 'Tarım',
+                agricultureDesc: 'Tarım ürünleri, tohum, gübre ve çiftlik hayvanları'
             },
             products: {
                 title: 'Öne Çıkan Ürünler',
+                comingSoon: 'Yakında Geliyor',
+                comingSoonDesc: 'Yeni ürünlerimiz çok yakında sizlerle',
+                found: 'ürün bulundu',
                 new: 'Yeni',
                 sale: 'İndirimde',
                 details: 'Detaylar',
@@ -87,6 +172,16 @@ export class TranslationService {
             contact: {
                 title: 'İletişim',
                 subtitle: 'Size nasıl yardımcı olabilirim?',
+                call: 'Hemen Ara',
+                phone: 'Telefon',
+                whatsapp: 'WhatsApp',
+                whatsapp_desc: 'Hızlı iletişim için WhatsApp',
+                email: 'E-posta Gönder',
+                working_hours: 'Çalışma Saatleri',
+                description: 'Sorularınız için bize ulaşın',
+                callNow: 'Hemen Ara',
+                callAnytime: 'İstediğiniz zaman arayın',
+                emailUs: 'Bize e-posta gönderin',
                 form: {
                     name: 'Adınız Soyadınız',
                     email: 'E-posta Adresiniz',
@@ -187,10 +282,14 @@ export class TranslationService {
                 loading: 'Yükleniyor...',
                 tryAgain: 'Tekrar Dene',
                 viewAll: 'Tümünü Görüntüle',
+                viewMore: 'Daha Fazla Göster',
+                viewDetails: 'Detayları Görüntüle',
+                goBack: 'Geri Dön',
                 close: 'Kapat',
                 save: 'Kaydet',
                 cancel: 'İptal',
                 delete: 'Sil',
+                error: 'Bir hata oluştu',
                 edit: 'Düzenle',
                 add: 'Ekle',
                 back: 'Geri',
@@ -200,12 +299,109 @@ export class TranslationService {
                 companyDescription: '25 yıllık tecrübe ile güvenilir ticaret ortağınız.',
                 quickLinks: 'Hızlı Linkler',
                 categories: 'Kategoriler',
+                services: 'Hizmetlerimiz',
                 copyright: '© 2024 Fahri Eren. Tüm hakları saklıdır.',
+                allRightsReserved: 'Tüm hakları saklıdır',
+                yearsExperience: 'Yıllık Deneyim',
+                happyCustomers: 'Mutlu Müşteri',
+                customers: 'Müşteri',
+                customerRating: 'Müşteri Değerlendirmesi',
+                cookiePolicy: 'Çerez Politikası',
+                secureTransactions: 'Güvenli İşlemler',
+                trustedBy: 'Güvenilen Platform',
                 privacyPolicy: 'Gizlilik Politikası',
                 termsOfService: 'Kullanım Şartları'
             }
         },
         en: {
+            home: {
+                seo: {
+                    title: 'Fahri Eren - Reliable Trading Platform',
+                    description: 'Reliable service in real estate, vehicles, agricultural products and construction materials.'
+                },
+                categories: {
+                    title: 'Choose Category',
+                    subtitle: 'Discover the category that suits your needs'
+                },
+                features: {
+                    title: 'Why Fahri Eren?',
+                    subtitle: 'The advantages of being your reliable trading partner'
+                },
+                services: {
+                    title: 'Our Services',
+                    subtitle: 'Solutions for your needs with our wide range of services'
+                },
+                cta: {
+                    title: 'Get Support for Your Projects',
+                    description: 'Our expert team is ready to offer you the most suitable solution',
+                    responseTime: 'Average response time: 2 hours'
+                },
+                featuredProducts: {
+                    title: 'Featured Products',
+                    subtitle: 'Discover our most popular and current products'
+                },
+                viewAllProducts: 'View All Products'
+            },
+            stats: {
+                title: 'Our Success in Numbers',
+                subtitle: 'Experience and trust brought by years',
+                yearsExperience: 'Years of Experience',
+                experienceDesc: 'Our experience in the sector',
+                happyCustomers: 'Happy Customers',
+                customersDesc: 'Number of customers we are satisfied with',
+                completedProjects: 'Completed Projects',
+                projectsDesc: 'Our successfully completed projects',
+                customerRating: 'Customer Rating',
+                ratingDesc: 'Our average score out of 5',
+                responseTime: 'Average Response Time',
+                responseDesc: 'Response time to customer messages',
+                totalDeals: 'Total Transaction Volume',
+                dealsDesc: 'Total trading volume realized',
+                ctaTitle: 'Contact Us',
+                ctaDescription: 'Contact us immediately for your projects',
+                callNow: 'Call Now'
+            },
+            features: {
+                trusted: {
+                    title: 'Reliable Service',
+                    description: 'We provide reliable service with our years of experience and customer satisfaction focus'
+                },
+                experience: {
+                    title: 'Expert Knowledge',
+                    description: 'We offer solutions with our extensive knowledge and experience in every field'
+                },
+                customer: {
+                    title: 'Customer Focus',
+                    description: 'We prioritize customer satisfaction and build long-term relationships'
+                },
+                quality: {
+                    title: 'Quality Products',
+                    description: 'We offer high quality products at affordable prices'
+                }
+            },
+            testimonials: {
+                title: 'Customer Reviews',
+                subtitle: 'What our customers say about us',
+                overallRating: 'Overall Rating',
+                happyCustomers: 'Happy Customers',
+                completedProjects: 'Completed Projects',
+                yearsExperience: 'Years of Experience',
+                ctaTitle: 'Contact Us',
+                ctaDescription: 'Get in touch for your projects',
+                contactWhatsapp: 'Contact via WhatsApp',
+                callNow: 'Call Now'
+            },
+            footer: {
+                allRightsReserved: 'All Rights Reserved',
+                yearsExperience: '15+ Years of Experience',
+                happyCustomers: 'Happy Customers',
+                services: 'Services',
+                customers: 'Customers',
+                customerRating: 'Customer Rating',
+                cookiePolicy: 'Cookie Policy',
+                secureTransactions: 'Secure Transactions',
+                trustedBy: 'Trusted by'
+            },
             nav: {
                 home: 'Home',
                 products: 'Products',
@@ -239,12 +435,21 @@ export class TranslationService {
             categories: {
                 all: 'All',
                 realestate: 'Real Estate',
+                realestateDesc: 'Houses, land, commercial properties and investment opportunities',
                 vehicles: 'Vehicles',
+                vehiclesDesc: 'Cars, commercial vehicles and automotive products',
+                agriculture: 'Agricultural Products',
+                agricultureDesc: 'Fresh products, agricultural tools and machinery',
                 construction: 'Construction Materials',
+                constructionDesc: 'Construction materials, tools and equipment',
                 farm: 'Farm Products'
             },
             products: {
-                title: 'Featured Products',
+                title: 'Products',
+                description: 'Quality products and reliable service',
+                comingSoon: 'Coming Soon',
+                comingSoonDesc: 'Our new products will be with you very soon',
+                found: 'products found',
                 new: 'New',
                 sale: 'On Sale',
                 details: 'Details',
@@ -261,6 +466,23 @@ export class TranslationService {
                 share: 'Share',
                 askQuestion: 'Ask Question',
                 makeOffer: 'Make Offer'
+            },
+            common: {
+                loading: 'Loading...',
+                tryAgain: 'Try Again',
+                viewAll: 'View All',
+                viewMore: 'View More',
+                viewDetails: 'View Details',
+                goBack: 'Go Back',
+                close: 'Close',
+                save: 'Save',
+                cancel: 'Cancel',
+                delete: 'Delete',
+                error: 'An error occurred',
+                edit: 'Edit',
+                add: 'Add',
+                back: 'Back',
+                noLocation: 'No location specified'
             },
             about: {
                 title: 'Who is Fahri Eren?',
@@ -279,6 +501,11 @@ export class TranslationService {
                     products: 'Product Varieties',
                     rating: 'Customer Satisfaction'
                 },
+                years: '15+ Years',
+                customers: '500+ Customers',
+                rating: '4.9/5 Rating',
+                contactTitle: 'Contact Me',
+                contactDesc: 'Contact me for your projects and business partnerships',
                 services: 'My Services',
                 contactMe: 'Contact Me',
                 downloadCV: 'Download CV'
@@ -286,6 +513,15 @@ export class TranslationService {
             contact: {
                 title: 'Contact',
                 subtitle: 'How can I help you?',
+                call: 'Call',
+                callNow: 'Call Now',
+                callAnytime: 'Call Anytime',
+                email: 'Send Email',
+                emailUs: 'Email Us',
+                whatsapp: 'WhatsApp',
+                whatsapp_desc: 'Contact us quickly via WhatsApp',
+                phone: 'Phone',
+                working_hours: 'Working Hours',
                 form: {
                     name: 'Your Name',
                     email: 'Your Email',

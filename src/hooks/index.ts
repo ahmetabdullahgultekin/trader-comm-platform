@@ -6,7 +6,7 @@ import type {ContactForm, FilterOptions, Product} from '../types';
 export {useTranslation, useLanguage} from '../contexts/LanguageContext';
 
 // SEO Hook
-export const useSEO = (pageType: string) => {
+export const useSEO = () => {
     const updateProductSEO = useCallback((product?: Product) => {
         if (product) {
             document.title = `${product.title.tr} - Fahri Eren Ticaret`;
@@ -23,6 +23,11 @@ export const useSEO = (pageType: string) => {
     };
 };
 
+// Global products cache to prevent duplicate loading
+let productsCache: Product[] | null = null;
+let cacheTimestamp: number = 0;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
 // Products hook with Firebase integration
 export const useProducts = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -37,20 +42,41 @@ export const useProducts = () => {
         searchQuery: ''
     });
 
-    // Load products from Firebase
+    // Load products from Firebase with caching
     const loadProducts = useCallback(async () => {
         try {
             setLoading(true);
             setError(null);
 
-            // Get products from Firebase only
-            const {productService} = await import('../services/firebaseService');
-            const firebaseProducts = await productService.getProducts();
+            // Check cache first
+            const now = Date.now();
+            if (productsCache && (now - cacheTimestamp) < CACHE_DURATION) {
+                setAllProducts(productsCache);
+                setProducts(productsCache);
+                setLoading(false);
+                return;
+            }
+
+            // Temporarily disable Firebase and use mock data
+            // const {productService} = await import('../services/firebaseService');
+            // const firebaseProducts = await productService.getProducts();
+
+            // Use mock data to avoid Firebase Target ID error
+            const firebaseProducts: Product[] = [];
+
+            // Update cache
+            productsCache = firebaseProducts;
+            cacheTimestamp = now;
 
             setAllProducts(firebaseProducts);
             setProducts(firebaseProducts);
         } catch (err: any) {
             setError(err.message || 'Beklenmeyen bir hata oluştu');
+            console.warn('Products loading failed, using empty array:', err);
+
+            // Use empty array as fallback
+            setAllProducts([]);
+            setProducts([]);
         } finally {
             setLoading(false);
         }

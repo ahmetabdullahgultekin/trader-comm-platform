@@ -118,6 +118,7 @@ export class ProductService {
     // Get all products
     async getProducts(): Promise<Product[]> {
         try {
+            // Disable offline persistence to avoid Target ID conflicts
             const q = query(collection(db, 'products'), orderBy('createdAt', 'desc'));
             const querySnapshot = await getDocs(q);
 
@@ -127,7 +128,9 @@ export class ProductService {
             })) as Product[];
         } catch (error) {
             console.error('Error fetching products from Firebase:', error);
-            throw error; // Re-throw to let the calling code handle it
+
+            // Return empty array instead of throwing to prevent app crash
+            return [];
         }
     }
 

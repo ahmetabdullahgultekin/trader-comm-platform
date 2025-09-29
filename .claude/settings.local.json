@@ -7,7 +7,12 @@
       "Bash(vite build)",
       "Bash(firebase deploy:*)",
       "Bash(npx firebase deploy:*)",
-      "Bash(firebase login:*)"
+      "Bash(firebase login:*)",
+      "Bash(npm run lint)",
+      "Bash(for component in AboutPage AddProductPage AdminDashboard AdminPanel AuthModal EditProductPage ProductManager ProductCard ProductDetail ProductFilters ContactPage PartnersPage Header Footer)",
+      "Bash(do echo \"=== $component ===\")",
+      "Bash(grep:*)",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []
