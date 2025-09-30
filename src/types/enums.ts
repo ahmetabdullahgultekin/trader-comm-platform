@@ -46,7 +46,15 @@ export const RouteKey = {
     PRODUCTS: '/urunler',
     ABOUT: '/hakkimda',
     PARTNERS: '/is-ortaklarimiz',
-    CONTACT: '/iletisim'
+    CONTACT: '/iletisim',
+    BLOG: '/blog',
+    FAVORITES: '/favoriler',
+    COMPARE: '/karsilastir',
+    ADMIN: '/admin',
+    ADMIN_DASHBOARD: '/admin/dashboard',
+    ADMIN_PRODUCTS: '/admin/urunler',
+    ADMIN_ADD_PRODUCT: '/admin/urun-ekle',
+    ADMIN_EDIT_PRODUCT: '/admin/urun-duzenle'
 } as const;
 
 export const ColorTheme = {

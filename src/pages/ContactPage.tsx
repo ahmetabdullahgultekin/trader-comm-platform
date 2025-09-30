@@ -1,8 +1,9 @@
 import React from 'react';
-import {MessageCircle, Phone} from 'lucide-react';
+import {MapPin, MessageCircle, Phone} from 'lucide-react';
 import {useFahriErenConfig} from '../hooks/useFahriErenConfig';
 import {useTranslation} from '../hooks';
 import SEO from '../components/common/SEO';
+import GoogleMap from '../components/common/GoogleMap';
 
 const ContactPage: React.FC = () => {
     const config = useFahriErenConfig();
@@ -110,18 +111,56 @@ const ContactPage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Working Hours */}
-                        <div className="bg-white rounded-2xl p-8 shadow-lg text-center">
-                            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                                {t('contact.working_hours')}
-                            </h3>
-                            <p className="text-lg text-gray-600 mb-2">
-                                {config.config.business.workingDays[language]}
-                            </p>
-                            <p className="text-lg text-gray-600">
-                                {config.config.business.workingHours[language]}
-                            </p>
+                        {/* Working Hours & Address */}
+                        <div className="grid md:grid-cols-2 gap-8 mb-12">
+                            <div className="bg-white rounded-2xl p-8 shadow-lg">
+                                <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+                                    {t('contact.working_hours')}
+                                </h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <p className="font-semibold text-gray-700 mb-1">
+                                            {t('contact.days')}
+                                        </p>
+                                        <p className="text-lg text-gray-600">
+                                            {config.config.business.workingDays[language]}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-gray-700 mb-1">
+                                            {t('contact.hours')}
+                                        </p>
+                                        <p className="text-lg text-gray-600">
+                                            {config.config.business.workingHours[language]}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-2xl p-8 shadow-lg">
+                                <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                                    <MapPin className="w-6 h-6 text-blue-600"/>
+                                    {t('contact.address')}
+                                </h3>
+                                <p className="text-lg text-gray-700 mb-4">
+                                    {config.contact.fullAddress()}
+                                </p>
+                                <p className="text-gray-600">
+                                    {config.config.contact.location.city}, {config.config.contact.location.country}
+                                </p>
+                            </div>
                         </div>
+
+                        {/* Google Map */}
+                        {config.config.contact.location.coordinates && (
+                            <div className="mb-8">
+                                <GoogleMap
+                                    lat={config.config.contact.location.coordinates.lat}
+                                    lng={config.config.contact.location.coordinates.lng}
+                                    title={config.contact.fullAddress()}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

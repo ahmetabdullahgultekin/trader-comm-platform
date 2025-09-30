@@ -39,6 +39,10 @@ export interface ContactInfo {
         city: string;
         country: string;
         region: string;
+        coordinates?: {
+            lat: number;
+            lng: number;
+        };
     };
 }
 
@@ -164,10 +168,10 @@ export const FAHRI_EREN_CONFIG = {
     // İletişim Bilgileri
     contact: {
         phone: {
-            [PhoneType.PRIMARY]: "+90 532 123 45 67",
-            [PhoneType.SECONDARY]: "+90 312 456 78 90",
-            [PhoneType.WHATSAPP]: "905321234567",
-            [PhoneType.DISPLAY]: "+90 532 123 45 67"
+            [PhoneType.PRIMARY]: "+90 536 853 62 65",
+            [PhoneType.SECONDARY]: "+90 536 853 62 65",
+            [PhoneType.WHATSAPP]: "905368536265",
+            [PhoneType.DISPLAY]: "+90 536 853 62 65"
         },
         email: {
             [EmailType.PRIMARY]: "fahri.eren@gmail.com",
@@ -175,13 +179,17 @@ export const FAHRI_EREN_CONFIG = {
             [EmailType.SUPPORT]: "destek@fahrieren.com"
         },
         address: {
-            [Language.TR]: "Türkiye Geneli Hizmet",
-            [Language.EN]: "Turkey Wide Service"
+            [Language.TR]: "Kılan Köyü, Ulukışla, Niğde, Türkiye",
+            [Language.EN]: "Kılan Village, Ulukışla, Niğde, Turkey"
         },
         location: {
-            city: "Ankara",
+            city: "Niğde",
             country: "Turkey",
-            region: "TR"
+            region: "TR",
+            coordinates: {
+                lat: 37.8436,
+                lng: 34.6803
+            }
         }
     } as ContactInfo,
 
@@ -228,8 +236,8 @@ export const FAHRI_EREN_CONFIG = {
             [Language.EN]: "Real Estate, Agriculture, Vehicles, Construction"
         },
         description: {
-            [Language.TR]: "15+ yıllık deneyimimle emlak, tarım ürünleri, araçlar ve inşaat malzemeleri alanlarında güvenilir ticaret hizmeti sunuyorum. Müşteri memnuniyeti odaklı yaklaşımım ile kaliteli ürünleri uygun fiyatlarla buluşturuyorum.",
-            [Language.EN]: "With 15+ years of experience, I provide reliable trading services in real estate, agricultural products, vehicles, and construction materials. I bring quality products together at affordable prices with my customer satisfaction-focused approach."
+            [Language.TR]: "1998 yılından beri ticaret sektöründe faaliyet göstermekteyim. Emlak, tarım ürünleri, araçlar ve inşaat malzemeleri alanlarında uzmanlaşmış olup, müşteri memnuniyetini öncelik olarak belirleyerek kaliteli ürün ve hizmet sunmayı ilke edindim. Eren Ticaret ve Eren Yumurta markalarımızla sektörde güvenilir bir isim haline geldik.",
+            [Language.EN]: "I have been operating in the trade sector since 1998. Specializing in real estate, agricultural products, vehicles, and construction materials, I have adopted the principle of providing quality products and services by prioritizing customer satisfaction. We have become a trusted name in the sector with our brands Eren Trading and Eren Eggs."
         },
         establishedYear: CONSTANTS.COMPANY.FOUNDED_YEAR,
         experience: CONSTANTS.COMPANY.EXPERIENCE_YEARS,

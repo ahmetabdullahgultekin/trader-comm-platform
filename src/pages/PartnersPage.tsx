@@ -121,6 +121,83 @@ const PartnersPage: React.FC = () => {
                             })}
                         </div>
 
+                        {/* Our Businesses - Eren Ticaret & Eren Yumurta */}
+                        <div className="mb-16">
+                            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+                                {language === 'tr' ? 'Markalarımız' : 'Our Brands'}
+                            </h2>
+                            <div className="grid md:grid-cols-2 gap-8">
+                                {/* Eren Ticaret */}
+                                <div
+                                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-blue-100">
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <div
+                                            className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center">
+                                            <Building2 className="w-8 h-8 text-white"/>
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-blue-900">Eren Ticaret</h3>
+                                            <p className="text-sm text-blue-600">İnşaat & Yapı Malzemeleri</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-gray-700 mb-4 leading-relaxed">
+                                        {language === 'tr'
+                                            ? 'İnşaat malzemeleri ve yapı malzemeleri ticareti alanında 20 yıllık deneyim. TSE sertifikalı ürünler, toplu satış avantajları ve hızlı teslimat.'
+                                            : 'Construction and building materials trading with 20 years of experience. TSE certified products, wholesale advantages and fast delivery.'}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">İnşaat Demiri</span>
+                                        <span
+                                            className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Çimento</span>
+                                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Yapı Kimyasalları</span>
+                                        <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Demir Çelik</span>
+                                    </div>
+                                    <a
+                                        href="https://erenticaret.com.tr"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2"
+                                    >
+                                        {language === 'tr' ? 'Detaylı Bilgi' : 'Learn More'} →
+                                    </a>
+                                </div>
+
+                                {/* Eren Yumurta */}
+                                <div
+                                    className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-green-100">
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <div
+                                            className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-xl flex items-center justify-center">
+                                            <Award className="w-8 h-8 text-white"/>
+                                        </div>
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-green-900">Eren Yumurta</h3>
+                                            <p className="text-sm text-green-600">Organik Çiftlik Ürünleri</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-gray-700 mb-4 leading-relaxed">
+                                        {language === 'tr'
+                                            ? 'Organik yumurta üretimi ve dağıtımında uzman. Doğal beslenme anlayışı ile gezen tavuklardan üretilen sağlıklı yumurtalar.'
+                                            : 'Expert in organic egg production and distribution. Healthy eggs produced from free-range chickens with natural nutrition philosophy.'}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2 mb-4">
+                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">%100 Organik</span>
+                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Gezen Tavuk</span>
+                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Günlük Taze</span>
+                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Toptan Satış</span>
+                                    </div>
+                                    <a
+                                        href="https://erenyumurta.com.tr"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-green-600 hover:text-green-800 font-semibold flex items-center gap-2"
+                                    >
+                                        {language === 'tr' ? 'Detaylı Bilgi' : 'Learn More'} →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                         {/* Partnership Benefits */}
                         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg mb-16">
                             <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">

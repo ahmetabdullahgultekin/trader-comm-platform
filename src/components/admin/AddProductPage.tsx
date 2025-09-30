@@ -1,8 +1,10 @@
 import React, {useRef, useState} from 'react';
 import {useTranslation} from '../../hooks';
 import {productService, storageService} from '../../services/firebaseService';
+import {FAHRI_EREN_CONFIG} from '../../config/fahrierenConfig';
 import type {Product, ProductCategory} from '../../types';
 import {AlertCircle, ArrowLeft, CheckCircle, Image as ImageIcon, Loader, Minus, Plus, Save, X} from 'lucide-react';
+import {EmailType, PhoneType} from '../../types/enums';
 
 interface AddProductPageProps {
     onBack: () => void;
@@ -185,9 +187,9 @@ const AddProductPage: React.FC<AddProductPageProps> = ({onBack, onProductAdded})
                 location: formData.location,
                 date: new Date().toISOString(),
                 seller: {
-                    name: 'Fahri Eren',
-                    phone: '+90 532 123 45 67',
-                    email: 'fahri.eren@gmail.com'
+                    name: FAHRI_EREN_CONFIG.personal.fullName,
+                    phone: FAHRI_EREN_CONFIG.contact.phone[PhoneType.PRIMARY],
+                    email: FAHRI_EREN_CONFIG.contact.email[EmailType.PRIMARY]
                 },
                 features: formData.features,
                 specifications: formData.specifications

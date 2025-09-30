@@ -14,6 +14,7 @@ import SEO from '../components/common/SEO';
 import HeroSection from '../components/common/HeroSection';
 import StatsSection from '../components/common/StatsSection';
 import TestimonialsSection from '../components/common/TestimonialsSection';
+import AdBanner from '../components/ads/AdBanner';
 
 const HomePage: React.FC = () => {
     const {t, language} = useTranslation();
@@ -113,6 +114,14 @@ const HomePage: React.FC = () => {
         }
     };
 
+    const handleHeroSearch = (query: string) => {
+        window.location.href = `${RouteKey.PRODUCTS}?search=${encodeURIComponent(query)}`;
+    };
+
+    const handleNavigateToProducts = () => {
+        window.location.href = RouteKey.PRODUCTS;
+    };
+
     return (
         <>
             {/* SEO Optimization */}
@@ -124,7 +133,15 @@ const HomePage: React.FC = () => {
             />
 
             {/* Hero Section */}
-            <HeroSection/>
+            <HeroSection
+                onSearch={handleHeroSearch}
+                onNavigateToProducts={handleNavigateToProducts}
+            />
+
+            {/* Top Banner Ad - Yüksek görünürlük */}
+            <div className="container mx-auto px-4 py-6">
+                <AdBanner position="top"/>
+            </div>
 
             {/* Categories Section */}
             <section className="py-16 bg-gray-50">
@@ -264,6 +281,13 @@ const HomePage: React.FC = () => {
                                     </button>
                                 </div>
                             </div>
+                        </div>
+                    )}
+
+                    {/* Inline Ad - Ürünler arasında */}
+                    {products.length > 0 && (
+                        <div className="my-12">
+                            <AdBanner position="inline"/>
                         </div>
                     )}
 

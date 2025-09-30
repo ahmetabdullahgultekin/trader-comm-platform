@@ -57,12 +57,22 @@ export const useProducts = () => {
                 return;
             }
 
-            // Temporarily disable Firebase and use mock data
-            // const {productService} = await import('../services/firebaseService');
-            // const firebaseProducts = await productService.getProducts();
+            // Try to load from Firebase first, fallback to mock data
+            let firebaseProducts: Product[] = [];
 
-            // Use mock data to avoid Firebase Target ID error
-            const firebaseProducts: Product[] = [];
+            try {
+                const {productService} = await import('../services/firebaseService');
+                firebaseProducts = await productService.getProducts();
+            } catch (firebaseError) {
+                console.log('Firebase unavailable, loading mock data...');
+            }
+
+            // If Firebase is empty or fails, load mock data
+            if (firebaseProducts.length === 0) {
+                const {DataService} = await import('../services/dataService');
+                const dataService = DataService.getInstance();
+                firebaseProducts = await dataService.getProducts();
+            }
 
             // Update cache
             productsCache = firebaseProducts;

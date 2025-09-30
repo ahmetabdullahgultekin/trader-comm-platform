@@ -48,9 +48,28 @@ const AboutPage: React.FC = () => {
                     <p className="text-xl text-blue-600 mb-6">
                         {config.business.title()}
                     </p>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                        {config.business.description()}
-                    </p>
+                    <div className="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed space-y-4">
+                        <p>
+                            Merhaba, ben <strong>Fahri Eren</strong>. <strong>1998 yılından</strong> bu yana ticaret
+                            sektöründe faaliyet göstermekteyim.
+                            Müşteri memnuniyetini öncelik olarak belirleyerek, kaliteli ürün ve hizmet sunmayı ilke
+                            edindim.
+                        </p>
+                        <p>
+                            <strong>Emlak</strong>, <strong>araç alım-satımı</strong>, <strong>inşaat
+                            malzemeleri</strong> ve{' '}
+                            <strong>tarım ürünleri</strong> konularında uzmanlaşmış durumdayım. Yıllarca süren
+                            deneyimimle,
+                            müşterilerime en doğru ve güvenilir çözümleri sunmaktan gurur duyuyorum.
+                        </p>
+                        <p>
+                            <strong className="text-blue-600">Eren Ticaret</strong> ve{' '}
+                            <strong className="text-green-600">Eren Yumurta</strong> markalarımızla sektörde güvenilir
+                            bir
+                            isim haline geldik. Ailem ve ben, her zaman müşteri odaklı yaklaşımımızı koruyarak çalışmaya
+                            devam ediyoruz.
+                        </p>
+                    </div>
                 </motion.div>
 
                 {/* Stats */}

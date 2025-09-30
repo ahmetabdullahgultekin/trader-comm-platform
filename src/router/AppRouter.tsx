@@ -4,15 +4,24 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {Toaster} from 'react-hot-toast';
 import Layout from '../components/layout/Layout';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import ProtectedRoute from '../components/auth/ProtectedRoute';
+import GoogleAnalytics from '../components/integrations/GoogleAnalytics';
+import LiveChat from '../components/integrations/LiveChat';
 
-// Lazy loading for better performance
+// Public pages - Lazy loading for better performance
 const HomePage = lazy(() => import('../pages/HomePage'));
 const ProductsPage = lazy(() => import('../pages/ProductsPage'));
 const ProductDetailPage = lazy(() => import('../pages/ProductDetailPage'));
 const AboutPage = lazy(() => import('../pages/AboutPage'));
 const ContactPage = lazy(() => import('../pages/ContactPage'));
 const PartnersPage = lazy(() => import('../pages/PartnersPage'));
+const FavoritesPage = lazy(() => import('../pages/FavoritesPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+
+// Admin pages
+const AdminLoginPage = lazy(() => import('../pages/admin/AdminLoginPage'));
+const AdminDashboardPage = lazy(() => import('../pages/admin/AdminDashboardPage'));
+const AdminProductsPage = lazy(() => import('../pages/admin/AdminProductsPage'));
 
 // Create QueryClient instance
 const queryClient = new QueryClient({
@@ -29,27 +38,46 @@ const AppRouter: React.FC = () => {
     return (
         <QueryClientProvider client={queryClient}>
             <Router>
-                <Layout>
-                    <Suspense fallback={<LoadingSpinner/>}>
-                        <Routes>
-                            <Route path="/" element={<HomePage/>}/>
-                            <Route path="/urunler" element={<ProductsPage/>}/>
-                            <Route path="/urun/:id" element={<ProductDetailPage/>}/>
-                            <Route path="/hakkimda" element={<AboutPage/>}/>
-                            <Route path="/iletisim" element={<ContactPage/>}/>
-                            <Route path="/is-ortaklarimiz" element={<PartnersPage/>}/>
+                {/* Google Analytics */}
+                <GoogleAnalytics/>
 
-                            {/* Redirect old URLs to Turkish ones */}
-                            <Route path="/products" element={<Navigate to="/urunler" replace/>}/>
-                            <Route path="/about" element={<Navigate to="/hakkimda" replace/>}/>
-                            <Route path="/contact" element={<Navigate to="/iletisim" replace/>}/>
-                            <Route path="/partners" element={<Navigate to="/is-ortaklarimiz" replace/>}/>
+                {/* Live Chat Widget */}
+                <LiveChat/>
 
-                            {/* 404 Page */}
-                            <Route path="*" element={<NotFoundPage/>}/>
-                        </Routes>
-                    </Suspense>
-                </Layout>
+                <Suspense fallback={<LoadingSpinner/>}>
+                    <Routes>
+                        {/* Public Routes with Layout */}
+                        <Route path="/" element={<Layout><HomePage/></Layout>}/>
+                        <Route path="/urunler" element={<Layout><ProductsPage/></Layout>}/>
+                        <Route path="/urunler/:id" element={<Layout><ProductDetailPage/></Layout>}/>
+                        <Route path="/hakkimda" element={<Layout><AboutPage/></Layout>}/>
+                        <Route path="/iletisim" element={<Layout><ContactPage/></Layout>}/>
+                        <Route path="/is-ortaklarimiz" element={<Layout><PartnersPage/></Layout>}/>
+                        <Route path="/favoriler" element={<Layout><FavoritesPage/></Layout>}/>
+
+                        {/* Redirect old URLs to Turkish ones */}
+                        <Route path="/products" element={<Navigate to="/urunler" replace/>}/>
+                        <Route path="/about" element={<Navigate to="/hakkimda" replace/>}/>
+                        <Route path="/contact" element={<Navigate to="/iletisim" replace/>}/>
+                        <Route path="/partners" element={<Navigate to="/is-ortaklarimiz" replace/>}/>
+
+                        {/* Admin Routes without Layout */}
+                        <Route path="/admin" element={<AdminLoginPage/>}/>
+                        <Route path="/admin/dashboard" element={
+                            <ProtectedRoute>
+                                <AdminDashboardPage/>
+                            </ProtectedRoute>
+                        }/>
+                        <Route path="/admin/urunler" element={
+                            <ProtectedRoute>
+                                <AdminProductsPage/>
+                            </ProtectedRoute>
+                        }/>
+
+                        {/* 404 Page */}
+                        <Route path="*" element={<Layout><NotFoundPage/></Layout>}/>
+                    </Routes>
+                </Suspense>
 
                 {/* Toast notifications */}
                 <Toaster
