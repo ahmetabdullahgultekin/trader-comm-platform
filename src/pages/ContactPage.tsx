@@ -250,7 +250,8 @@ ${formData.message}
                                         />
                                     </div>
                                     <div>
-                                        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label htmlFor="subject"
+                                               className="block text-sm font-medium text-gray-700 mb-2">
                                             {t('contact.form.subject')}
                                         </label>
                                         <input

@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import apiManager from '../services/apiManager';
 import type {ContactForm, FilterOptions, Product} from '../types';
 
@@ -57,21 +57,16 @@ export const useProducts = () => {
                 return;
             }
 
-            // Try to load from Firebase first, fallback to mock data
+            // Load products from Firebase only
             let firebaseProducts: Product[] = [];
 
             try {
                 const {productService} = await import('../services/firebaseService');
                 firebaseProducts = await productService.getProducts();
             } catch (firebaseError) {
-                console.log('Firebase unavailable, loading mock data...');
-            }
-
-            // If Firebase is empty or fails, load mock data
-            if (firebaseProducts.length === 0) {
-                const {DataService} = await import('../services/dataService');
-                const dataService = DataService.getInstance();
-                firebaseProducts = await dataService.getProducts();
+                console.error('Firebase error:', firebaseError);
+                // No fallback - Firebase is the only source
+                setError('Ürünler yüklenirken hata oluştu');
             }
 
             // Update cache
@@ -158,23 +153,74 @@ export const useProducts = () => {
         setFilters(defaultFilters);
     }, []);
 
+    // Track ongoing favorite updates to prevent duplicates
+    const favoriteUpdateInProgress = React.useRef<Set<string>>(new Set());
+
     // Favorites management
-    const toggleFavorite = useCallback((productId: string) => {
-        setFavorites(prev => {
-            const newFavorites = prev.includes(productId)
-                ? prev.filter(id => id !== productId)
-                : [...prev, productId];
+    const toggleFavorite = useCallback(async (productId: string) => {
+        // Prevent duplicate calls
+        if (favoriteUpdateInProgress.current.has(productId)) {
+            return;
+        }
 
-            localStorage.setItem('favorites', JSON.stringify(newFavorites));
+        favoriteUpdateInProgress.current.add(productId);
 
-            // Track favorite action
-            apiManager.trackAnalytics('favorite_toggle', {
-                productId,
-                action: newFavorites.includes(productId) ? 'add' : 'remove'
+        try {
+            setFavorites(prev => {
+                const newFavorites = prev.includes(productId)
+                    ? prev.filter(id => id !== productId)
+                    : [...prev, productId];
+
+                localStorage.setItem('favorites', JSON.stringify(newFavorites));
+
+                const isAdding = newFavorites.includes(productId);
+
+                // Track favorite action
+                apiManager.trackAnalytics('favorite_toggle', {
+                    productId,
+                    action: isAdding ? 'add' : 'remove'
+                });
+
+                // Update Firebase favoriteCount
+                (async () => {
+                    try {
+                        const {doc, updateDoc, increment} = await import('firebase/firestore');
+                        const {db} = await import('../config/firebase');
+
+                        const productRef = doc(db, 'products', productId);
+
+                        // Doğrudan increment kullan - Firebase otomatik olarak field yoksa oluşturur
+                        await updateDoc(productRef, {
+                            favoriteCount: increment(isAdding ? 1 : -1)
+                        });
+
+                        if (import.meta.env.DEV) {
+                            console.log(`✅ Favori ${isAdding ? 'eklendi' : 'çıkarıldı'}: ${productId}`);
+                        }
+
+                        // Cache'i temizle
+                        productsCache = null;
+                        cacheTimestamp = 0;
+                    } catch (error) {
+                        console.error('❌ Firebase favoriteCount güncelleme hatası:', error);
+                        if (import.meta.env.DEV) {
+                            console.error('Product ID:', productId);
+                            console.error('İşlem:', isAdding ? 'Ekleme' : 'Çıkarma');
+                        }
+                    } finally {
+                        // Remove from in-progress set after a short delay
+                        setTimeout(() => {
+                            favoriteUpdateInProgress.current.delete(productId);
+                        }, 500);
+                    }
+                })();
+
+                return newFavorites;
             });
-
-            return newFavorites;
-        });
+        } catch (error) {
+            favoriteUpdateInProgress.current.delete(productId);
+            throw error;
+        }
     }, []);
 
     // Load favorites from localStorage

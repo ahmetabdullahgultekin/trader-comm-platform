@@ -7,6 +7,7 @@ import {PhoneType} from '../types/enums';
 import SEO from '../components/common/SEO';
 import ProductCard from '../components/products/ProductCard';
 import ProductFilters from '../components/products/ProductFilters';
+import LoadingSpinner from '../components/common/LoadingSpinner';
 
 const ProductsPage: React.FC = () => {
     const {category} = useParams();
@@ -27,6 +28,17 @@ const ProductsPage: React.FC = () => {
         }
     }, [category, updateFilters]);
 
+    // Map Turkish URL categories to English product categories
+    const mapCategory = (kategori: string | null): string => {
+        const mapping: Record<string, string> = {
+            'emlak': 'realestate',
+            'arac': 'vehicles',
+            'tarim': 'farm',
+            'insaat': 'construction'
+        };
+        return kategori ? (mapping[kategori] || kategori) : 'all';
+    };
+
     // Initialize filters from URL params
     useEffect(() => {
         const search = searchParams.get('search');
@@ -41,7 +53,7 @@ const ProductsPage: React.FC = () => {
             newFilters.searchQuery = search;
         }
         if (kategori) {
-            newFilters.category = kategori;
+            newFilters.category = mapCategory(kategori);
         }
         if (sortBy) {
             newFilters.sortBy = sortBy;
@@ -94,6 +106,19 @@ const ProductsPage: React.FC = () => {
             navigator.clipboard.writeText(window.location.origin + `/urunler/${product.id}`);
         }
     };
+
+    // Loading state
+    if (loading) {
+        return (
+            <>
+                <SEO
+                    title={t('products.title')}
+                    description={t('products.description')}
+                />
+                <LoadingSpinner message="Ürünler yükleniyor..." size="lg"/>
+            </>
+        );
+    }
 
     return (
         <>

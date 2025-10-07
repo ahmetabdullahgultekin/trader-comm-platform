@@ -19,12 +19,14 @@ const ProductDetailPage: React.FC = () => {
     // Find the current product
     const product = products.find(p => p.id === id);
 
-    // Track product view
+    // Track product view - her zaman çalışmalı (dev ve prod)
     useEffect(() => {
-        if (id && product && import.meta.env.PROD) {
+        if (id && product) {
             const analytics = AnalyticsService.getInstance();
             analytics.trackProductView(id).catch(err => {
-                console.warn('Failed to track product view:', err);
+                if (import.meta.env.DEV) {
+                    console.warn('Failed to track product view:', err);
+                }
             });
         }
     }, [id, product]);
@@ -44,10 +46,18 @@ const ProductDetailPage: React.FC = () => {
     };
 
     const handleCall = () => {
+        if (id) {
+            const analytics = AnalyticsService.getInstance();
+            analytics.trackEvent('contact_request', {productId: id, type: 'phone'}).catch(console.warn);
+        }
         window.open(config.contact.phoneUri(PhoneType.PRIMARY), '_self');
     };
 
     const handleWhatsApp = () => {
+        if (id) {
+            const analytics = AnalyticsService.getInstance();
+            analytics.trackEvent('contact_request', {productId: id, type: 'whatsapp'}).catch(console.warn);
+        }
         const message = product
             ? encodeURIComponent(`Merhaba, ${product.title[language]} hakkında bilgi almak istiyorum.`)
             : '';
@@ -55,6 +65,10 @@ const ProductDetailPage: React.FC = () => {
     };
 
     const handleEmail = () => {
+        if (id) {
+            const analytics = AnalyticsService.getInstance();
+            analytics.trackEvent('contact_request', {productId: id, type: 'email'}).catch(console.warn);
+        }
         const subject = product ? encodeURIComponent(`${product.title[language]} - Bilgi Talebi`) : '';
         const body = product
             ? encodeURIComponent(`Merhaba,\n\n${product.title[language]} ürününüz hakkında detaylı bilgi almak istiyorum.\n\nTeşekkürler.`)
@@ -63,7 +77,7 @@ const ProductDetailPage: React.FC = () => {
     };
 
     if (loading) {
-        return <LoadingSpinner/>;
+        return <LoadingSpinner message="Ürün detayları yükleniyor..." size="lg"/>;
     }
 
     if (!product) {

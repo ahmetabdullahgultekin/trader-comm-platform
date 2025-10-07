@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {X, Download} from 'lucide-react';
+import {Download, X} from 'lucide-react';
 import {useTranslation} from '../../hooks';
 
 interface BeforeInstallPromptEvent extends Event {

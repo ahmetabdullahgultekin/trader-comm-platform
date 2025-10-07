@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {AlertCircle, Lock, LogIn, Mail} from 'lucide-react';
-import {useAuth} from '../../hooks/useAuth';
+import {useAuth} from '../../contexts/AuthContext';
 import {RouteKey} from '../../types/enums';
 import {motion} from 'framer-motion';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navigate} from 'react-router-dom';
-import {useAuth} from '../../hooks/useAuth';
+import {useAuth} from '../../contexts/AuthContext';
 import {RouteKey} from '../../types/enums';
 import LoadingSpinner from '../common/LoadingSpinner';
 
@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({children}) => {
     const {user, loading} = useAuth();
 
     if (loading) {
-        return <LoadingSpinner/>;
+        return <LoadingSpinner fullScreen message="Yetki kontrol ediliyor..."/>;
     }
 
     if (!user) {

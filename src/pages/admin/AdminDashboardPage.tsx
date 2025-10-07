@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {BarChart3, Eye, Heart, LogOut, MessageSquare, Package, Plus, TrendingUp, Users} from 'lucide-react';
-import {useAuth} from '../../hooks/useAuth';
+import {useAuth} from '../../contexts/AuthContext';
 import {useProducts} from '../../hooks';
 import {RouteKey} from '../../types/enums';
 import {motion} from 'framer-motion';
@@ -22,28 +22,28 @@ const AdminDashboardPage: React.FC = () => {
             label: 'Toplam Ürün',
             value: products.length,
             color: 'from-blue-500 to-blue-600',
-            trend: '+12%'
+            trend: ''
         },
         {
             icon: Eye,
             label: 'Toplam Görüntüleme',
-            value: products.reduce((acc, p) => acc + p.views, 0),
+            value: products.reduce((acc, p) => acc + (p.views || 0), 0),
             color: 'from-green-500 to-green-600',
-            trend: '+23%'
+            trend: ''
         },
         {
             icon: Heart,
             label: 'Favorilere Eklenme',
-            value: Math.floor(products.length * 2.5),
+            value: products.reduce((acc, p) => acc + (p.favoriteCount || 0), 0),
             color: 'from-red-500 to-red-600',
-            trend: '+8%'
+            trend: ''
         },
         {
             icon: MessageSquare,
             label: 'İletişim Talebi',
-            value: Math.floor(products.length * 1.2),
+            value: products.reduce((acc, p) => acc + (p.contactCount || 0), 0),
             color: 'from-purple-500 to-purple-600',
-            trend: '+15%'
+            trend: ''
         }
     ];
 

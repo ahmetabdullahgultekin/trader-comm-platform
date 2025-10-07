@@ -21,6 +21,11 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Skip caching external images (Hostinger)
+    if (event.request.url.includes('fahrieren.com/uploads')) {
+        return;
+    }
+
     event.respondWith(
         fetch(event.request)
             .then((response) => {
@@ -40,7 +45,17 @@ self.addEventListener('fetch', (event) => {
                 return response;
             })
             .catch(() => {
-                return caches.match(event.request);
+                // Try to return from cache, fallback to network error
+                return caches.match(event.request).then((cachedResponse) => {
+                    if (cachedResponse) {
+                        return cachedResponse;
+                    }
+                    // Return a basic error response instead of undefined
+                    return new Response('Network error', {
+                        status: 408,
+                        headers: {'Content-Type': 'text/plain'}
+                    });
+                });
             })
     );
 });

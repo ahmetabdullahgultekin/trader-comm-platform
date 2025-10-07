@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import {Clock, Mail, MapPin, Menu, Phone, X} from 'lucide-react';
+import {Clock, LogIn, LogOut, Mail, MapPin, Menu, Phone, X} from 'lucide-react';
 import {useTranslation} from '../../hooks';
 import {useFahriErenConfig} from '../../hooks/useFahriErenConfig';
 import {AnimatePresence, motion} from 'framer-motion';
 import type {LanguageValue, RouteKeyValue} from '../../types/enums';
 import {EmailType, Language, NAVIGATION_ITEMS, PhoneType, RouteKey} from '../../types/enums';
+import {useAuth} from '../../contexts/AuthContext';
 
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,6 +14,7 @@ const Header: React.FC = () => {
     const {language, changeLanguage, t} = useTranslation();
     const location = useLocation();
     const config = useFahriErenConfig();
+    const {user, loading} = useAuth();
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -141,6 +143,44 @@ const Header: React.FC = () => {
                                 </button>
                             </div>
 
+                            {/* Auth buttons */}
+                            {loading ? (
+                                <div
+                                    className="bg-gray-100 text-gray-400 px-4 py-2 rounded-lg font-medium flex items-center gap-2">
+                                    <div
+                                        className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"/>
+                                    <span className="hidden xl:inline">...</span>
+                                </div>
+                            ) : user ? (
+                                <>
+                                    <Link
+                                        to={RouteKey.ADMIN_DASHBOARD}
+                                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-lg"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                                        </svg>
+                                        <span className="hidden xl:inline">Panel</span>
+                                    </Link>
+                                    <Link
+                                        to={RouteKey.LOGOUT}
+                                        className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2 shadow-md hover:shadow-lg"
+                                    >
+                                        <LogOut className="w-4 h-4"/>
+                                        <span className="hidden xl:inline">Çıkış</span>
+                                    </Link>
+                                </>
+                            ) : (
+                                <Link
+                                    to={RouteKey.LOGIN}
+                                    className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-medium transition-all duration-200 flex items-center gap-2"
+                                >
+                                    <LogIn className="w-4 h-4"/>
+                                    <span className="hidden xl:inline">Giriş</span>
+                                </Link>
+                            )}
+
                             {/* Contact buttons */}
                             <button
                                 onClick={handlePhoneCall}
@@ -196,8 +236,48 @@ const Header: React.FC = () => {
                                         </Link>
                                     ))}
 
-                                    {/* Mobile contact buttons */}
+                                    {/* Mobile auth and contact buttons */}
                                     <div className="pt-4 space-y-3 border-t">
+                                        {/* Auth button */}
+                                        {loading ? (
+                                            <div
+                                                className="w-full bg-gray-100 text-gray-400 px-4 py-3 rounded-lg font-medium flex items-center justify-center gap-2">
+                                                <div
+                                                    className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin"/>
+                                                Yükleniyor...
+                                            </div>
+                                        ) : user ? (
+                                            <>
+                                                <Link
+                                                    to={RouteKey.ADMIN_DASHBOARD}
+                                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor"
+                                                         viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round"
+                                                              strokeWidth={2}
+                                                              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                                                    </svg>
+                                                    Admin Paneli
+                                                </Link>
+                                                <Link
+                                                    to={RouteKey.LOGOUT}
+                                                    className="w-full bg-gray-600 hover:bg-gray-700 text-white px-4 py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                                                >
+                                                    <LogOut className="w-4 h-4"/>
+                                                    Çıkış Yap
+                                                </Link>
+                                            </>
+                                        ) : (
+                                            <Link
+                                                to={RouteKey.LOGIN}
+                                                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+                                            >
+                                                <LogIn className="w-4 h-4"/>
+                                                Giriş Yap
+                                            </Link>
+                                        )}
+
                                         <button
                                             onClick={handlePhoneCall}
                                             className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"

@@ -5,9 +5,11 @@ import AppRouter from './router/AppRouter.tsx'
 import {LanguageProvider} from './contexts/LanguageContext'
 import {HelmetProvider} from 'react-helmet-async'
 
-// Import admin user creation utility for development
+// Import utilities for development
 if (import.meta.env.DEV) {
     import('./utils/createAdminUser');
+    import('./utils/fixProductViews');
+    import('./utils/fixFavorites');
 }
 
 createRoot(document.getElementById('root')!).render(

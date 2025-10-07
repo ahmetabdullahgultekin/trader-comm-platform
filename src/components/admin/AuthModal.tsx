@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Eye, EyeOff, Lock, User, X} from 'lucide-react';
-import {useAuth} from '../../hooks/useAuth';
+import {useAuth} from '../../contexts/AuthContext';
 
 interface AuthModalProps {
     isOpen: boolean;

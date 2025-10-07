@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {Edit, Eye, LogOut, Plus, Search, Trash2} from 'lucide-react';
-import {useAuth} from '../../hooks/useAuth';
+import {useAuth} from '../../contexts/AuthContext';
 import {useProducts, useTranslation} from '../../hooks';
 import {RouteKey} from '../../types/enums';
 import {motion} from 'framer-motion';

@@ -7,6 +7,7 @@ import LoadingSpinner from '../components/common/LoadingSpinner';
 import ProtectedRoute from '../components/auth/ProtectedRoute';
 import GoogleAnalytics from '../components/integrations/GoogleAnalytics';
 import LiveChat from '../components/integrations/LiveChat';
+import {AuthProvider} from '../contexts/AuthContext';
 
 // Public pages - Lazy loading for better performance
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -18,10 +19,16 @@ const PartnersPage = lazy(() => import('../pages/PartnersPage'));
 const FavoritesPage = lazy(() => import('../pages/FavoritesPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
+// Auth pages
+const LoginPage = lazy(() => import('../pages/auth/LoginPage'));
+const LogoutPage = lazy(() => import('../pages/auth/LogoutPage'));
+
 // Admin pages
 const AdminLoginPage = lazy(() => import('../pages/admin/AdminLoginPage'));
 const AdminDashboardPage = lazy(() => import('../pages/admin/AdminDashboardPage'));
 const AdminProductsPage = lazy(() => import('../pages/admin/AdminProductsPage'));
+const AdminAddProductPage = lazy(() => import('../pages/admin/AdminAddProductPage'));
+const AdminEditProductPage = lazy(() => import('../pages/admin/AdminEditProductPage'));
 
 // Create QueryClient instance
 const queryClient = new QueryClient({
@@ -37,70 +44,86 @@ const queryClient = new QueryClient({
 const AppRouter: React.FC = () => {
     return (
         <QueryClientProvider client={queryClient}>
-            <Router>
-                {/* Google Analytics */}
-                <GoogleAnalytics/>
+            <AuthProvider>
+                <Router>
+                    {/* Google Analytics */}
+                    <GoogleAnalytics/>
 
-                {/* Live Chat Widget */}
-                <LiveChat/>
+                    {/* Live Chat Widget */}
+                    <LiveChat/>
 
-                <Suspense fallback={<LoadingSpinner/>}>
-                    <Routes>
-                        {/* Public Routes with Layout */}
-                        <Route path="/" element={<Layout><HomePage/></Layout>}/>
-                        <Route path="/urunler" element={<Layout><ProductsPage/></Layout>}/>
-                        <Route path="/urunler/:id" element={<Layout><ProductDetailPage/></Layout>}/>
-                        <Route path="/hakkimda" element={<Layout><AboutPage/></Layout>}/>
-                        <Route path="/iletisim" element={<Layout><ContactPage/></Layout>}/>
-                        <Route path="/is-ortaklarimiz" element={<Layout><PartnersPage/></Layout>}/>
-                        <Route path="/favoriler" element={<Layout><FavoritesPage/></Layout>}/>
+                    <Suspense fallback={<LoadingSpinner fullScreen message="Sayfa yükleniyor..."/>}>
+                        <Routes>
+                            {/* Public Routes with Layout */}
+                            <Route path="/" element={<Layout><HomePage/></Layout>}/>
+                            <Route path="/urunler" element={<Layout><ProductsPage/></Layout>}/>
+                            <Route path="/urunler/:id" element={<Layout><ProductDetailPage/></Layout>}/>
+                            <Route path="/hakkimda" element={<Layout><AboutPage/></Layout>}/>
+                            <Route path="/iletisim" element={<Layout><ContactPage/></Layout>}/>
+                            <Route path="/is-ortaklarimiz" element={<Layout><PartnersPage/></Layout>}/>
+                            <Route path="/favoriler" element={<Layout><FavoritesPage/></Layout>}/>
 
-                        {/* Redirect old URLs to Turkish ones */}
-                        <Route path="/products" element={<Navigate to="/urunler" replace/>}/>
-                        <Route path="/about" element={<Navigate to="/hakkimda" replace/>}/>
-                        <Route path="/contact" element={<Navigate to="/iletisim" replace/>}/>
-                        <Route path="/partners" element={<Navigate to="/is-ortaklarimiz" replace/>}/>
+                            {/* Auth Routes without Layout */}
+                            <Route path="/giris" element={<LoginPage/>}/>
+                            <Route path="/cikis" element={<LogoutPage/>}/>
 
-                        {/* Admin Routes without Layout */}
-                        <Route path="/admin" element={<AdminLoginPage/>}/>
-                        <Route path="/admin/dashboard" element={
-                            <ProtectedRoute>
-                                <AdminDashboardPage/>
-                            </ProtectedRoute>
-                        }/>
-                        <Route path="/admin/urunler" element={
-                            <ProtectedRoute>
-                                <AdminProductsPage/>
-                            </ProtectedRoute>
-                        }/>
+                            {/* Redirect old URLs to Turkish ones */}
+                            <Route path="/products" element={<Navigate to="/urunler" replace/>}/>
+                            <Route path="/about" element={<Navigate to="/hakkimda" replace/>}/>
+                            <Route path="/contact" element={<Navigate to="/iletisim" replace/>}/>
+                            <Route path="/partners" element={<Navigate to="/is-ortaklarimiz" replace/>}/>
 
-                        {/* 404 Page */}
-                        <Route path="*" element={<Layout><NotFoundPage/></Layout>}/>
-                    </Routes>
-                </Suspense>
+                            {/* Admin Routes without Layout */}
+                            <Route path="/admin" element={<AdminLoginPage/>}/>
+                            <Route path="/admin/dashboard" element={
+                                <ProtectedRoute>
+                                    <AdminDashboardPage/>
+                                </ProtectedRoute>
+                            }/>
+                            <Route path="/admin/urunler" element={
+                                <ProtectedRoute>
+                                    <AdminProductsPage/>
+                                </ProtectedRoute>
+                            }/>
+                            <Route path="/admin/urun-ekle" element={
+                                <ProtectedRoute>
+                                    <AdminAddProductPage/>
+                                </ProtectedRoute>
+                            }/>
+                            <Route path="/admin/urun-duzenle/:id" element={
+                                <ProtectedRoute>
+                                    <AdminEditProductPage/>
+                                </ProtectedRoute>
+                            }/>
 
-                {/* Toast notifications */}
-                <Toaster
-                    position="top-right"
-                    toastOptions={{
-                        duration: 4000,
-                        style: {
-                            background: '#363636',
-                            color: '#fff',
-                        },
-                        success: {
+                            {/* 404 Page */}
+                            <Route path="*" element={<Layout><NotFoundPage/></Layout>}/>
+                        </Routes>
+                    </Suspense>
+
+                    {/* Toast notifications */}
+                    <Toaster
+                        position="top-right"
+                        toastOptions={{
+                            duration: 4000,
                             style: {
-                                background: '#10B981',
+                                background: '#363636',
+                                color: '#fff',
                             },
-                        },
-                        error: {
-                            style: {
-                                background: '#EF4444',
+                            success: {
+                                style: {
+                                    background: '#10B981',
+                                },
                             },
-                        },
-                    }}
-                />
-            </Router>
+                            error: {
+                                style: {
+                                    background: '#EF4444',
+                                },
+                            },
+                        }}
+                    />
+                </Router>
+            </AuthProvider>
         </QueryClientProvider>
     );
 };

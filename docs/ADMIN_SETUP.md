@@ -7,28 +7,28 @@ Admin paneline erişmek için Firebase Console'dan bir kullanıcı oluşturmanı
 ### Yöntem 1: Firebase Console Üzerinden (Önerilen)
 
 1. **Firebase Console'a Gidin:**
-   - https://console.firebase.google.com/
-   - Projenizi seçin: `trader-e-commerce`
+    - https://console.firebase.google.com/
+    - Projenizi seçin: `trader-e-commerce`
 
 2. **Authentication'a Gidin:**
-   - Sol menüden **Build** > **Authentication**
-   - **Get Started** butonuna tıklayın (ilk kez kurulum yapıyorsanız)
+    - Sol menüden **Build** > **Authentication**
+    - **Get Started** butonuna tıklayın (ilk kez kurulum yapıyorsanız)
 
 3. **Sign-in Method Ayarlayın:**
-   - **Sign-in method** sekmesine gidin
-   - **Email/Password** seçeneğini bulun ve **Enable** yapın
-   - Save butonuna tıklayın
+    - **Sign-in method** sekmesine gidin
+    - **Email/Password** seçeneğini bulun ve **Enable** yapın
+    - Save butonuna tıklayın
 
 4. **Admin Kullanıcısı Ekleyin:**
-   - **Users** sekmesine gidin
-   - **Add user** butonuna tıklayın
-   - Email: `admin@fahrieren.com` (veya istediğiniz email)
-   - Password: Güçlü bir şifre belirleyin (örn: `Admin123!@#`)
-   - **Add user** butonuna tıklayın
+    - **Users** sekmesine gidin
+    - **Add user** butonuna tıklayın
+    - Email: `admin@fahrieren.com` (veya istediğiniz email)
+    - Password: Güçlü bir şifre belirleyin (örn: `Admin123!@#`)
+    - **Add user** butonuna tıklayın
 
 5. **Admin Paneline Giriş:**
-   - Tarayıcınızda: `http://localhost:5173/admin`
-   - Oluşturduğunuz email ve şifre ile giriş yapın
+    - Tarayıcınızda: `http://localhost:5173/admin`
+    - Oluşturduğunuz email ve şifre ile giriş yapın
 
 ### Yöntem 2: Kod İle Kullanıcı Oluşturma
 
@@ -68,6 +68,7 @@ createUserWithEmailAndPassword(auth, email, password)
 ### Güvenlik Notları
 
 ⚠️ **ÖNEMLİ:**
+
 1. Üretim ortamında güçlü şifreler kullanın
 2. Firebase Security Rules'u kontrol edin
 3. Admin email adresini güvenli tutun
@@ -76,12 +77,14 @@ createUserWithEmailAndPassword(auth, email, password)
 ### Sorun Giderme
 
 **"Giriş başarısız" hatası alıyorsanız:**
+
 1. Firebase Console'da Authentication > Sign-in method > Email/Password'ün aktif olduğundan emin olun
 2. Kullanıcının doğru oluşturulduğunu kontrol edin (Authentication > Users)
 3. Şifrenizin en az 6 karakter olduğundan emin olun
 4. Firebase API Key'in doğru olduğunu kontrol edin (`src/config/firebase.ts`)
 
 **"Network error" hatası alıyorsanız:**
+
 1. İnternet bağlantınızı kontrol edin
 2. Firebase projesinin aktif olduğundan emin olun
 3. Firebase kurallarının (`firestore.rules`) doğru yapılandırıldığından emin olun

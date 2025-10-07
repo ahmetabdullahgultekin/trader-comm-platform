@@ -11,8 +11,8 @@
  * NOT: Production'da Firebase Console'dan kullanıcı oluşturun!
  */
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../config/firebase';
 
 export const createAdminUser = async (email: string, password: string) => {
     try {
@@ -63,13 +63,9 @@ export const quickAdminSetup = () => {
     return createAdminUser(defaultEmail, defaultPassword);
 };
 
-// Global fonksiyon olarak ekle (sadece development)
+// Global fonksiyon olarak ekle (sadece development - sessizce)
 if (import.meta.env.DEV) {
     (window as any).createAdminUser = createAdminUser;
     (window as any).quickAdminSetup = quickAdminSetup;
-
-    console.log('🔑 Admin kullanıcısı oluşturmak için console\'a yazın:');
-    console.log('quickAdminSetup()');
-    console.log('veya');
-    console.log('createAdminUser("email@example.com", "password123")');
+    // Console log'lar kaldırıldı - ihtiyaç olursa doğrudan fonksiyonları çağırın
 }

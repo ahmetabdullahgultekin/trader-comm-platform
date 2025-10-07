@@ -12,6 +12,8 @@ export interface Product {
     rating?: number;
     reviews?: number;
     views: number;
+    favoriteCount?: number; // Gerçek favori sayısı (Firebase'den)
+    contactCount?: number;  // Gerçek iletişim talebi sayısı (Firebase'den)
     specifications?: Record<string, string>;
     priceText?: string;
     location?: LocalizedText;

@@ -50,6 +50,8 @@ export const RouteKey = {
     BLOG: '/blog',
     FAVORITES: '/favoriler',
     COMPARE: '/karsilastir',
+    LOGIN: '/giris',
+    LOGOUT: '/cikis',
     ADMIN: '/admin',
     ADMIN_DASHBOARD: '/admin/dashboard',
     ADMIN_PRODUCTS: '/admin/urunler',
