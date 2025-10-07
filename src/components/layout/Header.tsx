@@ -82,10 +82,11 @@ const Header: React.FC = () => {
                         <Link to={RouteKey.HOME}
                               className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
                             <div className="relative">
-                                <div
-                                    className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg">
-                                    <span className="text-white font-bold text-xl">{config.personal.initials}</span>
-                                </div>
+                                <img
+                                    src="/logo.png"
+                                    alt={config.personal.fullName}
+                                    className="w-12 h-12 object-contain"
+                                />
                                 <div
                                     className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
                             </div>

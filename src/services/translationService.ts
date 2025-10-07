@@ -134,19 +134,28 @@ export class TranslationService {
                 new: 'Yeni',
                 sale: 'İndirimde',
                 details: 'Detaylar',
+                detailsView: 'Detayları Gör',
                 contact: 'İletişime Geç',
+                call: 'Ara',
                 description: 'Açıklama',
                 features: 'Özellikler',
                 gallery: 'Galeri',
                 seller: 'Satıcı',
                 views: 'görüntülenme',
+                viewCount: 'görüntüleme',
                 similarProducts: 'Benzer Ürünler',
                 backToList: 'Listeye Dön',
                 showMore: 'Daha Fazla Göster',
                 addToFavorites: 'Favorilere Ekle',
                 share: 'Paylaş',
                 askQuestion: 'Soru Sor',
-                makeOffer: 'Teklif Ver'
+                makeOffer: 'Teklif Ver',
+                inStock: 'Stokta',
+                outOfStock: 'Tükendi',
+                view: 'Görüntüle',
+                noProducts: 'Ürün bulunamadı',
+                addFirst: 'İlk Ürünü Ekle',
+                showing: 'gösteriliyor'
             },
             about: {
                 title: 'Fahri Eren Kimdir?',
@@ -230,18 +239,59 @@ export class TranslationService {
                 mostViewed: 'En Çok Görüntülenen',
                 categoryDistribution: 'Kategori Dağılımı',
                 products: 'Ürünler',
+                product: 'Ürün',
+                productsManagement: 'Ürün Yönetimi',
+                viewManageProducts: 'Tüm ürünleri görüntüle ve yönet',
                 search: 'Ürün ara...',
                 category: 'Kategori',
                 price: 'Fiyat',
                 views: 'Görüntüleme',
                 date: 'Tarih',
                 actions: 'İşlemler',
+                status: 'Durum',
+                active: 'Aktif',
+                inactive: 'Pasif',
                 edit: 'Düzenle',
                 delete: 'Sil',
+                view: 'Görüntüle',
                 noProducts: 'Henüz ürün eklenmemiş',
                 noSearchResults: 'Arama kriterlerine uygun ürün bulunamadı',
                 deleteConfirm: 'Bu ürünü silmek istediğinizden emin misiniz?',
                 deleteError: 'Ürün silinirken hata oluştu',
+                dashboard: 'Dashboard',
+                welcome: 'Hoş geldiniz',
+                homePage: 'Ana Sayfa',
+                recentProducts: 'Son Eklenen Ürünler',
+                viewAll: 'Tümünü Gör',
+                totalFavorites: 'Favorilere Eklenme',
+                contactRequests: 'İletişim Talebi',
+                quickActions: {
+                    newProduct: {
+                        title: 'Yeni Ürün',
+                        desc: 'Yeni bir ürün ekleyin'
+                    },
+                    products: {
+                        title: 'Ürünler',
+                        desc: 'Tüm ürünleri yönetin'
+                    },
+                    customers: {
+                        title: 'Müşteriler',
+                        desc: 'Müşteri listesini görüntüleyin'
+                    },
+                    reports: {
+                        title: 'Raporlar',
+                        desc: 'İstatistikleri inceleyin'
+                    }
+                },
+                login: {
+                    title: 'Admin Girişi',
+                    subtitle: 'Yönetim paneline erişmek için giriş yapın',
+                    email: 'E-posta',
+                    password: 'Şifre',
+                    submit: 'Giriş Yap',
+                    backHome: 'Ana Sayfaya Dön',
+                    securityNote: 'Güvenlik notu: Şifrenizi kimseyle paylaşmayın'
+                },
                 addProduct: {
                     title: 'Yeni Ürün Ekle',
                     subtitle: 'Ürün bilgilerini eksiksiz doldurun',
@@ -311,6 +361,12 @@ export class TranslationService {
                 trustedBy: 'Güvenilen Platform',
                 privacyPolicy: 'Gizlilik Politikası',
                 termsOfService: 'Kullanım Şartları'
+            },
+            pwa: {
+                installTitle: 'Uygulamayı Yükle',
+                installDesc: 'Hızlı erişim için uygulamayı cihazınıza yükleyin',
+                install: 'Yükle',
+                later: 'Daha Sonra'
             }
         },
         en: {
@@ -453,19 +509,28 @@ export class TranslationService {
                 new: 'New',
                 sale: 'On Sale',
                 details: 'Details',
+                detailsView: 'View Details',
                 contact: 'Contact',
+                call: 'Call',
                 description: 'Description',
                 features: 'Features',
                 gallery: 'Gallery',
                 seller: 'Seller',
                 views: 'views',
+                viewCount: 'views',
                 similarProducts: 'Similar Products',
                 backToList: 'Back to List',
                 showMore: 'Show More',
                 addToFavorites: 'Add to Favorites',
                 share: 'Share',
                 askQuestion: 'Ask Question',
-                makeOffer: 'Make Offer'
+                makeOffer: 'Make Offer',
+                inStock: 'In Stock',
+                outOfStock: 'Out of Stock',
+                view: 'View',
+                noProducts: 'No products found',
+                addFirst: 'Add First Product',
+                showing: 'showing'
             },
             common: {
                 loading: 'Loading...',
@@ -638,6 +703,12 @@ export class TranslationService {
                 copyright: '© 2024 Fahri Eren. All rights reserved.',
                 privacyPolicy: 'Privacy Policy',
                 termsOfService: 'Terms of Service'
+            },
+            pwa: {
+                installTitle: 'Install App',
+                installDesc: 'Install the app to your device for quick access',
+                install: 'Install',
+                later: 'Later'
             }
         }
     };

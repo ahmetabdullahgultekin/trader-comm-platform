@@ -54,8 +54,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
     // Update SEO for this product and track view
     React.useEffect(() => {
         updateProductSEO(product);
-        // Track product view for analytics
-        analyticsService.trackProductView(product.id);
+        // Track product view for analytics (only in production)
+        if (import.meta.env.PROD) {
+            analyticsService.trackProductView(product.id);
+        }
     }, [product, updateProductSEO]);
 
     const nextImage = () => {

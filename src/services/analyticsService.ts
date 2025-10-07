@@ -353,5 +353,6 @@ class AnalyticsService {
     }
 }
 
+export {AnalyticsService};
 export const analyticsService = AnalyticsService.getInstance();
 export default analyticsService;

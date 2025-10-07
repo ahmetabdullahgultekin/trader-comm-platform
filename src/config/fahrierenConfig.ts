@@ -279,9 +279,9 @@ export const FAHRI_EREN_CONFIG = {
         domain: CONSTANTS.WEBSITE.DOMAIN,
         companyName: "Fahri Eren Trading Platform",
         logo: {
-            [ImageType.LOGO_PRIMARY]: "/images/logo/logo.png",
-            [ImageType.LOGO_SECONDARY]: "/images/logo/logo-dark.png",
-            [ImageType.FAVICON]: "/favicon.ico"
+            [ImageType.LOGO_PRIMARY]: "/logo.png",
+            [ImageType.LOGO_SECONDARY]: "/logo.png",
+            [ImageType.FAVICON]: "/favicon-32x32.png"
         },
         colors: {
             [ColorTheme.PRIMARY]: "#2563eb", // Blue-600
@@ -412,7 +412,7 @@ export const FahriErenUtils = {
             description: seo.description[language],
             keywords: seo.keywords[language],
             domain: FAHRI_EREN_CONFIG.website.domain,
-            image: `${FAHRI_EREN_CONFIG.website.domain}${FAHRI_EREN_CONFIG.personal.profileImage}`
+            image: `${FAHRI_EREN_CONFIG.website.domain}/logo.png`
         };
     },
 

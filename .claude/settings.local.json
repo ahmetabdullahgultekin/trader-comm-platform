@@ -12,7 +12,8 @@
       "Bash(for component in AboutPage AddProductPage AdminDashboard AdminPanel AuthModal EditProductPage ProductManager ProductCard ProductDetail ProductFilters ContactPage PartnersPage Header Footer)",
       "Bash(do echo \"=== $component ===\")",
       "Bash(grep:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

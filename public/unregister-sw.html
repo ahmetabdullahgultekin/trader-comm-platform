@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Service Worker Unregister</title>
+</head>
+<body>
+    <h1>Service Worker Cleanup</h1>
+    <p id="status">Cleaning up...</p>
+
+    <script>
+        async function cleanup() {
+            const statusEl = document.getElementById('status');
+
+            try {
+                // Unregister all service workers
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (const registration of registrations) {
+                    await registration.unregister();
+                    console.log('Unregistered:', registration);
+                }
+
+                // Clear all caches
+                const cacheNames = await caches.keys();
+                for (const cacheName of cacheNames) {
+                    await caches.delete(cacheName);
+                    console.log('Deleted cache:', cacheName);
+                }
+
+                statusEl.innerHTML = `
+                    <p style="color: green;">✅ Cleanup complete!</p>
+                    <p>Unregistered ${registrations.length} service worker(s)</p>
+                    <p>Deleted ${cacheNames.length} cache(s)</p>
+                    <p><strong>Now close this tab and refresh your main app.</strong></p>
+                `;
+            } catch (error) {
+                statusEl.innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        cleanup();
+    </script>
+</body>
+</html>

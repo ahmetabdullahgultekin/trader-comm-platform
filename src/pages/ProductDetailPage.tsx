@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Eye} from 'lucide-react';
 import {useProducts, useTranslation} from '../hooks';
@@ -7,6 +7,7 @@ import {PhoneType, RouteKey} from '../types/enums';
 import SEO from '../components/common/SEO';
 import ProductDetail from '../components/products/ProductDetail';
 import LoadingSpinner from '../components/common/LoadingSpinner';
+import {AnalyticsService} from '../services/analyticsService';
 
 const ProductDetailPage: React.FC = () => {
     const {id} = useParams<{ id: string }>();
@@ -17,6 +18,16 @@ const ProductDetailPage: React.FC = () => {
 
     // Find the current product
     const product = products.find(p => p.id === id);
+
+    // Track product view
+    useEffect(() => {
+        if (id && product && import.meta.env.PROD) {
+            const analytics = AnalyticsService.getInstance();
+            analytics.trackProductView(id).catch(err => {
+                console.warn('Failed to track product view:', err);
+            });
+        }
+    }, [id, product]);
 
     // Find similar products (same category, exclude current product)
     const similarProducts = product

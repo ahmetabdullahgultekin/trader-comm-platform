@@ -30,19 +30,31 @@ const ProductsPage: React.FC = () => {
     // Initialize filters from URL params
     useEffect(() => {
         const search = searchParams.get('search');
+        const kategori = searchParams.get('kategori');
         const sortBy = searchParams.get('sort');
         const minPrice = searchParams.get('minPrice');
         const maxPrice = searchParams.get('maxPrice');
 
-        if (search || sortBy || minPrice || maxPrice) {
-            updateFilters({
-                searchQuery: search || '',
-                sortBy: sortBy as any || 'newest',
-                priceRange: {
-                    min: minPrice || '',
-                    max: maxPrice || ''
-                }
-            });
+        const newFilters: any = {};
+
+        if (search) {
+            newFilters.searchQuery = search;
+        }
+        if (kategori) {
+            newFilters.category = kategori;
+        }
+        if (sortBy) {
+            newFilters.sortBy = sortBy;
+        }
+        if (minPrice || maxPrice) {
+            newFilters.priceRange = {
+                min: minPrice || '',
+                max: maxPrice || ''
+            };
+        }
+
+        if (Object.keys(newFilters).length > 0) {
+            updateFilters(newFilters);
         }
     }, [searchParams, updateFilters]);
 

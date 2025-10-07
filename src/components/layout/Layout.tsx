@@ -3,12 +3,16 @@ import Header from './Header';
 import Footer from './Footer';
 import {ChevronUp} from 'lucide-react';
 import {useFahriErenConfig} from '../../hooks/useFahriErenConfig';
+import PWAInstallPrompt from '../common/PWAInstallPrompt';
+import {useScrollToTop} from '../../hooks/useScrollToTop';
 
 interface LayoutProps {
     children: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({children}) => {
+    // Scroll to top on page change
+    useScrollToTop();
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -26,6 +30,9 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
 
             {/* WhatsApp floating button for Turkish market */}
             <WhatsAppButton/>
+
+            {/* PWA Install Prompt */}
+            <PWAInstallPrompt/>
         </div>
     );
 };

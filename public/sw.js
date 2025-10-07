@@ -16,9 +16,19 @@ self.addEventListener('install', (event) => {
 
 // Fetch event with network-first strategy
 self.addEventListener('fetch', (event) => {
+    // Only cache GET requests
+    if (event.request.method !== 'GET') {
+        return;
+    }
+
     event.respondWith(
         fetch(event.request)
             .then((response) => {
+                // Don't cache non-successful responses
+                if (!response || response.status !== 200 || response.type === 'error') {
+                    return response;
+                }
+
                 // Clone the response
                 const responseToCache = response.clone();
 
