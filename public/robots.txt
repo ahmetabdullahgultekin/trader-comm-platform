@@ -1,0 +1,22 @@
+# robots.txt for fahrieren.com
+User-agent: *
+Allow: /
+Allow: /urunler/
+Allow: /hakkimizda
+Allow: /iletisim
+Allow: /ortaklar
+
+# Sitemaps
+Sitemap: https://fahrieren.com/sitemap.xml
+
+# Block admin and auth pages
+Disallow: /admin/
+Disallow: /giris
+Disallow: /kayit
+
+# Allow Google AdSense
+User-agent: Mediapartners-Google
+Allow: /
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1

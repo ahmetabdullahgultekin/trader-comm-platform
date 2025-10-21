@@ -17,6 +17,8 @@ const AboutPage = lazy(() => import('../pages/AboutPage'));
 const ContactPage = lazy(() => import('../pages/ContactPage'));
 const PartnersPage = lazy(() => import('../pages/PartnersPage'));
 const FavoritesPage = lazy(() => import('../pages/FavoritesPage'));
+const PrivacyPolicyPage = lazy(() => import('../pages/PrivacyPolicyPage'));
+const TermsOfServicePage = lazy(() => import('../pages/TermsOfServicePage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 // Auth pages
@@ -62,6 +64,8 @@ const AppRouter: React.FC = () => {
                             <Route path="/iletisim" element={<Layout><ContactPage/></Layout>}/>
                             <Route path="/is-ortaklarimiz" element={<Layout><PartnersPage/></Layout>}/>
                             <Route path="/favoriler" element={<Layout><FavoritesPage/></Layout>}/>
+                            <Route path="/gizlilik-politikasi" element={<Layout><PrivacyPolicyPage/></Layout>}/>
+                            <Route path="/kullanim-kosullari" element={<Layout><TermsOfServicePage/></Layout>}/>
 
                             {/* Auth Routes without Layout */}
                             <Route path="/giris" element={<LoginPage/>}/>

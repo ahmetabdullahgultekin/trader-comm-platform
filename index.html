@@ -9,8 +9,101 @@
 
     <!-- Basic Meta Tags (will be overridden by React Helmet) -->
     <title>Fahri Eren - Kaliteli Emlak, Araç ve Tarım Ürünleri | Türkiye</title>
-    <meta content="Türkiye'nin güvenilir ticaret platformu. Emlak, araç, tarım ürünleri ve inşaat malzemelerinde kaliteli hizmet."
+    <meta content="Türkiye'nin güvenilir ticaret platformu. Emlak, araç, tarım ürünleri ve inşaat malzemelerinde kaliteli hizmet. 1998'den beri sektörde."
           name="description"/>
+    <meta content="emlak, arsa, tarla, araç alım satım, tarım ürünleri, yumurta üreticisi, inşaat malzemeleri, Yeşilova, Antalya, Fahri Eren"
+          name="keywords"/>
+    <meta content="Fahri Eren" name="author"/>
+
+    <!-- Open Graph / Facebook -->
+    <meta content="website" property="og:type"/>
+    <meta content="https://fahrieren.com/" property="og:url"/>
+    <meta content="Fahri Eren - Kaliteli Emlak, Araç ve Tarım Ürünleri" property="og:title"/>
+    <meta content="1998'den beri emlak, araç, tarım ürünleri ve inşaat malzemelerinde güvenilir ticaret."
+          property="og:description"/>
+    <meta content="https://fahrieren.com/logo.png" property="og:image"/>
+    <meta content="tr_TR" property="og:locale"/>
+
+    <!-- Twitter -->
+    <meta content="summary_large_image" property="twitter:card"/>
+    <meta content="https://fahrieren.com/" property="twitter:url"/>
+    <meta content="Fahri Eren - Kaliteli Emlak, Araç ve Tarım Ürünleri" property="twitter:title"/>
+    <meta content="1998'den beri emlak, araç, tarım ürünleri ve inşaat malzemelerinde güvenilir ticaret."
+          property="twitter:description"/>
+    <meta content="https://fahrieren.com/logo.png" property="twitter:image"/>
+
+    <!-- Canonical URL -->
+    <link href="https://fahrieren.com/" rel="canonical"/>
+
+    <!-- Robots -->
+    <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+
+    <!-- Structured Data - Organization -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Fahri Eren - Eren Ticaret",
+            "alternateName": "Eren Yumurta",
+            "url": "https://fahrieren.com",
+            "logo": "https://fahrieren.com/logo.png",
+            "description": "1998 yılından beri emlak, araç alım-satımı, tarım ürünleri ve inşaat malzemeleri konusunda hizmet veren güvenilir ticaret platformu.",
+            "foundingDate": "1998",
+            "founder": {
+                "@type": "Person",
+                "name": "Fahri Eren"
+            },
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Yeşilova",
+                "addressRegion": "Antalya",
+                "addressCountry": "TR"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+90-532-617-16-35",
+                "contactType": "customer service",
+                "availableLanguage": [
+                    "Turkish",
+                    "English"
+                ]
+            },
+            "sameAs": [
+                "https://www.linkedin.com/in/fahri-eren"
+            ]
+        }
+    </script>
+
+    <!-- Structured Data - Local Business -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Fahri Eren - Eren Ticaret",
+            "image": "https://fahrieren.com/logo.png",
+            "description": "Emlak, araç, tarım ürünleri ve inşaat malzemeleri satışı yapan yerel işletme.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Yeşilova",
+                "addressRegion": "Antalya",
+                "addressCountry": "TR"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "37.5",
+                "longitude": "29.75"
+            },
+            "url": "https://fahrieren.com",
+            "telephone": "+90-532-617-16-35",
+            "priceRange": "$$",
+            "openingHours": "Mo-Su 08:00-20:00",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "reviewCount": "500"
+            }
+        }
+    </script>
 
     <!-- Favicon -->
     <link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
@@ -23,6 +116,22 @@
     <link href="https://pagead2.googlesyndication.com" rel="preconnect">
 </head>
 <body>
+<noscript>
+    <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+        <h1>Fahri Eren - Kaliteli Emlak, Araç ve Tarım Ürünleri</h1>
+        <p>Bu web sitesini görüntülemek için JavaScript'i etkinleştirmeniz gerekmektedir.</p>
+        <p>Bizimle iletişime geçmek için: <a href="tel:+905326171635">+90 532 617 16 35</a></p>
+        <hr>
+        <h2>Hizmetlerimiz</h2>
+        <ul style="list-style: none; padding: 0;">
+            <li>✓ Emlak Alım-Satım ve Danışmanlık</li>
+            <li>✓ Araç Ticareti ve Aracılık</li>
+            <li>✓ Tarım Ürünleri (Eren Yumurta)</li>
+            <li>✓ İnşaat Malzemeleri Satışı</li>
+        </ul>
+        <p>1998'den beri sektörde, 500+ mutlu müşteri</p>
+    </div>
+</noscript>
 <div id="root"></div>
 <script src="/src/main.tsx" type="module"></script>
 </body>

@@ -56,18 +56,41 @@ const AboutPage: React.FC = () => {
                             edindim.
                         </p>
                         <p>
-                            <strong>Emlak</strong>, <strong>araç alım-satımı</strong>, <strong>inşaat
-                            malzemeleri</strong> ve{' '}
+                            <strong>25 yılı aşkın deneyimimizle</strong>, <strong>emlak</strong>, <strong>araç
+                            alım-satımı</strong>, <strong>inşaat malzemeleri</strong> ve{' '}
                             <strong>tarım ürünleri</strong> konularında uzmanlaşmış durumdayım. Yıllarca süren
-                            deneyimimle,
-                            müşterilerime en doğru ve güvenilir çözümleri sunmaktan gurur duyuyorum.
+                            deneyimimle, müşterilerime en doğru ve güvenilir çözümleri sunmaktan gurur duyuyorum.
                         </p>
                         <p>
                             <strong className="text-blue-600">Eren Ticaret</strong> ve{' '}
                             <strong className="text-green-600">Eren Yumurta</strong> markalarımızla sektörde güvenilir
-                            bir
-                            isim haline geldik. Ailem ve ben, her zaman müşteri odaklı yaklaşımımızı koruyarak çalışmaya
-                            devam ediyoruz.
+                            bir isim haline geldik. Ailem ve ben, her zaman müşteri odaklı yaklaşımımızı koruyarak
+                            çalışmaya devam ediyoruz.
+                        </p>
+                        <p>
+                            <strong>Antalya, Yeşilova</strong> merkezli olarak hizmet veren işletmemiz, bölgedeki en
+                            kapsamlı ticaret platformlarından biridir. <strong>500'den fazla memnun müşterimiz</strong>
+                            {' '}ve <strong>4.8/5 müşteri memnuniyet oranımız</strong> ile sektörde fark yaratıyoruz.
+                        </p>
+                        <p>
+                            Emlak sektöründe <strong>konut, arsa, tarla ve ticari gayrimenkul</strong> konularında
+                            profesyonel danışmanlık hizmeti sunuyoruz. Tapu işlemlerinden fiyat değerlendirmesine,
+                            satış sonrası takipten yasal süreçlere kadar tüm aşamalarda yanınızdayız.
+                        </p>
+                        <p>
+                            Araç ticaretinde <strong>ikinci el araç alım-satımı ve aracılık hizmetleri</strong>
+                            {' '}veriyoruz. Ekspertiz, değer tespiti, ruhsat transferi ve güvenli alım-satım garantisi
+                            ile hizmetinizdeyiz.
+                        </p>
+                        <p>
+                            <strong>Eren Yumurta</strong> markamız ile günlük taze yumurta üretimi yapıyor, hijyenik
+                            üretim standartlarına uygun olarak toptan ve perakende satış gerçekleştiriyoruz. Düzenli
+                            teslimat hizmeti ile müşterilerimizin ihtiyaçlarını karşılıyoruz.
+                        </p>
+                        <p>
+                            İnşaat malzemeleri tedarikinde <strong>kaliteli ürünler</strong> ve{' '}
+                            <strong>rekabetçi fiyatlar</strong> sunuyoruz. Proje danışmanlığından hızlı teslimata
+                            kadar tüm süreçlerde profesyonel destek sağlıyoruz.
                         </p>
                     </div>
                 </motion.div>

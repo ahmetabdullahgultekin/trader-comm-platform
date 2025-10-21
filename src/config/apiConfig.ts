@@ -34,9 +34,9 @@ export const API_CONFIG = {
 
     // Contact Information
     CONTACT: {
-        PHONE: '05368536265',
+        PHONE: '05001234567',
         EMAIL: 'fahri.eren@gmail.com',
-        WHATSAPP: '05368536265',
+        WHATSAPP: '05001234567',
         ADDRESS: 'İstanbul, Türkiye',
     },
 

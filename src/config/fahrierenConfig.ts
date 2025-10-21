@@ -168,10 +168,10 @@ export const FAHRI_EREN_CONFIG = {
     // İletişim Bilgileri
     contact: {
         phone: {
-            [PhoneType.PRIMARY]: "+90 536 853 62 65",
-            [PhoneType.SECONDARY]: "+90 536 853 62 65",
-            [PhoneType.WHATSAPP]: "905368536265",
-            [PhoneType.DISPLAY]: "+90 536 853 62 65"
+            [PhoneType.PRIMARY]: "+90 500 123 45 67",
+            [PhoneType.SECONDARY]: "+90 500 123 45 67",
+            [PhoneType.WHATSAPP]: "905001234567",
+            [PhoneType.DISPLAY]: "+90 500 123 45 67"
         },
         email: {
             [EmailType.PRIMARY]: "fahri.eren@gmail.com",

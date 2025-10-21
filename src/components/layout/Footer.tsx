@@ -192,14 +192,12 @@ const Footer: React.FC = () => {
                         </div>
 
                         <div className="flex flex-wrap justify-center gap-6 text-sm">
-                            <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">
-                                {t('footer.privacyPolicy')}
+                            <Link to="/gizlilik-politikasi"
+                                  className="text-gray-400 hover:text-white transition-colors">
+                                {t('footer.privacyPolicy') || 'Gizlilik Politikası'}
                             </Link>
-                            <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
-                                {t('footer.termsOfService')}
-                            </Link>
-                            <Link to="/cookies" className="text-gray-400 hover:text-white transition-colors">
-                                {t('footer.cookiePolicy')}
+                            <Link to="/kullanim-kosullari" className="text-gray-400 hover:text-white transition-colors">
+                                {t('footer.termsOfService') || 'Kullanım Koşulları'}
                             </Link>
                         </div>
                     </div>
