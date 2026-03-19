@@ -26,31 +26,40 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
 
     return (
         <section
-            className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-600 via-secondary-500 to-primary-800 overflow-hidden">
+            className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-800 via-primary-600 to-secondary-700 overflow-hidden">
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 opacity-[0.07]">
                 <div
-                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80')] bg-cover bg-center mix-blend-overlay"></div>
+                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80')] bg-cover bg-center"></div>
             </div>
 
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0">
+            {/* Geometric Background Elements */}
+            <div className="absolute inset-0 overflow-hidden">
                 <div
-                    className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
+                    className="absolute -top-20 -left-20 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
                 <div
-                    className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+                    className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-accent-400/10 rounded-full blur-3xl"></div>
                 <div
-                    className="absolute top-1/2 left-1/2 w-48 h-48 bg-secondary-400/10 rounded-full blur-2xl animate-pulse delay-500"></div>
+                    className="absolute top-1/3 right-1/4 w-64 h-64 bg-secondary-400/8 rounded-full blur-2xl"></div>
+                {/* Subtle grid overlay */}
+                <div className="absolute inset-0 opacity-[0.03]"
+                     style={{backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '40px 40px'}}></div>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="text-center max-w-4xl mx-auto">
+                    {/* Badge */}
+                    <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-primary-100 text-sm font-medium mb-8 border border-white/10">
+                        <span className="w-2 h-2 bg-accent-400 rounded-full mr-2 animate-pulse"></span>
+                        25+ Yillik Tecrube
+                    </div>
+
                     {/* Main Content */}
                     <div className="mb-8">
-                        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
                             {t('hero.title')}
                         </h1>
-                        <p className="text-xl md:text-2xl text-primary-100 mb-8 leading-relaxed">
+                        <p className="text-xl md:text-2xl text-primary-100/90 mb-8 leading-relaxed max-w-2xl mx-auto">
                             {t('hero.subtitle')}
                         </p>
                     </div>
@@ -87,13 +96,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
                     {/* Stats */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
                         {stats.map((stat, index) => (
-                            <div key={index} className="text-center">
+                            <div key={index} className="text-center group">
                                 <div
-                                    className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-xl mb-4">
+                                    className="inline-flex items-center justify-center w-14 h-14 bg-white/10 backdrop-blur-sm rounded-2xl mb-4 group-hover:bg-white/20 transition-colors border border-white/10">
                                     <stat.icon className="w-6 h-6 text-white"/>
                                 </div>
-                                <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
-                                <div className="text-primary-100 text-sm">{stat.label}</div>
+                                <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                                <div className="text-primary-200 text-sm">{stat.label}</div>
                             </div>
                         ))}
                     </div>

@@ -8,11 +8,12 @@ import ProductFilters from './components/products/ProductFilters';
 import AboutPage from './components/about/AboutPage';
 import ContactPage from './components/contact/ContactPage';
 import PartnersPage from './components/partners/PartnersPage';
-import {useProducts, useSEO, useTranslation} from './hooks';
+import {useProducts, useScrollAnimation, useSEO, useTranslation} from './hooks';
 import {AdminPanel} from './components/admin/AdminPanel';
+import WhatsAppFloat from './components/common/WhatsAppFloat';
 import analyticsService from './services/analyticsService';
 import type {Product} from './types';
-import {Building2, Car, Egg, Filter, Grid, Home, List, Loader, Mail, RefreshCw, Send, Settings} from 'lucide-react';
+import {Building2, Car, Egg, Filter, Grid, Home, List, Loader, RefreshCw} from 'lucide-react';
 
 // Loading Component
 const LoadingSpinner: React.FC = () => {
@@ -34,6 +35,21 @@ const App: React.FC = () => {
     const [showFilters, setShowFilters] = useState(false);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [showAdminPanel, setShowAdminPanel] = useState(false);
+    const [adminClickCount, setAdminClickCount] = useState(0);
+    const adminClickTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const handleAdminSecret = () => {
+        const newCount = adminClickCount + 1;
+        setAdminClickCount(newCount);
+
+        if (adminClickTimer.current) clearTimeout(adminClickTimer.current);
+        adminClickTimer.current = setTimeout(() => setAdminClickCount(0), 3000);
+
+        if (newCount >= 5) {
+            setShowAdminPanel(true);
+            setAdminClickCount(0);
+        }
+    };
 
     const {
         products,
@@ -51,6 +67,9 @@ const App: React.FC = () => {
 
     // SEO hook for current page
     useSEO(currentPage);
+
+    // Scroll animations
+    useScrollAnimation();
 
     // Navigation handlers with active functionality
     const handlePageChange = (page: string) => {
@@ -75,16 +94,16 @@ const App: React.FC = () => {
     };
 
     const handleCallPhone = () => {
-        window.open('tel:+905321234567', '_self');
+        window.open('tel:+905368536265', '_self');
     };
 
     const handleSendEmail = () => {
-        window.open('mailto:fahri.eren@gmail.com?subject=İletişim%20-%20Fahri%20Eren', '_self');
+        window.open('mailto:fahri.eren@gmail.com?subject=Iletisim%20-%20Fahri%20Eren', '_self');
     };
 
     const handleOpenWhatsApp = () => {
-        const message = encodeURIComponent('Merhaba, ürünleriniz hakkında bilgi almak istiyorum.');
-        window.open(`https://wa.me/905321234567?text=${message}`, '_blank');
+        const message = encodeURIComponent('Merhaba, urunleriniz hakkinda bilgi almak istiyorum.');
+        window.open(`https://wa.me/905368536265?text=${message}`, '_blank');
     };
 
     const handleShare = (product?: Product) => {
@@ -124,7 +143,7 @@ const App: React.FC = () => {
             {/* Featured Products Section */}
             <section className="py-16 bg-gray-50">
                 <div className="container mx-auto px-6">
-                    <div className="text-center mb-12">
+                    <div className="text-center mb-12 scroll-animate">
                         <div className="flex items-center justify-center gap-4 mb-6">
                             <h2 className="text-3xl font-bold text-gray-900">{t('products.title')}</h2>
                             <button
@@ -157,7 +176,7 @@ const App: React.FC = () => {
                             </button>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
                             {allProducts.filter(p => p.featured).slice(0, 6).map((product) => (
                                 <ProductCard
                                     key={product.id}
@@ -418,22 +437,19 @@ const App: React.FC = () => {
                 onContact={handleCallPhone}
                 onEmail={handleSendEmail}
                 onWhatsApp={handleOpenWhatsApp}
+                onLogoClick={handleAdminSecret}
             />
 
-            {/* Admin Panel Toggle Button */}
-            <button
-                onClick={() => setShowAdminPanel(true)}
-                className="fixed bottom-4 right-4 p-3 bg-red-600 text-white rounded-full shadow-lg hover:bg-red-700 z-30"
-                title="Admin Panel"
-            >
-                <Settings className="w-5 h-5"/>
-            </button>
+            {/* WhatsApp Floating Button */}
+            <WhatsAppFloat phoneNumber="905368536265" />
 
-            {/* Admin Panel */}
-            <AdminPanel
-                isOpen={showAdminPanel}
-                onClose={() => setShowAdminPanel(false)}
-            />
+            {/* Admin Panel - hidden, activated by clicking footer logo area 5 times */}
+            {showAdminPanel && (
+                <AdminPanel
+                    isOpen={showAdminPanel}
+                    onClose={() => setShowAdminPanel(false)}
+                />
+            )}
         </div>
     );
 };

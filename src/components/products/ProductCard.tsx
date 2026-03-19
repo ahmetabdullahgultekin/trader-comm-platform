@@ -95,6 +95,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                         alt={product.title[language]}
                         className="w-full h-full object-cover rounded-lg"
                         onError={handleImageError}
+                        loading="lazy"
                     />
 
                     {product.images.length > 1 && !imageError && (
@@ -194,7 +195,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     // Grid view (default)
     return (
         <div
-            className="card overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 group"
+            className="card overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 group scroll-animate"
             onClick={() => onViewDetails(product)}
         >
             {/* Image Section */}

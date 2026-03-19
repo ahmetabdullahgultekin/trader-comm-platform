@@ -7,9 +7,10 @@ interface FooterProps {
     onContact?: () => void;
     onEmail?: () => void;
     onWhatsApp?: () => void;
+    onLogoClick?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhatsApp}) => {
+const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhatsApp, onLogoClick}) => {
     const {t} = useTranslation();
 
     const handlePrivacyPolicy = () => {
@@ -28,7 +29,9 @@ const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhat
                     <div>
                         <div className="flex items-center space-x-3 mb-6">
                             <div
-                                className="w-10 h-10 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center">
+                                onClick={onLogoClick}
+                                className="w-10 h-10 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center cursor-pointer select-none"
+                            >
                                 <span className="text-white font-bold">FE</span>
                             </div>
                             <h3 className="text-xl font-bold">Fahri Eren</h3>
@@ -37,6 +40,36 @@ const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhat
                             {t('footer.companyDescription')}
                         </p>
 
+                        {/* Social Media Links */}
+                        <div className="flex space-x-3">
+                            <a
+                                href="https://www.facebook.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-colors"
+                                aria-label="Facebook"
+                            >
+                                <Facebook className="w-5 h-5"/>
+                            </a>
+                            <a
+                                href="https://www.instagram.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-colors"
+                                aria-label="Instagram"
+                            >
+                                <Instagram className="w-5 h-5"/>
+                            </a>
+                            <a
+                                href="https://twitter.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-colors"
+                                aria-label="Twitter"
+                            >
+                                <Twitter className="w-5 h-5"/>
+                            </a>
+                        </div>
                     </div>
 
                     {/* Quick Links */}

@@ -5,8 +5,37 @@ import type {ContactForm, FilterOptions, Product} from '../types';
 // Re-export the translation hook from context
 export {useTranslation, useLanguage} from '../contexts/LanguageContext';
 
+// Re-export scroll animation hook
+export {useScrollAnimation} from './useScrollAnimation';
+
 // SEO Hook
 export const useSEO = (pageType: string) => {
+    const pageTitles: Record<string, string> = {
+        home: 'Fahri Eren | Emlak, Arac, Tarim Urunleri, Insaat Malzemeleri',
+        products: 'Urunlerimiz | Fahri Eren Ticaret',
+        about: 'Hakkimizda | Fahri Eren Ticaret',
+        contact: 'Iletisim | Fahri Eren Ticaret',
+        partners: 'Is Ortaklarimiz | Fahri Eren Ticaret',
+        'product-detail': 'Urun Detayi | Fahri Eren Ticaret',
+    };
+
+    const pageDescriptions: Record<string, string> = {
+        home: '25 yillik tecrube ile emlak, arac, insaat malzemeleri ve tarim urunleri ticareti. Ulukisla, Nigde.',
+        products: 'Fahri Eren Ticaret - Emlak, arac, insaat malzemeleri ve tarim urunleri. En kaliteli urunleri uygun fiyatlarla kesfet.',
+        about: 'Fahri Eren hakkinda - 25 yillik tecrube, 5000+ mutlu musteri. Guvenilir ticaret platformu.',
+        contact: 'Fahri Eren ile iletisime gecin. Telefon, e-posta veya WhatsApp uzerinden bize ulasin.',
+        partners: 'Fahri Eren is ortaklari ve guvenilir tedarikci agi.',
+    };
+
+    useEffect(() => {
+        document.title = pageTitles[pageType] || pageTitles.home;
+
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.setAttribute('content', pageDescriptions[pageType] || pageDescriptions.home);
+        }
+    }, [pageType]);
+
     const updateProductSEO = useCallback((product?: Product) => {
         if (product) {
             document.title = `${product.title.tr} - Fahri Eren Ticaret`;
