@@ -60,14 +60,13 @@ export class DataService {
                 id: 'eren-ticaret',
                 name: 'Eren Ticaret',
                 description: {
-                    tr: 'İnşaat malzemeleri ve yapı malzemeleri ticareti alanında 20 yıllık deneyim',
-                    en: 'Construction and building materials trading with 20 years of experience'
+                    tr: 'İnşaat malzemeleri ve yapı malzemeleri ticareti',
+                    en: 'Construction and building materials trading'
                 },
                 services: {
                     tr: ['İnşaat Malzemeleri', 'Yapı Kimyasalları', 'Demir Çelik', 'Toptan Satış', 'Proje Danışmanlığı'],
                     en: ['Construction Materials', 'Building Chemicals', 'Steel', 'Wholesale', 'Project Consulting']
                 },
-                website: 'https://erenticaret.com.tr',
                 logo: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&q=80',
                 category: 'business'
             },
@@ -82,7 +81,6 @@ export class DataService {
                     tr: ['Organik Yumurta', 'Gezen Tavuk', 'Doğal Ürünler', 'Toptan Satış', 'Çiftlik Turları'],
                     en: ['Organic Eggs', 'Free Range', 'Natural Products', 'Wholesale', 'Farm Tours']
                 },
-                website: 'https://erenyumurta.com.tr',
                 logo: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=300&q=80',
                 category: 'agriculture'
             }
@@ -108,20 +106,12 @@ export class DataService {
                 tr: 'Kılan Köyü, Ulukışla, Niğde, Türkiye',
                 en: 'Kılan, Ulukışla, Niğde, Turkey'
             },
-            socialMedia: {
-                facebook: 'https://facebook.com/fahrieren',
-                instagram: 'https://instagram.com/fahrieren',
-                linkedin: 'https://linkedin.com/in/fahrieren'
-            },
+            socialMedia: {},
             workHours: {
-                tr: 'Hafta içi: 08:00 - 19:00, Hafta sonu: 09:00 - 17:00',
-                en: 'Weekdays: 08:00 - 19:00, Weekend: 09:00 - 17:00'
+                tr: '',
+                en: ''
             },
-            social: {
-                linkedin: 'https://linkedin.com/in/fahrieren',
-                twitter: 'https://twitter.com/fahrieren',
-                instagram: 'https://instagram.com/fahrieren'
-            }
+            social: {}
         };
     }
 
@@ -154,7 +144,7 @@ export class DataService {
                 featured: true,
                 views: 1234,
                 date: '2024-01-15',
-                seller: {name: 'Fahri Eren', phone: '+90 532 123 4567', email: 'fahri@eren.com'}
+                seller: {name: 'Fahri Eren', phone: '05368536265', email: 'fahri.eren@gmail.com'}
             },
             {
                 id: '2',
@@ -182,7 +172,7 @@ export class DataService {
                 featured: true,
                 views: 856,
                 date: '2024-01-10',
-                seller: {name: 'Fahri Eren', phone: '+90 532 123 4567', email: 'fahri@eren.com'}
+                seller: {name: 'Fahri Eren', phone: '05368536265', email: 'fahri.eren@gmail.com'}
             },
             {
                 id: '3',
@@ -209,7 +199,7 @@ export class DataService {
                 featured: true,
                 views: 423,
                 date: '2024-01-20',
-                seller: {name: 'Eren Ticaret', phone: '+90 532 987 6543', email: 'info@erentics.com'}
+                seller: {name: 'Fahri Eren', phone: '05368536265', email: 'fahri.eren@gmail.com'}
             },
             {
                 id: '4',
@@ -237,7 +227,7 @@ export class DataService {
                 featured: true,
                 views: 234,
                 date: '2024-01-25',
-                seller: {name: 'Eren Çiftlik', phone: '+90 532 555 0123', email: 'info@erenciftlik.com'}
+                seller: {name: 'Fahri Eren', phone: '05368536265', email: 'fahri.eren@gmail.com'}
             },
             {
                 id: '5',
@@ -263,7 +253,7 @@ export class DataService {
                 },
                 views: 567,
                 date: '2024-01-18',
-                seller: {name: 'Fahri Eren', phone: '+90 532 123 4567', email: 'fahri@eren.com'}
+                seller: {name: 'Fahri Eren', phone: '05368536265', email: 'fahri.eren@gmail.com'}
             },
             {
                 id: '6',
@@ -288,7 +278,7 @@ export class DataService {
                 },
                 views: 189,
                 date: '2024-01-22',
-                seller: {name: 'Eren Ticaret', phone: '+90 532 987 6543', email: 'info@erentics.com'}
+                seller: {name: 'Fahri Eren', phone: '05368536265', email: 'fahri.eren@gmail.com'}
             }
         ];
     }

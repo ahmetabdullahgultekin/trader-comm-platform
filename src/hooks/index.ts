@@ -20,9 +20,9 @@ export const useSEO = (pageType: string) => {
     };
 
     const pageDescriptions: Record<string, string> = {
-        home: '25 yillik tecrube ile emlak, arac, insaat malzemeleri ve tarim urunleri ticareti. Ulukisla, Nigde.',
-        products: 'Fahri Eren Ticaret - Emlak, arac, insaat malzemeleri ve tarim urunleri. En kaliteli urunleri uygun fiyatlarla kesfet.',
-        about: 'Fahri Eren hakkinda - 25 yillik tecrube, 5000+ mutlu musteri. Guvenilir ticaret platformu.',
+        home: 'Emlak, arac, insaat malzemeleri ve tarim urunleri ticareti. Ulukisla, Nigde.',
+        products: 'Fahri Eren Ticaret - Emlak, arac, insaat malzemeleri ve tarim urunleri.',
+        about: 'Fahri Eren hakkinda - 1998den bu yana ticaret sektorunde. Guvenilir ticaret platformu.',
         contact: 'Fahri Eren ile iletisime gecin. Telefon, e-posta veya WhatsApp uzerinden bize ulasin.',
         partners: 'Fahri Eren is ortaklari ve guvenilir tedarikci agi.',
     };

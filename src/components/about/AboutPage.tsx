@@ -23,12 +23,7 @@ const AboutPage: React.FC<AboutPageProps> = ({onNavigateToContact, onContact}) =
     const personalInfo = dataService.getPersonalInfo();
 
 
-    const stats = [
-        {icon: Calendar, value: '25+', label: t('about.stats.years'), color: 'primary'},
-        {icon: Users, value: '5000+', label: t('about.stats.customers'), color: 'accent'},
-        {icon: CheckCircle, value: '500+', label: t('about.stats.products'), color: 'secondary'},
-        {icon: Star, value: '4.9', label: t('about.stats.rating'), color: 'yellow'}
-    ];
+    const stats: {icon: typeof Calendar; value: string; label: string; color: string}[] = [];
 
     const services = [
         {
@@ -67,14 +62,6 @@ const AboutPage: React.FC<AboutPageProps> = ({onNavigateToContact, onContact}) =
 
     const achievements = [
         {year: '1998', title: language === 'tr' ? 'Ticaret Hayatına Başlangıç' : 'Start of Business Life'},
-        {year: '2003', title: language === 'tr' ? 'İlk Şirket Kuruluşu' : 'First Company Establishment'},
-        {year: '2010', title: language === 'tr' ? 'Emlak Sektörüne Giriş' : 'Entry into Real Estate Sector'},
-        {
-            year: '2015',
-            title: language === 'tr' ? 'Tarım Ürünleri Üretimine Başlama' : 'Start of Agricultural Production'
-        },
-        {year: '2020', title: language === 'tr' ? 'Dijital Platforma Geçiş' : 'Transition to Digital Platform'},
-        {year: '2024', title: language === 'tr' ? 'Çok Sektörlü Hizmet' : 'Multi-Sector Service'}
     ];
 
     return (

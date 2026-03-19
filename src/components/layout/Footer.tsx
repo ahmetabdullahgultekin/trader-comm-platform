@@ -40,34 +40,23 @@ const Footer: React.FC<FooterProps> = ({onPageChange, onContact, onEmail, onWhat
                             {t('footer.companyDescription')}
                         </p>
 
-                        {/* Social Media Links */}
+                        {/* Contact via WhatsApp */}
                         <div className="flex space-x-3">
                             <a
-                                href="https://www.facebook.com/"
+                                href="https://wa.me/905368536265"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-colors"
-                                aria-label="Facebook"
+                                className="w-10 h-10 bg-gray-800 hover:bg-green-600 rounded-lg flex items-center justify-center transition-colors"
+                                aria-label="WhatsApp"
                             >
-                                <Facebook className="w-5 h-5"/>
+                                <Phone className="w-5 h-5"/>
                             </a>
                             <a
-                                href="https://www.instagram.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                                href="mailto:fahri.eren@gmail.com"
                                 className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-colors"
-                                aria-label="Instagram"
+                                aria-label="Email"
                             >
-                                <Instagram className="w-5 h-5"/>
-                            </a>
-                            <a
-                                href="https://twitter.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-10 h-10 bg-gray-800 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-colors"
-                                aria-label="Twitter"
-                            >
-                                <Twitter className="w-5 h-5"/>
+                                <Mail className="w-5 h-5"/>
                             </a>
                         </div>
                     </div>

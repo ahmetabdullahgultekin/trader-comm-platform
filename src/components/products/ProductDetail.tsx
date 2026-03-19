@@ -12,7 +12,6 @@ import {
     MessageCircle,
     Phone,
     Share2,
-    Star,
     User,
     X
 } from 'lucide-react';
@@ -352,11 +351,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                                     <div className="flex items-center space-x-4 mt-1 text-sm text-gray-600">
                                         <div className="flex items-center space-x-1">
                                             <Award className="w-4 h-4"/>
-                                            <span>25+ yıl tecrübe</span>
-                                        </div>
-                                        <div className="flex items-center space-x-1">
-                                            <Star className="w-4 h-4 text-yellow-500"/>
-                                            <span>4.9 puan</span>
+                                            <span>1998'den beri ticaret</span>
                                         </div>
                                     </div>
                                 </div>
@@ -432,15 +427,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({
                                             <div className="space-y-2 text-sm text-gray-600">
                                                 <div className="flex items-center space-x-2">
                                                     <Clock className="w-4 h-4"/>
-                                                    <span>25+ yıl tecrübe</span>
-                                                </div>
-                                                <div className="flex items-center space-x-2">
-                                                    <Star className="w-4 h-4 text-yellow-500"/>
-                                                    <span>4.9/5 müşteri puanı</span>
-                                                </div>
-                                                <div className="flex items-center space-x-2">
-                                                    <Award className="w-4 h-4"/>
-                                                    <span>5000+ mutlu müşteri</span>
+                                                    <span>1998'den beri ticaret</span>
                                                 </div>
                                             </div>
                                         </div>

@@ -86,18 +86,11 @@ const PartnersPage: React.FC<PartnersPageProps> = ({onContact}) => {
                     {/* Stats */}
                     <div className="flex justify-center gap-16 mt-12">
                         <div className="text-center">
-                            <div className="text-3xl font-bold mb-2">25+</div>
+                            <div className="text-3xl font-bold mb-2">1998</div>
                             <div className="text-primary-100 text-sm">
-                                {language === 'tr' ? 'Yıllık Deneyim' : 'Years Experience'}
+                                {language === 'tr' ? 'Kuruluş Yılı' : 'Established'}
                             </div>
                         </div>
-                        <div className="text-center">
-                            <div className="text-3xl font-bold mb-2">1000+</div>
-                            <div className="text-primary-100 text-sm">
-                                {language === 'tr' ? 'Tamamlanan Proje' : 'Completed Projects'}
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </section>

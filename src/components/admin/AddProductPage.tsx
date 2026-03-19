@@ -186,7 +186,7 @@ const AddProductPage: React.FC<AddProductPageProps> = ({onBack, onProductAdded})
                 date: new Date().toISOString(),
                 seller: {
                     name: 'Fahri Eren',
-                    phone: '+90 532 123 45 67',
+                    phone: '05368536265',
                     email: 'fahri.eren@gmail.com'
                 },
                 features: formData.features,

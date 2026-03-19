@@ -17,12 +17,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
         onNavigateToProducts();
     };
 
-    const stats = [
-        {icon: TrendingUp, value: '25+', label: t('about.stats.years')},
-        {icon: Users, value: '5000+', label: t('about.stats.customers')},
-        {icon: Shield, value: '500+', label: t('about.stats.products')},
-        {icon: Star, value: '4.9', label: t('about.stats.rating')}
-    ];
+    const stats: {icon: typeof TrendingUp; value: string; label: string}[] = [];
 
     return (
         <section
@@ -51,7 +46,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({onSearch, onNavigateToProducts
                     {/* Badge */}
                     <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-primary-100 text-sm font-medium mb-8 border border-white/10">
                         <span className="w-2 h-2 bg-accent-400 rounded-full mr-2 animate-pulse"></span>
-                        25+ Yillik Tecrube
+                        Fahri Eren Ticaret
                     </div>
 
                     {/* Main Content */}

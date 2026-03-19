@@ -65,10 +65,10 @@ export class TranslationService {
             },
             about: {
                 title: 'Fahri Eren Kimdir?',
-                subtitle: '25 Yıllık Tecrübe ile Güvenilir İş Ortağınız',
+                subtitle: 'Güvenilir İş Ortağınız',
                 bio: 'Merhaba, ben Fahri Eren. 1998 yılından bu yana ticaret sektöründe faaliyet göstermekteyim. Müşteri memnuniyetini öncelik olarak belirleyerek, kaliteli ürün ve hizmet sunmayı ilke edindim.',
                 experience: 'Tecrübelerim',
-                experienceText: 'Emlak, araç alım-satımı, inşaat malzemeleri ticareti ve tarım ürünleri üretimi konularında 25 yıllık deneyime sahibim.',
+                experienceText: 'Emlak, araç alım-satımı, inşaat malzemeleri ticareti ve tarım ürünleri üretimi konularında uzun yıllara dayanan deneyime sahibim.',
                 mission: 'Misyonum',
                 missionText: 'Müşterilerime en kaliteli ürünleri en uygun fiyatlarla sunmak ve uzun vadeli güvene dayalı iş ilişkileri kurmak.',
                 vision: 'Vizyonum',
@@ -197,7 +197,7 @@ export class TranslationService {
                 noLocation: 'Konum belirtilmemiş'
             },
             footer: {
-                companyDescription: '25 yıllık tecrübe ile güvenilir ticaret ortağınız.',
+                companyDescription: 'Güvenilir ticaret ortağınız.',
                 quickLinks: 'Hızlı Linkler',
                 categories: 'Kategoriler',
                 copyright: '© 2024 Fahri Eren. Tüm hakları saklıdır.',
@@ -264,10 +264,10 @@ export class TranslationService {
             },
             about: {
                 title: 'Who is Fahri Eren?',
-                subtitle: 'Your Reliable Business Partner with 25 Years of Experience',
+                subtitle: 'Your Reliable Business Partner',
                 bio: 'Hello, I am Fahri Eren. I have been operating in the trade sector since 1998. I have adopted the principle of providing quality products and services by prioritizing customer satisfaction.',
                 experience: 'My Experience',
-                experienceText: 'I have 25 years of experience in real estate, vehicle trading, construction materials trade and agricultural products production.',
+                experienceText: 'I have years of experience in real estate, vehicle trading, construction materials trade and agricultural products production.',
                 mission: 'My Mission',
                 missionText: 'To provide my customers with the highest quality products at the best prices and establish long-term business relationships based on trust.',
                 vision: 'My Vision',
@@ -396,7 +396,7 @@ export class TranslationService {
                 noLocation: 'Location not specified'
             },
             footer: {
-                companyDescription: 'Your reliable trading partner with 25 years of experience.',
+                companyDescription: 'Your reliable trading partner.',
                 quickLinks: 'Quick Links',
                 categories: 'Categories',
                 copyright: '© 2024 Fahri Eren. All rights reserved.',
